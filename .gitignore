@@ -1,0 +1,5 @@
+.gradle
+
+build
+/service_account.json
+/app-release.apk

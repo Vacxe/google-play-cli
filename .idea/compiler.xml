@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="apkpublisher.main" target="12" />
+      <module name="apkpublisher.test" target="12" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
