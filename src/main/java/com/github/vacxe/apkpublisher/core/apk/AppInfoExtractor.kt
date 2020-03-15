@@ -1,6 +1,6 @@
 package com.github.vacxe.apkpublisher.core.apk
 
-import com.github.vacxe.apkpublisher.models.AppInfo
+import com.github.vacxe.apkpublisher.models.ApkInfo
 import com.shazam.axmlparser.AXMLParser
 import java.io.File
 import java.io.IOException
@@ -8,7 +8,7 @@ import java.io.InputStream
 import java.util.zip.ZipFile
 
 class AppInfoExtractor {
-    fun extractAppInfo(apk: File): AppInfo{
+    fun extractAppInfo(apk: File): ApkInfo{
         var apkInputStream: InputStream? = null
         try {
             val zip = ZipFile(apk)
@@ -45,7 +45,7 @@ class AppInfoExtractor {
                 eventType = parser.next()
             }
             if(appPackage != null && appVersionName != null) {
-                return AppInfo(appPackage, appVersionId, appVersionName)
+                return ApkInfo(appPackage, appVersionId, appVersionName)
             }
             throw RuntimeException("Unable to extract appPackage or appVersionName from app AndroidManifest.xml.")
 

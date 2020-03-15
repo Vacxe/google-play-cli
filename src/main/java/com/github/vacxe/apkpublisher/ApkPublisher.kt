@@ -9,5 +9,7 @@ import java.io.File
 fun main(args: Array<String>): Unit = mainBody {
     ArgParser(args).parseInto(::UploadApkConfiguration).run {
         val appInfo = AppInfoExtractor().extractAppInfo(File(apk))
-        PlayServiceManager().authWithServiceAccount(serviceAccountJson, appInfo)
+        val manager = AndroidPublisherManager(serviceAccountJson, appInfo.name)
+        val apkList = manager.apksList()
+        print(apkList)
 }}
