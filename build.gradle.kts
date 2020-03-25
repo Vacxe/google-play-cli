@@ -1,4 +1,3 @@
-
 plugins {
     application
     id("idea")

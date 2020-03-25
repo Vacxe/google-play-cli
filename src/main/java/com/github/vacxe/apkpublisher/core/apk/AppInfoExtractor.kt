@@ -8,7 +8,7 @@ import java.io.InputStream
 import java.util.zip.ZipFile
 
 class AppInfoExtractor {
-    fun extractAppInfo(apk: File): ApkInfo{
+    fun extractAppInfo(apk: File): ApkInfo {
         var apkInputStream: InputStream? = null
         try {
             val zip = ZipFile(apk)
@@ -19,7 +19,7 @@ class AppInfoExtractor {
             var eventType = parser.type
 
             var appPackage: String? = null
-            var appVersionId: Int = 0
+            var appVersionId = 0L
             var appVersionName: String? = null
             while (eventType != AXMLParser.END_DOCUMENT) {
                 if (eventType == AXMLParser.START_TAG) {
@@ -28,12 +28,12 @@ class AppInfoExtractor {
                     if (isManifest) {
                         for (i in 0 until parser.attributeCount) {
                             val parserAttributeName = parser.getAttributeName(i)
-                            when(parserAttributeName){
+                            when (parserAttributeName) {
                                 "package" -> {
                                     appPackage = parser.getAttributeValueString(i)
                                 }
                                 "versionCode" -> {
-                                    appVersionId = parser.getAttributeValue(i)
+                                    appVersionId = parser.getAttributeValue(i).toLong()
                                 }
                                 "versionName" -> {
                                     appVersionName = parser.getAttributeValueString(i)
@@ -44,7 +44,7 @@ class AppInfoExtractor {
                 }
                 eventType = parser.next()
             }
-            if(appPackage != null && appVersionName != null) {
+            if (appPackage != null && appVersionName != null) {
                 return ApkInfo(appPackage, appVersionId, appVersionName)
             }
             throw RuntimeException("Unable to extract appPackage or appVersionName from app AndroidManifest.xml.")

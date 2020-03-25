@@ -7,7 +7,7 @@ import java.io.File
 class UploadApkConfiguration(parser: ArgParser) {
     val serviceAccountJson: File by parser
         .storing("--key", "-k", help = "service account json file path") { File(this) }
-        .default(File(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON")?: ""))
+        .default(File(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON") ?: ""))
 
     val apk: String by parser
         .storing("--apk", "-a", help = "Apk file path")
@@ -17,8 +17,8 @@ class UploadApkConfiguration(parser: ArgParser) {
         .storing("--track", "-t", help = "Track name. By default 'internal'")
         .default { "internal" }
 
-    val obb: String by parser
-        .storing("--obb", "-o", help = "Obb file path")
+    val expansion: String by parser
+        .storing("--expansion", "-e", help = "Expansion file path")
         .default { "" }
 
     val deobfuscation: String by parser
