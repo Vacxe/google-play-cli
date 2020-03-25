@@ -3,3 +3,5 @@
 build
 /service_account.json
 /app-release.apk
+
+.idea
