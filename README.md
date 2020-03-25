@@ -2,6 +2,6 @@
 CLI tool for publish and management application in Google Play Console
 
 ## Commands
-- upload apk
+- `upload apk`
 
 https://developers.google.com/android-publisher/api-ref
