@@ -1,8 +1,8 @@
 package com.github.vacxe.googleplaycli.actions.bundles
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.bundles.models.BundlesListModel
-import com.github.vacxe.googleplaycli.actions.bundles.models.BundlesUploadModel
+import com.github.vacxe.googleplaycli.actions.bundles.model.BundlesListModel
+import com.github.vacxe.googleplaycli.actions.bundles.model.BundlesUploadModel
 import com.github.vacxe.googleplaycli.core.constants.MediaType.MIME_TYPE_APK
 import com.google.api.client.http.AbstractInputStreamContent
 import com.google.api.client.http.FileContent

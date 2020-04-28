@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.reviews.mapper
 
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReplyConfiguration
-import com.github.vacxe.googleplaycli.actions.reviews.models.ReviewsReplyModel
+import com.github.vacxe.googleplaycli.actions.reviews.model.ReviewsReplyModel
 
 class ReviewsReplyMapper {
     fun map(configuration: ReviewsReplyConfiguration): ReviewsReplyModel = ReviewsReplyModel(

@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.orders
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.orders.models.OrdersRefundModel
+import com.github.vacxe.googleplaycli.actions.orders.model.OrdersRefundModel
 
 interface Orders : BaseAction {
     fun ordersRefund(model: OrdersRefundModel): Void {

@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper
 
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.models.DeobfuscationfilesUploadModel
+import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.model.DeobfuscationfilesUploadModel
 import java.io.File
 
 class DeobfuscationfilesUploadMapper {

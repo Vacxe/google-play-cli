@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.deobfuscationfiles
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.models.DeobfuscationfilesUploadModel
+import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.model.DeobfuscationfilesUploadModel
 import com.github.vacxe.googleplaycli.core.constants.MediaType.MIME_TYPE_APK
 import com.google.api.client.http.AbstractInputStreamContent
 import com.google.api.client.http.FileContent

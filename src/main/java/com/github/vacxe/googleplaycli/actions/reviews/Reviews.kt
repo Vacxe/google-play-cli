@@ -1,9 +1,9 @@
 package com.github.vacxe.googleplaycli.actions.reviews
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.reviews.models.ReviewsGetModel
-import com.github.vacxe.googleplaycli.actions.reviews.models.ReviewsListModel
-import com.github.vacxe.googleplaycli.actions.reviews.models.ReviewsReplyModel
+import com.github.vacxe.googleplaycli.actions.reviews.model.ReviewsGetModel
+import com.github.vacxe.googleplaycli.actions.reviews.model.ReviewsListModel
+import com.github.vacxe.googleplaycli.actions.reviews.model.ReviewsReplyModel
 import com.google.api.services.androidpublisher.model.Review
 import com.google.api.services.androidpublisher.model.ReviewsListResponse
 import com.google.api.services.androidpublisher.model.ReviewsReplyRequest

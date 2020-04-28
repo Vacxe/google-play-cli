@@ -3,6 +3,7 @@ package com.github.vacxe.googleplaycli
 import com.github.vacxe.googleplaycli.actions.apks.Apks
 import com.github.vacxe.googleplaycli.actions.bundles.Bundles
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.Deobfuscationfiles
+import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.Internalappsharingartifacts
 import com.github.vacxe.googleplaycli.actions.orders.Orders
 import com.github.vacxe.googleplaycli.actions.reviews.Reviews
 import com.github.vacxe.googleplaycli.actions.tracks.Tracks
@@ -15,7 +16,7 @@ import com.google.auth.oauth2.ServiceAccountCredentials
 import java.io.File
 import java.io.FileInputStream
 
-class PlayStoreCli : Apks, Bundles, Deobfuscationfiles, Tracks, Orders, Reviews {
+class PlayStoreCli : Apks, Bundles, Deobfuscationfiles, Tracks, Internalappsharingartifacts, Orders, Reviews {
 
     override val androidPublisher: AndroidPublisher
 

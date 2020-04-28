@@ -1,10 +1,10 @@
 package com.github.vacxe.googleplaycli.actions.tracks
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.tracks.models.TracksGetModel
-import com.github.vacxe.googleplaycli.actions.tracks.models.TracksListModel
-import com.github.vacxe.googleplaycli.actions.tracks.models.TracksPatchModel
-import com.github.vacxe.googleplaycli.actions.tracks.models.TracksUpdateModel
+import com.github.vacxe.googleplaycli.actions.tracks.model.TracksGetModel
+import com.github.vacxe.googleplaycli.actions.tracks.model.TracksListModel
+import com.github.vacxe.googleplaycli.actions.tracks.model.TracksPatchModel
+import com.github.vacxe.googleplaycli.actions.tracks.model.TracksUpdateModel
 import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.model.Track
 import com.google.api.services.androidpublisher.model.TrackRelease

@@ -2,14 +2,18 @@ package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksListConfiguration
 import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.apks.mappers.ApksListMapper
-import com.github.vacxe.googleplaycli.actions.apks.mappers.ApksUploadMapper
+import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksListMapper
+import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksUploadMapper
 import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesListConfiguration
 import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesListMapper
-import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesUploadMapper
+import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesListMapper
+import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesUploadMapper
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
+import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
+import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
+import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
+import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadbundleMapper
 import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
 import com.github.vacxe.googleplaycli.actions.orders.mapper.OrderRefundMapper
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsGetConfiguration
@@ -22,10 +26,10 @@ import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksGetConf
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksListConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksPatchConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.tracks.mappers.TracksGetMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mappers.TracksListMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mappers.TracksPatchMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mappers.TracksUpdateMapper
+import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksGetMapper
+import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksListMapper
+import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksPatchMapper
+import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksUpdateMapper
 import com.google.api.services.androidpublisher.model.*
 import com.xenomachina.argparser.ArgParser
 
@@ -139,6 +143,31 @@ object Commands {
             ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksUpdateMapper().map(this).let { manager.tracksUpdate(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts">Internalappsharingartifacts</a>
+     */
+    object Internalappsharingartifacts {
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts/uploadapk">uploadapk</a>
+         */
+        fun uploadApk(args: Array<String>): InternalAppSharingArtifact {
+            ArgParser(args).parseInto(::InternalappsharingartifactsUploadapkConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return InternalappsharingartifactsUploadapkMapper().map(this).let { manager.internalappsharingartifactsUploadapk(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts/uploadbundle">uploadbundle</a>
+         */
+        fun uploadBundle(args: Array<String>): InternalAppSharingArtifact {
+            ArgParser(args).parseInto(::InternalappsharingartifactsUploadbundleConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return InternalappsharingartifactsUploadbundleMapper().map(this).let { manager.internalappsharingartifactsUploadbundle(it) }
             }
         }
     }

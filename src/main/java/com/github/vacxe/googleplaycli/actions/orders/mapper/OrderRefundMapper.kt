@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.orders.mapper
 
 import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
-import com.github.vacxe.googleplaycli.actions.orders.models.OrdersRefundModel
+import com.github.vacxe.googleplaycli.actions.orders.model.OrdersRefundModel
 
 class OrderRefundMapper {
     fun map(configuration: OrdersRefundConfiguration): OrdersRefundModel = OrdersRefundModel(

@@ -44,6 +44,14 @@ fun main(args: Array<String>): Unit = mainBody {
                 "reply" -> Commands.Reviews.reply(command.toTypedArray())
                 else -> "Command not found. Available: get, list, reply"
             }
+
+        }
+        "internalappsharingartifacts" -> {
+            when (command.pollFirst()) {
+                "uploadapk" -> Commands.Internalappsharingartifacts.uploadApk(command.toTypedArray())
+                "uploadbundle" -> Commands.Internalappsharingartifacts.uploadBundle(command.toTypedArray())
+                else -> "Command not found. Available: uploadapk, uploadbundle"
+            }
         }
         "orders" -> {
             when (command.pollFirst()) {
