@@ -1,4 +1,4 @@
-# Apk publisher
+# Google play CLI
 CLI tool for publish and management application in Google Play Console.
 
 Based on [Google Play Java library](https://developers.google.com/android-publisher/api-ref)
