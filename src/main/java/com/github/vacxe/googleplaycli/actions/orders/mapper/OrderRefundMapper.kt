@@ -1,12 +1,12 @@
-package com.github.vacxe.googleplaycli.actions.reviews.mapper
+package com.github.vacxe.googleplaycli.actions.orders.mapper
 
-import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReplyConfiguration
-import com.github.vacxe.googleplaycli.actions.reviews.models.ReviewsReplyModel
+import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
+import com.github.vacxe.googleplaycli.actions.orders.models.OrdersRefundModel
 
-class ReviewsReplyMapper {
-    fun map(configuration: ReviewsReplyConfiguration): ReviewsReplyModel = ReviewsReplyModel(
+class OrderRefundMapper {
+    fun map(configuration: OrdersRefundConfiguration): OrdersRefundModel = OrdersRefundModel(
             packageName = configuration.packageName,
-            reviewId = configuration.reviewId,
-            replyText = configuration.replyText
+            orderId = configuration.orderId,
+            revoke = configuration.revoke
     )
 }

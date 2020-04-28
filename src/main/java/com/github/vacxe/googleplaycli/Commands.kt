@@ -10,6 +10,8 @@ import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesListMapper
 import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesUploadMapper
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
+import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
+import com.github.vacxe.googleplaycli.actions.orders.mapper.OrderRefundMapper
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsGetConfiguration
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsListConfiguration
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReplyConfiguration
@@ -137,6 +139,21 @@ object Commands {
             ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksUpdateMapper().map(this).let { manager.tracksUpdate(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/orders">Orders</a>
+     */
+    object Orders {
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/orders/refund">refund</a>
+         */
+        fun refund(args: Array<String>): Void {
+            ArgParser(args).parseInto(::OrdersRefundConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return OrderRefundMapper().map(this).let { manager.ordersRefund(it) }
             }
         }
     }

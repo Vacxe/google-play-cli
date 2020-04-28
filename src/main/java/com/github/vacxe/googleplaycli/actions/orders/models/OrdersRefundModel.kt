@@ -1,5 +1,5 @@
-package com.github.vacxe.googleplaycli.actions.reviews.models
+package com.github.vacxe.googleplaycli.actions.orders.models
 
-data class ReviewsReplyModel(val packageName: String,
-                             val reviewId: String,
-                             val replyText: String)
+data class OrdersRefundModel(val packageName: String,
+                             val orderId: String,
+                             val revoke: Boolean)
