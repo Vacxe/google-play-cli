@@ -37,6 +37,14 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: get, list, patch. update"
             }
         }
+        "reviews" -> {
+            when (command.pollFirst()) {
+                "list" -> Commands.Reviews.list(command.toTypedArray())
+                "get" -> Commands.Reviews.get(command.toTypedArray())
+                "reply" -> Commands.Reviews.reply(command.toTypedArray())
+                else -> "Command not found. Available: get, list, reply"
+            }
+        }
         else -> "Command not found. Available: apks, bundles, deobfuscationfiles, tracks"
     }
 

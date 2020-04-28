@@ -10,6 +10,12 @@ import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesListMapper
 import com.github.vacxe.googleplaycli.actions.bundles.mappers.BundlesUploadMapper
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
+import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsGetConfiguration
+import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsListConfiguration
+import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReplyConfiguration
+import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsGetMapper
+import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsListMapper
+import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsReplyMapper
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksGetConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksListConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksPatchConfiguration
@@ -131,6 +137,41 @@ object Commands {
             ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksUpdateMapper().map(this).let { manager.tracksUpdate(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews">Reviews</a>
+     */
+    object Reviews {
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/list">list</a>
+         */
+        fun list(args: Array<String>): ReviewsListResponse {
+            ArgParser(args).parseInto(::ReviewsListConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ReviewsListMapper().map(this).let { manager.reviewsList(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/get">get</a>
+         */
+        fun get(args: Array<String>): Review {
+            ArgParser(args).parseInto(::ReviewsGetConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ReviewsGetMapper().map(this).let { manager.reviewsGet(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/reply">reply</a>
+         */
+        fun reply(args: Array<String>): ReviewsReplyResponse {
+            ArgParser(args).parseInto(::ReviewsReplyConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ReviewsReplyMapper().map(this).let { manager.reviewsReply(it) }
             }
         }
     }
