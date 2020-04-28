@@ -18,19 +18,19 @@ class PlayStoreCli : Apks, Bundles, Deobfuscationfiles, Tracks {
     override val androidPublisher: AndroidPublisher
 
     constructor(
-        serviceAccountJson: File,
-        appName: String
+            serviceAccountJson: File,
+            appName: String
     ) {
         val accountCredentials = ServiceAccountCredentials
-            .fromStream(FileInputStream(serviceAccountJson))
-            .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
+                .fromStream(FileInputStream(serviceAccountJson))
+                .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
 
         androidPublisher = AndroidPublisher.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JacksonFactory.getDefaultInstance(),
                 HttpCredentialsAdapter(accountCredentials)
-            )
-            .setApplicationName(appName)
-            .build()
+        )
+                .setApplicationName(appName)
+                .build()
     }
 }

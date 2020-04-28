@@ -30,7 +30,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/apks/list
          */
-        fun list(args: Array<String>) : ApksListResponse {
+        fun list(args: Array<String>): ApksListResponse {
             ArgParser(args).parseInto(::ApksListConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return ApksListMapper().map(this).let { manager.apksList(it) }
@@ -40,7 +40,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/apks/upload
          */
-        fun upload(args: Array<String>) : Apk {
+        fun upload(args: Array<String>): Apk {
             ArgParser(args).parseInto(::ApksUploadConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return ApksUploadMapper().map(this).let { manager.apksUpload(it) }
@@ -55,7 +55,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/bundles/list
          */
-        fun list(args: Array<String>) : BundlesListResponse {
+        fun list(args: Array<String>): BundlesListResponse {
             ArgParser(args).parseInto(::BundlesListConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return BundlesListMapper().map(this).let { manager.bundlesList(it) }
@@ -65,7 +65,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/bundles/upload
          */
-        fun upload(args: Array<String>) : Bundle {
+        fun upload(args: Array<String>): Bundle {
             ArgParser(args).parseInto(::BundlesUploadConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return BundlesUploadMapper().map(this).let { manager.bundlesUpload(it) }
@@ -81,7 +81,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles/upload
          */
-        fun upload(args: Array<String>) : DeobfuscationFilesUploadResponse {
+        fun upload(args: Array<String>): DeobfuscationFilesUploadResponse {
             ArgParser(args).parseInto(::DeobfuscationfilesUploadConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return DeobfuscationfilesUploadMapper().map(this).let { manager.deobfuscationFilesUpload(it) }
@@ -97,7 +97,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/get
          */
-        fun get(args: Array<String>) : Track {
+        fun get(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksGetConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksGetMapper().map(this).let { manager.tracksGet(it) }
@@ -107,7 +107,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/list
          */
-        fun list(args: Array<String>) : TracksListResponse {
+        fun list(args: Array<String>): TracksListResponse {
             ArgParser(args).parseInto(::TracksListConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksListMapper().map(this).let { manager.tracksList(it) }
@@ -117,7 +117,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/patch
          */
-        fun patch(args: Array<String>) : Track {
+        fun patch(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksPatchConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksPatchMapper().map(this).let { manager.tracksPatch(it) }
@@ -127,7 +127,7 @@ object Commands {
         /**
          * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/update
          */
-        fun update(args: Array<String>) : Track {
+        fun update(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return TracksUpdateMapper().map(this).let { manager.tracksUpdate(it) }

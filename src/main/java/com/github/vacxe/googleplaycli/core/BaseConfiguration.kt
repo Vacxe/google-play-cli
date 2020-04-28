@@ -4,7 +4,7 @@ import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.default
 import java.io.File
 
-abstract class BaseConfiguration (parser: ArgParser){
+abstract class BaseConfiguration(parser: ArgParser) {
     val serviceAccountJson: File by parser
             .storing("--key", "-k", help = "service account json file path") { File(this) }
             .default(File(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON") ?: ""))
