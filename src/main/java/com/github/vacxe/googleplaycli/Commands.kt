@@ -24,11 +24,11 @@ import com.xenomachina.argparser.ArgParser
 object Commands {
 
     /**
-     * Url: https://developers.google.com/android-publisher/api-ref/edits/apks
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks">Apks</a>
      */
     object Apks {
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/apks/list
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/list">list</a>
          */
         fun list(args: Array<String>): ApksListResponse {
             ArgParser(args).parseInto(::ApksListConfiguration).run {
@@ -38,7 +38,7 @@ object Commands {
         }
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/apks/upload
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/upload">upload</a>
          */
         fun upload(args: Array<String>): Apk {
             ArgParser(args).parseInto(::ApksUploadConfiguration).run {
@@ -49,11 +49,11 @@ object Commands {
     }
 
     /**
-     * Url: https://developers.google.com/android-publisher/api-ref/edits/bundles
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/upload">Bundles</a>
      */
     object Bundles {
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/bundles/list
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/bundles/list">list</a>
          */
         fun list(args: Array<String>): BundlesListResponse {
             ArgParser(args).parseInto(::BundlesListConfiguration).run {
@@ -63,7 +63,7 @@ object Commands {
         }
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/bundles/upload
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/bundles/upload">upload</a>
          */
         fun upload(args: Array<String>): Bundle {
             ArgParser(args).parseInto(::BundlesUploadConfiguration).run {
@@ -74,12 +74,12 @@ object Commands {
     }
 
     /**
-     * Url: https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles">Deobfuscationfiles</a>
      */
     object Deobfuscationfiles {
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles/upload
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles/upload">upload</a>
          */
         fun upload(args: Array<String>): DeobfuscationFilesUploadResponse {
             ArgParser(args).parseInto(::DeobfuscationfilesUploadConfiguration).run {
@@ -90,12 +90,12 @@ object Commands {
     }
 
     /**
-     * https://developers.google.com/android-publisher/api-ref/edits/tracks
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks">Tracks</a>
      */
     object Tracks {
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/get
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/get">get</a>
          */
         fun get(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksGetConfiguration).run {
@@ -105,7 +105,7 @@ object Commands {
         }
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/list
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/list">list</a>
          */
         fun list(args: Array<String>): TracksListResponse {
             ArgParser(args).parseInto(::TracksListConfiguration).run {
@@ -115,7 +115,7 @@ object Commands {
         }
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/patch
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/patch">patch</a>
          */
         fun patch(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksPatchConfiguration).run {
@@ -125,7 +125,7 @@ object Commands {
         }
 
         /**
-         * Url: https://developers.google.com/android-publisher/api-ref/edits/tracks/update
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/update">update</a>
          */
         fun update(args: Array<String>): Track {
             ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
