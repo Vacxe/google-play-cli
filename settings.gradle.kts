@@ -7,4 +7,4 @@
  * in the user manual at https://docs.gradle.org/6.2.2/userguide/multi_project_builds.html
  */
 rootProject.buildFileName = "build.gradle.kts"
-rootProject.name = "com.github.vacxe.apkpublisher"
+rootProject.name = "com.github.vacxe.googleplaycli"

@@ -18,5 +18,4 @@ dependencies {
     implementation(Libraries.googleApiClient)
     implementation(Libraries.googleOAuth)
     implementation(Libraries.googleAppPublisher)
-    implementation(Libraries.axmlParser)
 }
