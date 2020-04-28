@@ -1,7 +1,19 @@
 # Apk publisher
-CLI tool for publish and management application in Google Play Console
+CLI tool for publish and management application in Google Play Console.
+
+Based on [Google Play Java library](https://developers.google.com/android-publisher/api-ref)
 
 ## Commands
-- `upload apk`
-
-https://developers.google.com/android-publisher/api-ref
+- `apks`
+  - `list`
+  - `upload`
+- `bundles`
+  - `list`
+  - `upload`
+- `deobfuscationfiles`
+  - `upload`
+- `tracks`
+  - `list`
+  - `get`
+  - `patch`
+  - `update`
