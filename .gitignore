@@ -5,3 +5,4 @@ build
 /app-release.apk
 
 .idea
+.DS_Store
