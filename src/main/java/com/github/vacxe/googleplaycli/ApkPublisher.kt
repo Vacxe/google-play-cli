@@ -36,6 +36,17 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: get, patch, update"
             }
         }
+        "listings" -> {
+            when (command.pollFirst()) {
+                "deleteall" -> Commands.Listings.deleteAll(command.toTypedArray())
+                "list" -> Commands.Listings.list(command.toTypedArray())
+                "get" -> Commands.Listings.get(command.toTypedArray())
+                "delete" -> Commands.Listings.delete(command.toTypedArray())
+                "update" -> Commands.Listings.update(command.toTypedArray())
+                "patch" -> Commands.Listings.patch(command.toTypedArray())
+                else -> "Command not found. Available: delete, deleteall, get, list, patch, update"
+            }
+        }
         "tracks" -> {
             when (command.pollFirst()) {
                 "get" -> Commands.Tracks.get(command.toTypedArray())

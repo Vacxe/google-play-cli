@@ -1,25 +1,31 @@
 package com.github.vacxe.googleplaycli
 
-import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksListConfiguration
 import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksListMapper
 import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksUploadMapper
 import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesListConfiguration
 import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesListMapper
 import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesUploadMapper
+import com.github.vacxe.googleplaycli.actions.core.configuration.DefaultConfiguration
+import com.github.vacxe.googleplaycli.actions.core.mapper.DefaultMapper
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
-import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsGetConfiguration
 import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatchConfiguration
 import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsGetMapper
 import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsPatchMapper
 import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsUpdateMapper
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadbundleMapper
+import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsDeleteConfiguration
+import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsGetConfiguration
+import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsPatchConfiguration
+import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsUpdateConfiguration
+import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsDeleteMapper
+import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsGetMapper
+import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsPatchMapper
+import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsUpdateMapper
 import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
 import com.github.vacxe.googleplaycli.actions.orders.mapper.OrderRefundMapper
 import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsGetConfiguration
@@ -29,11 +35,9 @@ import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsGetMapper
 import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsListMapper
 import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsReplyMapper
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksGetConfiguration
-import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksListConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksPatchConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksUpdateConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksGetMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksListMapper
 import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksPatchMapper
 import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksUpdateMapper
 import com.google.api.services.androidpublisher.model.*
@@ -49,9 +53,9 @@ object Commands {
          * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/list">list</a>
          */
         fun list(args: Array<String>): ApksListResponse {
-            ArgParser(args).parseInto(::ApksListConfiguration).run {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ApksListMapper().map(this).let { manager.apksList(it) }
+                return DefaultMapper().map(this).let { manager.apksList(it) }
             }
         }
 
@@ -116,9 +120,9 @@ object Commands {
          * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/get">get</a>
          */
         fun get(args: Array<String>): AppDetails {
-            ArgParser(args).parseInto(::DetailsGetConfiguration).run {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DetailsGetMapper().map(this).let { manager.detailsGet(it) }
+                return DefaultMapper().map(this).let { manager.detailsGet(it) }
             }
         }
 
@@ -144,6 +148,72 @@ object Commands {
     }
 
     /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings">Listings</a>
+     */
+    object Listings {
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/list">list</a>
+         */
+        fun list(args: Array<String>): ListingsListResponse {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return DefaultMapper().map(this).let { manager.listingsList(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/deleteall">deleteall</a>
+         */
+        fun deleteAll(args: Array<String>): Void {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return DefaultMapper().map(this).let { manager.listingsDeleteAll(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/get">get</a>
+         */
+        fun get(args: Array<String>): Listing {
+            ArgParser(args).parseInto(::ListingsGetConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ListingsGetMapper().map(this).let { manager.listingsGet(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/delete">delete</a>
+         */
+        fun delete(args: Array<String>): Void {
+            ArgParser(args).parseInto(::ListingsDeleteConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ListingsDeleteMapper().map(this).let { manager.listingsDelete(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/update">update</a>
+         */
+        fun update(args: Array<String>): Listing {
+            ArgParser(args).parseInto(::ListingsUpdateConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ListingsUpdateMapper().map(this).let { manager.listingsUpdate(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/patch">patch</a>
+         */
+        fun patch(args: Array<String>): Listing {
+            ArgParser(args).parseInto(::ListingsPatchConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ListingsPatchMapper().map(this).let { manager.listingsPatch(it) }
+            }
+        }
+    }
+
+    /**
      * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks">Tracks</a>
      */
     object Tracks {
@@ -162,9 +232,9 @@ object Commands {
          * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/list">list</a>
          */
         fun list(args: Array<String>): TracksListResponse {
-            ArgParser(args).parseInto(::TracksListConfiguration).run {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TracksListMapper().map(this).let { manager.tracksList(it) }
+                return DefaultMapper().map(this).let { manager.tracksList(it) }
             }
         }
 

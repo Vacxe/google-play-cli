@@ -1,8 +1,8 @@
 package com.github.vacxe.googleplaycli.actions.tracks
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
+import com.github.vacxe.googleplaycli.actions.core.model.DefaultModel
 import com.github.vacxe.googleplaycli.actions.tracks.model.TracksGetModel
-import com.github.vacxe.googleplaycli.actions.tracks.model.TracksListModel
 import com.github.vacxe.googleplaycli.actions.tracks.model.TracksPatchModel
 import com.github.vacxe.googleplaycli.actions.tracks.model.TracksUpdateModel
 import com.google.api.services.androidpublisher.AndroidPublisher
@@ -11,7 +11,7 @@ import com.google.api.services.androidpublisher.model.TrackRelease
 import com.google.api.services.androidpublisher.model.TracksListResponse
 
 interface Tracks : BaseAction {
-    fun tracksList(model: TracksListModel): TracksListResponse {
+    fun tracksList(model: DefaultModel): TracksListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
         return edits.Tracks().list(model.packageName, insert.id).execute()

@@ -1,14 +1,14 @@
 package com.github.vacxe.googleplaycli.actions.details
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.details.model.DetailsGetModel
+import com.github.vacxe.googleplaycli.actions.core.model.DefaultModel
 import com.github.vacxe.googleplaycli.actions.details.model.DetailsPatchModel
 import com.github.vacxe.googleplaycli.actions.details.model.DetailsUpdateModel
 import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.model.AppDetails
 
 interface Details : BaseAction {
-    fun detailsGet(model: DetailsGetModel): AppDetails {
+    fun detailsGet(model: DefaultModel): AppDetails {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
         return edits.Details().get(model.packageName, insert.id).execute()

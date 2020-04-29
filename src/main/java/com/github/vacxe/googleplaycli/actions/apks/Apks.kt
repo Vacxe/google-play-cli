@@ -1,8 +1,8 @@
 package com.github.vacxe.googleplaycli.actions.apks
 
 import com.github.vacxe.googleplaycli.actions.BaseAction
-import com.github.vacxe.googleplaycli.actions.apks.model.ApksListModel
 import com.github.vacxe.googleplaycli.actions.apks.model.ApksUploadModel
+import com.github.vacxe.googleplaycli.actions.core.model.DefaultModel
 import com.github.vacxe.googleplaycli.core.constants.MediaType.MIME_TYPE_APK
 import com.google.api.client.http.AbstractInputStreamContent
 import com.google.api.client.http.FileContent
@@ -11,7 +11,7 @@ import com.google.api.services.androidpublisher.model.Apk
 import com.google.api.services.androidpublisher.model.ApksListResponse
 
 interface Apks : BaseAction {
-    fun apksList(model: ApksListModel): ApksListResponse {
+    fun apksList(model: DefaultModel): ApksListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
         return edits.Apks().list(model.packageName, insert.id).execute()
