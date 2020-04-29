@@ -7,6 +7,7 @@ class TracksPatchMapper {
     fun map(configuration: TracksPatchConfiguration): TracksPatchModel = TracksPatchModel(
             packageName = configuration.packageName,
             track = configuration.track,
-            apkVersionCode = configuration.apkVersionCode
+            apkVersionCode = configuration.apkVersionCode,
+            userFraction = configuration.userFraction
     )
 }

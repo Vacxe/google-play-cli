@@ -30,6 +30,7 @@ interface Tracks : BaseAction {
         val track = Track().setReleases(
                 listOf(TrackRelease().apply {
                     versionCodes = mutableListOf(model.apkVersionCode.toLong())
+                    userFraction = model.userFraction
                 })
         )
         return edits.Tracks().patch(model.packageName, insert.id, model.track, track).execute()
