@@ -5,8 +5,8 @@ plugins {
 }
 
 application {
-    mainClassName = "com.github.vacxe.apkpublisher"
-    applicationName = "apkpublisher"
+    mainClassName = "com.github.vacxe.googleplaycli.ApkPublisher"
+    applicationName = "googleplaycli"
 }
 
 repositories {
