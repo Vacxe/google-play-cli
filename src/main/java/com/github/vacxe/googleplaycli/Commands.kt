@@ -10,6 +10,12 @@ import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesListMapper
 import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesUploadMapper
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
+import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsGetConfiguration
+import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatchConfiguration
+import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsUpdateConfiguration
+import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsGetMapper
+import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsPatchMapper
+import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsUpdateMapper
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
@@ -97,6 +103,42 @@ object Commands {
             ArgParser(args).parseInto(::DeobfuscationfilesUploadConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return DeobfuscationfilesUploadMapper().map(this).let { manager.deobfuscationFilesUpload(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details">Details</a>
+     */
+    object Details {
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/get">get</a>
+         */
+        fun get(args: Array<String>): AppDetails {
+            ArgParser(args).parseInto(::DetailsGetConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return DetailsGetMapper().map(this).let { manager.detailsGet(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/patch">patch</a>
+         */
+        fun patch(args: Array<String>): AppDetails {
+            ArgParser(args).parseInto(::DetailsPatchConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return DetailsPatchMapper().map(this).let { manager.detailsPatch(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/update">update</a>
+         */
+        fun update(args: Array<String>): AppDetails {
+            ArgParser(args).parseInto(::DetailsUpdateConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return DetailsUpdateMapper().map(this).let { manager.detailsUpdate(it) }
             }
         }
     }

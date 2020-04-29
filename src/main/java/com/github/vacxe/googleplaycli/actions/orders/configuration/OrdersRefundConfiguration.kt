@@ -10,6 +10,6 @@ class OrdersRefundConfiguration(parser: ArgParser) : BaseConfiguration(parser) {
             .default { "" }
 
     val revoke: Boolean by parser
-            .storing("--revoke", "-l", help = "Whether to revoke the purchased item. If set to true, access to the subscription or in-app item will be terminated immediately. If the item is a recurring subscription, all future payments will also be terminated. Consumed in-app items need to be handled by developer's app. (optional)") { this.toBoolean()}
+            .storing("--revoke", "-l", help = "Whether to revoke the purchased item. If set to true, access to the subscription or in-app item will be terminated immediately. If the item is a recurring subscription, all future payments will also be terminated. Consumed in-app items need to be handled by developer's app. (optional)") { this.toBoolean() }
             .default { false }
 }

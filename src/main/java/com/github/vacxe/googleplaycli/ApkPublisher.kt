@@ -28,6 +28,14 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: upload"
             }
         }
+        "details" -> {
+            when (command.pollFirst()) {
+                "get" -> Commands.Details.get(command.toTypedArray())
+                "patch" -> Commands.Details.patch(command.toTypedArray())
+                "update" -> Commands.Details.update(command.toTypedArray())
+                else -> "Command not found. Available: get, patch, update"
+            }
+        }
         "tracks" -> {
             when (command.pollFirst()) {
                 "get" -> Commands.Tracks.get(command.toTypedArray())
