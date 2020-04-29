@@ -4,6 +4,7 @@ import com.github.vacxe.googleplaycli.actions.apks.Apks
 import com.github.vacxe.googleplaycli.actions.bundles.Bundles
 import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.Deobfuscationfiles
 import com.github.vacxe.googleplaycli.actions.details.Details
+import com.github.vacxe.googleplaycli.actions.expansionfiles.ExpansionFiles
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.Internalappsharingartifacts
 import com.github.vacxe.googleplaycli.actions.listings.Listings
 import com.github.vacxe.googleplaycli.actions.orders.Orders
@@ -24,6 +25,7 @@ class PlayStoreCli :
         Bundles,
         Deobfuscationfiles,
         Details,
+        ExpansionFiles,
         Listings,
         Testers,
         Tracks,

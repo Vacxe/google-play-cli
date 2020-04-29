@@ -36,6 +36,15 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: get, patch, update"
             }
         }
+        "expansionfiles" -> {
+            when (command.pollFirst()) {
+                "get" -> Commands.ExpansionFiles.get(command.toTypedArray())
+                "patch" -> Commands.ExpansionFiles.patch(command.toTypedArray())
+                "update" -> Commands.ExpansionFiles.update(command.toTypedArray())
+                "upload" -> Commands.ExpansionFiles.upload(command.toTypedArray())
+                else -> "Command not found. Available: get, patch, update, upload"
+            }
+        }
         "listings" -> {
             when (command.pollFirst()) {
                 "deleteall" -> Commands.Listings.deleteAll(command.toTypedArray())

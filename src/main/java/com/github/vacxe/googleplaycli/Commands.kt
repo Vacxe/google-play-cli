@@ -14,6 +14,14 @@ import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatch
 import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsUpdateConfiguration
 import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsPatchMapper
 import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsUpdateMapper
+import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesGetConfiguration
+import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesPatchConfiguration
+import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesUpdateConfiguration
+import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesUploadConfiguration
+import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesGetMapper
+import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesPatchMapper
+import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUpdateMapper
+import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUploadMapper
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
@@ -149,6 +157,52 @@ object Commands {
             ArgParser(args).parseInto(::DetailsUpdateConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return DetailsUpdateMapper().map(this).let { manager.detailsUpdate(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles">ExpansionFiles</a>
+     */
+    object ExpansionFiles {
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/get">get</a>
+         */
+        fun get(args: Array<String>): ExpansionFile {
+            ArgParser(args).parseInto(::ExpansionFilesGetConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ExpansionFilesGetMapper().map(this).let { manager.expansionFilesGet(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/patch">patch</a>
+         */
+        fun patch(args: Array<String>): ExpansionFile {
+            ArgParser(args).parseInto(::ExpansionFilesPatchConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ExpansionFilesPatchMapper().map(this).let { manager.expansionFilesPatch(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/update">update</a>
+         */
+        fun update(args: Array<String>): ExpansionFile {
+            ArgParser(args).parseInto(::ExpansionFilesUpdateConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ExpansionFilesUpdateMapper().map(this).let { manager.expansionFilesUpdate(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/upload">upload</a>
+         */
+        fun upload(args: Array<String>): ExpansionFilesUploadResponse {
+            ArgParser(args).parseInto(::ExpansionFilesUploadConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ExpansionFilesUploadMapper().map(this).let { manager.expansionFilesUpload(it) }
             }
         }
     }
