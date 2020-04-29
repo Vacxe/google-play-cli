@@ -34,6 +34,12 @@ import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReply
 import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsGetMapper
 import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsListMapper
 import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsReplyMapper
+import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersGetConfiguration
+import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersPatchConfiguration
+import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersUpdateConfiguration
+import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersGetMapper
+import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersPatchMapper
+import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersUpdateMapper
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksGetConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksPatchConfiguration
 import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksUpdateConfiguration
@@ -209,6 +215,42 @@ object Commands {
             ArgParser(args).parseInto(::ListingsPatchConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return ListingsPatchMapper().map(this).let { manager.listingsPatch(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers">Testers</a>
+     */
+    object Testers {
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/get">get</a>
+         */
+        fun get(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
+            ArgParser(args).parseInto(::TestersGetConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return TestersGetMapper().map(this).let { manager.testersGet(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/update">update</a>
+         */
+        fun update(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
+            ArgParser(args).parseInto(::TestersUpdateConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return TestersUpdateMapper().map(this).let { manager.testersUpdate(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/patch">patch</a>
+         */
+        fun patch(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
+            ArgParser(args).parseInto(::TestersPatchConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return TestersPatchMapper().map(this).let { manager.testersPatch(it) }
             }
         }
     }
