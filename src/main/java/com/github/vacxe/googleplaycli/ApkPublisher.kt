@@ -45,6 +45,15 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: get, patch, update, upload"
             }
         }
+        "images" -> {
+            when (command.pollFirst()) {
+                "list" -> Commands.Images.list(command.toTypedArray())
+                "delete" -> Commands.Images.delete(command.toTypedArray())
+                "deleteall" -> Commands.Images.deleteAll(command.toTypedArray())
+                "upload" -> Commands.Images.upload(command.toTypedArray())
+                else -> "Command not found. Available: list, delete, deleteAll, upload"
+            }
+        }
         "listings" -> {
             when (command.pollFirst()) {
                 "deleteall" -> Commands.Listings.deleteAll(command.toTypedArray())

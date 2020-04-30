@@ -22,6 +22,14 @@ import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFil
 import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesPatchMapper
 import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUpdateMapper
 import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUploadMapper
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesDeleteAllConfiguration
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesDeleteConfiguration
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesListConfiguration
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesUploadConfiguration
+import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesDeleteAllMapper
+import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesDeleteMapper
+import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesListMapper
+import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesUploadMapper
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
 import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
@@ -203,6 +211,52 @@ object Commands {
             ArgParser(args).parseInto(::ExpansionFilesUploadConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
                 return ExpansionFilesUploadMapper().map(this).let { manager.expansionFilesUpload(it) }
+            }
+        }
+    }
+
+    /**
+     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images">Images</a>
+     */
+    object Images {
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/list">list</a>
+         */
+        fun list(args: Array<String>): ImagesListResponse {
+            ArgParser(args).parseInto(::ImagesListConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ImagesListMapper().map(this).let { manager.imagesList(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/delete">delete</a>
+         */
+        fun delete(args: Array<String>): Void {
+            ArgParser(args).parseInto(::ImagesDeleteConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ImagesDeleteMapper().map(this).let { manager.imagesDelete(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/deleteall">deleteAll</a>
+         */
+        fun deleteAll(args: Array<String>): ImagesDeleteAllResponse {
+            ArgParser(args).parseInto(::ImagesDeleteAllConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ImagesDeleteAllMapper().map(this).let { manager.imagesDeleteAll(it) }
+            }
+        }
+
+        /**
+         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/upload">upload</a>
+         */
+        fun upload(args: Array<String>): ImagesUploadResponse {
+            ArgParser(args).parseInto(::ImagesUploadConfiguration).run {
+                val manager = PlayStoreCli(serviceAccountJson, packageName)
+                return ImagesUploadMapper().map(this).let { manager.imagesUploadAll(it) }
             }
         }
     }

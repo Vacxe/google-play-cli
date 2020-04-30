@@ -1,17 +1,14 @@
 package com.github.vacxe.googleplaycli.actions.images.mapper
 
-import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.details.model.DetailsPatchModel
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImageDeleteAllConfiguration
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImageListConfiguration
-import com.github.vacxe.googleplaycli.actions.images.model.ImagesDeleteAllModel
-import com.github.vacxe.googleplaycli.actions.images.model.ImagesListModel
-import com.github.vacxe.googleplaycli.core.nullIfEmpty
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesUploadConfiguration
+import com.github.vacxe.googleplaycli.actions.images.model.ImagesUploadModel
+import java.io.File
 
-class ImageListMapper {
-    fun map(configuration: ImageListConfiguration): ImagesListModel = ImagesListModel(
+class ImagesUploadMapper {
+    fun map(configuration: ImagesUploadConfiguration): ImagesUploadModel = ImagesUploadModel(
             packageName = configuration.packageName,
             imageType = configuration.imageType,
-            language = configuration.language
+            language = configuration.language,
+            image = File(configuration.image)
     )
 }

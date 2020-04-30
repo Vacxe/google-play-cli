@@ -1,13 +1,10 @@
 package com.github.vacxe.googleplaycli.actions.images.mapper
 
-import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.details.model.DetailsPatchModel
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImageDeleteAllConfiguration
+import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesDeleteAllConfiguration
 import com.github.vacxe.googleplaycli.actions.images.model.ImagesDeleteAllModel
-import com.github.vacxe.googleplaycli.core.nullIfEmpty
 
-class ImageDeleteAllMapper {
-    fun map(configuration: ImageDeleteAllConfiguration): ImagesDeleteAllModel = ImagesDeleteAllModel(
+class ImagesDeleteAllMapper {
+    fun map(configuration: ImagesDeleteAllConfiguration): ImagesDeleteAllModel = ImagesDeleteAllModel(
             packageName = configuration.packageName,
             imageType = configuration.imageType,
             language = configuration.language

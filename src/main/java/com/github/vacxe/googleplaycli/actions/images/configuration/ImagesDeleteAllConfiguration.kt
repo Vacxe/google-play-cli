@@ -4,7 +4,7 @@ import com.github.vacxe.googleplaycli.core.BaseConfiguration
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.default
 
-class ImageDeleteAllConfiguration(parser: ArgParser) : BaseConfiguration(parser) {
+class ImagesDeleteAllConfiguration(parser: ArgParser) : BaseConfiguration(parser) {
     val imageType: String by parser
             .storing("--imageType", "-t")
             .default { "" }

@@ -4,7 +4,7 @@ import com.github.vacxe.googleplaycli.core.BaseConfiguration
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.default
 
-class ImageUploadConfiguration(parser: ArgParser) : BaseConfiguration(parser) {
+class ImagesUploadConfiguration(parser: ArgParser) : BaseConfiguration(parser) {
     val image: String by parser
             .storing("--image", "-image", help = "Image file path")
             .default { "" }
