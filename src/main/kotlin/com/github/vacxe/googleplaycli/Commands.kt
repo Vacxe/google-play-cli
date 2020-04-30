@@ -2,9 +2,7 @@ package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksUploadConfiguration
 import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksUploadMapper
-import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesListConfiguration
 import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesListMapper
 import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesUploadMapper
 import com.github.vacxe.googleplaycli.actions.core.configuration.DefaultConfiguration
 import com.github.vacxe.googleplaycli.actions.core.mapper.DefaultMapper
@@ -100,9 +98,9 @@ object Commands {
          * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/bundles/list">list</a>
          */
         fun list(args: Array<String>): BundlesListResponse {
-            ArgParser(args).parseInto(::BundlesListConfiguration).run {
+            ArgParser(args).parseInto(::DefaultConfiguration).run {
                 val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return BundlesListMapper().map(this).let { manager.bundlesList(it) }
+                return DefaultMapper().map(this).let { manager.bundlesList(it) }
             }
         }
 
