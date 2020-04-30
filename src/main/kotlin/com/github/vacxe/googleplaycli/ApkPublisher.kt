@@ -104,7 +104,7 @@ fun main(args: Array<String>): Unit = mainBody {
                 else -> "Command not found. Available: refund"
             }
         }
-        else -> "Command not found. Available: apks, bundles, deobfuscationfiles, tracks"
+        else -> "Command not found. Available: apks, bundles, deobfuscationfiles, details, expansionfiles, images, listings, testers, tracks, reviews, internalappsharingartifacts, orders"
     }
 
     println(result)
