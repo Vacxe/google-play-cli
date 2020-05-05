@@ -24,5 +24,4 @@ brew install vacxe/tap/googleplaycli
   
 * Apk info extraction
   
-  Install [Apk info extractor](https://github.com/Vacxe/apk-info-extractor) and JQ
-  Call `apkinfoextractor <pathtoApk> | jq '.package'`
+  Install [Apk info extractor](https://github.com/Vacxe/apk-info-extractor) and JQ `apkinfoextractor <pathtoApk> | jq '.package'`
