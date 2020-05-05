@@ -21,3 +21,8 @@ brew install vacxe/tap/googleplaycli
 * Try simplest command
 
   `googleplaycli apks list --key service_account.json --packageName <your uploaded apk package name>`
+  
+* Apk info extraction
+  
+  Install [Apk info extractor](https://github.com/Vacxe/apk-info-extractor) and JQ
+  Call `apkinfoextractor <pathtoApk> | jq '.package'`
