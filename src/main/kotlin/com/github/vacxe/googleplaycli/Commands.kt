@@ -1,484 +1,265 @@
 package com.github.vacxe.googleplaycli
 
-import com.github.vacxe.googleplaycli.actions.apks.configuration.ApksUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.apks.mapper.ApksUploadMapper
-import com.github.vacxe.googleplaycli.actions.bundles.configuration.BundlesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.bundles.mapper.BundlesUploadMapper
-import com.github.vacxe.googleplaycli.actions.core.configuration.DefaultConfiguration
-import com.github.vacxe.googleplaycli.actions.core.mapper.DefaultMapper
-import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.configuration.DeobfuscationfilesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.deobfuscationfiles.mapper.DeobfuscationfilesUploadMapper
-import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.details.configuration.DetailsUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsPatchMapper
-import com.github.vacxe.googleplaycli.actions.details.mapper.DetailsUpdateMapper
-import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesGetConfiguration
-import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.expansionfiles.configuration.ExpansionFilesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesGetMapper
-import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesPatchMapper
-import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUpdateMapper
-import com.github.vacxe.googleplaycli.actions.expansionfiles.mapper.ExpansionFilesUploadMapper
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesDeleteAllConfiguration
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesDeleteConfiguration
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesListConfiguration
-import com.github.vacxe.googleplaycli.actions.images.configuration.ImagesUploadConfiguration
-import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesDeleteAllMapper
-import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesDeleteMapper
-import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesListMapper
-import com.github.vacxe.googleplaycli.actions.images.mapper.ImagesUploadMapper
-import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadapkConfiguration
-import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.configuration.InternalappsharingartifactsUploadbundleConfiguration
-import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadapkMapper
-import com.github.vacxe.googleplaycli.actions.internalappsharingartifacts.mapper.InternalappsharingartifactsUploadbundleMapper
-import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsDeleteConfiguration
-import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsGetConfiguration
-import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.listings.configuration.ListingsUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsDeleteMapper
-import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsGetMapper
-import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsPatchMapper
-import com.github.vacxe.googleplaycli.actions.listings.mapper.ListingsUpdateMapper
-import com.github.vacxe.googleplaycli.actions.orders.configuration.OrdersRefundConfiguration
-import com.github.vacxe.googleplaycli.actions.orders.mapper.OrderRefundMapper
-import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsGetConfiguration
-import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsListConfiguration
-import com.github.vacxe.googleplaycli.actions.reviews.configuration.ReviewsReplyConfiguration
-import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsGetMapper
-import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsListMapper
-import com.github.vacxe.googleplaycli.actions.reviews.mapper.ReviewsReplyMapper
-import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersGetConfiguration
-import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.testers.configuration.TestersUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersGetMapper
-import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersPatchMapper
-import com.github.vacxe.googleplaycli.actions.testers.mapper.TestersUpdateMapper
-import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksGetConfiguration
-import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksPatchConfiguration
-import com.github.vacxe.googleplaycli.actions.tracks.configuration.TracksUpdateConfiguration
-import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksGetMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksPatchMapper
-import com.github.vacxe.googleplaycli.actions.tracks.mapper.TracksUpdateMapper
-import com.google.api.services.androidpublisher.model.*
-import com.xenomachina.argparser.ArgParser
+import com.github.ajalt.clikt.parameters.options.*
+import com.github.ajalt.clikt.parameters.types.*
+import com.github.vacxe.googleplaycli.actions.model.*
+import com.github.vacxe.googleplaycli.core.BaseCommand
+import java.io.File
 
 object Commands {
-
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks">Apks</a>
-     */
     object Apks {
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/list">list</a>
-         */
-        fun list(args: Array<String>): ApksListResponse {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.apksList(it) }
-            }
-        }
-
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/upload">upload</a>
-         */
-        fun upload(args: Array<String>): Apk {
-            ArgParser(args).parseInto(::ApksUploadConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ApksUploadMapper().map(this).let { manager.apksUpload(it) }
-            }
+        class Upload : BaseCommand(name = "upload", actionDescription = "") {
+            private val apk: File by option("--apk", "-a", help = "Apk file path").file().required()
+            override fun run(cli: PlayStoreCli) = cli.apksUpload(ApksUploadModel(packageName, apk))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/apks/upload">Bundles</a>
-     */
     object Bundles {
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/bundles/list">list</a>
-         */
-        fun list(args: Array<String>): BundlesListResponse {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.bundlesList(it) }
-            }
-        }
+        class Upload : BaseCommand(name = "upload", actionDescription = "Uploads a new Android App Bundle to this edit") {
+            private val bundle: File by option("--bundle", "-b", help = "Bundle file path").file().required()
+            private val ackBundleInstallationWarning: Boolean by option("--ack-bundle-installation-warning", "-a", help = "Must be set to true if the bundle installation may trigger a warning on user devices (for example, if installation size may be over a threshold, typically 100 MB).")
+                    .flag(default = false)
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/bundles/upload">upload</a>
-         */
-        fun upload(args: Array<String>): Bundle {
-            ArgParser(args).parseInto(::BundlesUploadConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return BundlesUploadMapper().map(this).let { manager.bundlesUpload(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.bundlesUpload(BundlesUploadModel(packageName, bundle, ackBundleInstallationWarning))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles">Deobfuscationfiles</a>
-     */
     object Deobfuscationfiles {
+        class Upload : BaseCommand(name = "upload", actionDescription = "Uploads the deobfuscation file of the specified APK. If a deobfuscation file already exists, it will be replaced") {
+            private val deobfuscation: File by option("--deobfuscation", "-d", help = "Deobfuscation file path")
+                    .file()
+                    .required()
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/deobfuscationfiles/upload">upload</a>
-         */
-        fun upload(args: Array<String>): DeobfuscationFilesUploadResponse {
-            ArgParser(args).parseInto(::DeobfuscationfilesUploadConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DeobfuscationfilesUploadMapper().map(this).let { manager.deobfuscationFilesUpload(it) }
-            }
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose deobfuscation file is being uploaded.")
+                    .int().required()
+
+            private val deobfuscationFileType: String by option("--deobfuscation-file-type", "-t", help = "Acceptable values are: proguard")
+                    .choice("proguard")
+                    .default("proguard")
+
+            override fun run(cli: PlayStoreCli) = cli.deobfuscationFilesUpload(DeobfuscationfilesUploadModel(packageName, apkVersionCode, deobfuscation, deobfuscationFileType))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details">Details</a>
-     */
     object Details {
+        class Patch : BaseCommand(name = "patch", actionDescription = "Updates app details for this edit") {
+            private val contactEmail: String? by option("--contact-email", "-e", help = "The user-visible support email for this app")
+            private val contactPhone: String? by option("--contact-phone", help = "The user-visible support telephone number for this app")
+            private val contactWebsite: String? by option("--contact-website", "-w", help = "The user-visible website for this app")
+            private val defaultLanguage: String? by option("--default-language", "-l", help = "Default language code, in BCP 47 format (eg \"en-US\").")
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/get">get</a>
-         */
-        fun get(args: Array<String>): AppDetails {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.detailsGet(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.detailsPatch(DetailsPatchModel(packageName, contactEmail, contactPhone, contactWebsite, defaultLanguage))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/patch">patch</a>
-         */
-        fun patch(args: Array<String>): AppDetails {
-            ArgParser(args).parseInto(::DetailsPatchConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DetailsPatchMapper().map(this).let { manager.detailsPatch(it) }
-            }
-        }
+        class Update : BaseCommand(name = "update", actionDescription = "Updates app details for this edit") {
+            private val contactEmail: String? by option("--contact-email", "-e", help = "The user-visible support email for this app")
+            private val contactPhone: String? by option("--contact-phone", help = "The user-visible support telephone number for this app")
+            private val contactWebsite: String? by option("--contact-website", "-w", help = "The user-visible website for this app")
+            private val defaultLanguage: String? by option("--default-language", "-l", help = "Default language code, in BCP 47 format (eg \"en-US\").")
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/details/update">update</a>
-         */
-        fun update(args: Array<String>): AppDetails {
-            ArgParser(args).parseInto(::DetailsUpdateConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DetailsUpdateMapper().map(this).let { manager.detailsUpdate(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.detailsUpdate(DetailsUpdateModel(packageName, contactEmail, contactPhone, contactWebsite, defaultLanguage))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles">ExpansionFiles</a>
-     */
     object ExpansionFiles {
+        class Get : BaseCommand(name = "get", actionDescription = "Fetches the Expansion File configuration for the APK specified") {
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose Expansion File configuration is being read or modified").int().required()
+            private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch").default("main")
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/get">get</a>
-         */
-        fun get(args: Array<String>): ExpansionFile {
-            ArgParser(args).parseInto(::ExpansionFilesGetConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ExpansionFilesGetMapper().map(this).let { manager.expansionFilesGet(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.expansionFilesGet(ExpansionFilesGetModel(packageName, apkVersionCode, expansionFileType))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/patch">patch</a>
-         */
-        fun patch(args: Array<String>): ExpansionFile {
-            ArgParser(args).parseInto(::ExpansionFilesPatchConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ExpansionFilesPatchMapper().map(this).let { manager.expansionFilesPatch(it) }
-            }
+        class Patch : BaseCommand(name = "patch", actionDescription = "Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method") {
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose Expansion File configuration is being read or modified").int().required()
+            private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch").default("main")
+            private val referencesVersion: Int? by option("--references-version", "-r").int()
+            private val fileSize: Long? by option("--file-size", "-s").long()
+
+            override fun run(cli: PlayStoreCli) = cli.expansionFilesPatch(ExpansionFilesPatchModel(packageName, apkVersionCode, expansionFileType, referencesVersion, fileSize))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/update">update</a>
-         */
-        fun update(args: Array<String>): ExpansionFile {
-            ArgParser(args).parseInto(::ExpansionFilesUpdateConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ExpansionFilesUpdateMapper().map(this).let { manager.expansionFilesUpdate(it) }
-            }
+        class Update : BaseCommand(name = "update", actionDescription = "Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method") {
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose Expansion File configuration is being read or modified").int().required()
+            private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch").default("main")
+            private val referencesVersion: Int by option("--references-version", "-r").int().default(0)
+            private val fileSize: Long by option("--file-size", "-s").long().default(0L)
+
+            override fun run(cli: PlayStoreCli) = cli.expansionFilesUpdate(ExpansionFilesUpdateModel(packageName, apkVersionCode, expansionFileType, referencesVersion, fileSize))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/expansionfiles/upload">upload</a>
-         */
-        fun upload(args: Array<String>): ExpansionFilesUploadResponse {
-            ArgParser(args).parseInto(::ExpansionFilesUploadConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ExpansionFilesUploadMapper().map(this).let { manager.expansionFilesUpload(it) }
-            }
+        class Upload : BaseCommand(name = "upload", actionDescription = "Uploads and attaches a new Expansion File to the APK specified") {
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose Expansion File configuration is being read or modified").int().required()
+            private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch").default("main")
+            private val expansionFile: File by option("--expansion-file", "-f", help = "Expansion file patch").file().required()
+
+            override fun run(cli: PlayStoreCli) = cli.expansionFilesUpload(ExpansionFilesUploadModel(packageName, apkVersionCode, expansionFileType, expansionFile))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images">Images</a>
-     */
     object Images {
+        class List : BaseCommand(name = "list", actionDescription = "Lists all images for the specified language and image type") {
+            private val imageType: String by option("--image-type", "-t")
+                    .choice("featureGraphic", "icon", "phoneScreenshots", "promoGraphic", "sevenInchScreenshots", "tenInchScreenshots", "tvBanner", "tvScreenshots", "wearScreenshots").required()
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing whose images you want to list. For example, to select Latin American Spanish, pass \"es-419\".").required()
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/list">list</a>
-         */
-        fun list(args: Array<String>): ImagesListResponse {
-            ArgParser(args).parseInto(::ImagesListConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ImagesListMapper().map(this).let { manager.imagesList(it) }
-            }
+
+            override fun run(cli: PlayStoreCli) = cli.imagesList(ImagesListModel(packageName, imageType, language))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/delete">delete</a>
-         */
-        fun delete(args: Array<String>): Void {
-            ArgParser(args).parseInto(::ImagesDeleteConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ImagesDeleteMapper().map(this).let { manager.imagesDelete(it) }
-            }
+        class Delete : BaseCommand(name = "delete", actionDescription = "Deletes the image (specified by id) from the edit") {
+            private val imageType: String by option("--image-type", "-t")
+                    .choice("featureGraphic", "icon", "phoneScreenshots", "promoGraphic", "sevenInchScreenshots", "tenInchScreenshots", "tvBanner", "tvScreenshots", "wearScreenshots").required()
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing whose images you want to list. For example, to select Latin American Spanish, pass \"es-419\".").required()
+            private val imageId: String by option("--image-id", "-i").required()
+
+            override fun run(cli: PlayStoreCli) = cli.imagesDelete(ImagesDeleteModel(packageName, imageType, language, imageId))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/deleteall">deleteAll</a>
-         */
-        fun deleteAll(args: Array<String>): ImagesDeleteAllResponse {
-            ArgParser(args).parseInto(::ImagesDeleteAllConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ImagesDeleteAllMapper().map(this).let { manager.imagesDeleteAll(it) }
-            }
+        class DeleteAll : BaseCommand(name = "delete-all", actionDescription = "Deletes all images for the specified language and image type") {
+            private val imageType: String by option("--image-type", "-t")
+                    .choice("featureGraphic", "icon", "phoneScreenshots", "promoGraphic", "sevenInchScreenshots", "tenInchScreenshots", "tvBanner", "tvScreenshots", "wearScreenshots").required()
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing whose images you want to list. For example, to select Latin American Spanish, pass \"es-419\".").required()
+
+            override fun run(cli: PlayStoreCli) = cli.imagesDeleteAll(ImagesDeleteAllModel(packageName, imageType, language))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/images/upload">upload</a>
-         */
-        fun upload(args: Array<String>): ImagesUploadResponse {
-            ArgParser(args).parseInto(::ImagesUploadConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ImagesUploadMapper().map(this).let { manager.imagesUploadAll(it) }
-            }
+        class Upload : BaseCommand(name = "upload", actionDescription = "Uploads a new image and adds it to the list of images for the specified language and image type") {
+            private val image: File by option("--image", "-i", help = "Image file path").file().required()
+            private val imageType: String by option("--image-type", "-t")
+                    .choice("featureGraphic", "icon", "phoneScreenshots", "promoGraphic", "sevenInchScreenshots", "tenInchScreenshots", "tvBanner", "tvScreenshots", "wearScreenshots").required()
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing whose images you want to list. For example, to select Latin American Spanish, pass \"es-419\".").required()
+
+            override fun run(cli: PlayStoreCli) = cli.imagesUploadAll(ImagesUploadModel(packageName, imageType, language, image))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings">Listings</a>
-     */
     object Listings {
+        class Get : BaseCommand(name = "get", actionDescription = "Fetches information about a localized store listing") {
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".").required()
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/list">list</a>
-         */
-        fun list(args: Array<String>): ListingsListResponse {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.listingsList(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.listingsGet(ListingsGetModel(packageName, language))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/deleteall">deleteall</a>
-         */
-        fun deleteAll(args: Array<String>): Void {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.listingsDeleteAll(it) }
-            }
+        class Delete : BaseCommand(name = "delete", actionDescription = "Deletes the specified localized store listing from an edit") {
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".").required()
+
+            override fun run(cli: PlayStoreCli) = cli.listingsDelete(ListingsDeleteModel(packageName, language))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/get">get</a>
-         */
-        fun get(args: Array<String>): Listing {
-            ArgParser(args).parseInto(::ListingsGetConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ListingsGetMapper().map(this).let { manager.listingsGet(it) }
-            }
+        class Update : BaseCommand(name = "update", actionDescription = "Creates or updates a localized store listing") {
+            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".").required()
+            private val fullDescription: String by option("--full-description", "-d", help = "Full description of the app; this may be up to 4000 characters in length.").default("").validate { it.length <= 4000 }
+            private val shortDescription: String by option("--short-description", "-s", help = "Short description of the app (previously known as promo text); this may be up to 80 characters in length.").default("").validate { it.length <= 80 }
+            private val title: String by option("--title", "-t", help = "App's localized title.").default("")
+            private val video: String by option("--video-url", "-v", help = "URL of a promotional YouTube video for the app.").default("")
+
+            override fun run(cli: PlayStoreCli) = cli.listingsUpdate(ListingsUpdateModel(packageName, language, fullDescription, shortDescription, title, video))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/delete">delete</a>
-         */
-        fun delete(args: Array<String>): Void {
-            ArgParser(args).parseInto(::ListingsDeleteConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ListingsDeleteMapper().map(this).let { manager.listingsDelete(it) }
-            }
-        }
+        class Patch : BaseCommand(name = "patch", actionDescription = "Creates or updates a localized store listing") {
+            val language: String? by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".")
+            private val fullDescription: String? by option("--full-description", "-d", help = "Full description of the app; this may be up to 4000 characters in length.").validate { it.length <= 4000 }
+            private val shortDescription: String? by option("--short-description", "-s", help = "Short description of the app (previously known as promo text); this may be up to 80 characters in length.").validate { it.length <= 80 }
+            private val title: String? by option("--title", "-t", help = "App's localized title.")
+            private val video: String? by option("--video-url", "-v", help = "URL of a promotional YouTube video for the app.")
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/update">update</a>
-         */
-        fun update(args: Array<String>): Listing {
-            ArgParser(args).parseInto(::ListingsUpdateConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ListingsUpdateMapper().map(this).let { manager.listingsUpdate(it) }
-            }
-        }
-
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/listings/patch">patch</a>
-         */
-        fun patch(args: Array<String>): Listing {
-            ArgParser(args).parseInto(::ListingsPatchConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ListingsPatchMapper().map(this).let { manager.listingsPatch(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.listingsPatch(ListingsPatchModel(packageName, language, fullDescription, shortDescription, title, video))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers">Testers</a>
-     */
     object Testers {
+        class Get : BaseCommand(name = "get") {
+            private val track: String by option("--track", "-t").required()
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/get">get</a>
-         */
-        fun get(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
-            ArgParser(args).parseInto(::TestersGetConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TestersGetMapper().map(this).let { manager.testersGet(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.testersGet(TestersGetModel(packageName, track))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/update">update</a>
-         */
-        fun update(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
-            ArgParser(args).parseInto(::TestersUpdateConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TestersUpdateMapper().map(this).let { manager.testersUpdate(it) }
-            }
+        class Update : BaseCommand(name = "update") {
+            private val track: String by option("--track", "-t").required()
+            private val googleGroups: List<String> by option("--google-group", "-g").multiple()
+            private val googlePlusCommunities: List<String> by option("--google-plus-communities").multiple()
+
+            override fun run(cli: PlayStoreCli) = cli.testersUpdate(TestersUpdateModel(packageName, track, googleGroups, googlePlusCommunities))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/testers/patch">patch</a>
-         */
-        fun patch(args: Array<String>): com.google.api.services.androidpublisher.model.Testers {
-            ArgParser(args).parseInto(::TestersPatchConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TestersPatchMapper().map(this).let { manager.testersPatch(it) }
-            }
+        class Patch : BaseCommand(name = "patch") {
+            private val track: String by option("--track", "-t").required()
+            private val googleGroups: List<String> by option("--google-group", "-g").multiple()
+            private val googlePlusCommunities: List<String> by option("--google-plus-communities").multiple()
+
+            override fun run(cli: PlayStoreCli) = cli.testersPatch(TestersPatchModel(packageName, track, googleGroups, googlePlusCommunities))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks">Tracks</a>
-     */
     object Tracks {
+        class Get : BaseCommand(name = "get", actionDescription = "Fetches the track configuration for the specified track type. Includes the APK version codes that are in this track") {
+            private val track: String by option("--track", "-t").required()
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/get">get</a>
-         */
-        fun get(args: Array<String>): Track {
-            ArgParser(args).parseInto(::TracksGetConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TracksGetMapper().map(this).let { manager.tracksGet(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.tracksGet(TracksGetModel(packageName, track))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/list">list</a>
-         */
-        fun list(args: Array<String>): TracksListResponse {
-            ArgParser(args).parseInto(::DefaultConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return DefaultMapper().map(this).let { manager.tracksList(it) }
-            }
+        class Patch : BaseCommand(name = "patch", actionDescription = "Updates the track configuration for the specified track type") {
+            private val track: String by option("--track", "-t").required()
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose will be promoted to the track").int().required()
+            private val userFraction: Double by option("--user-fraction", "-f", help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\".").double().default(1.0)
+
+            override fun run(cli: PlayStoreCli) = cli.tracksPatch(TracksPatchModel(packageName, track, apkVersionCode, userFraction))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/patch">patch</a>
-         */
-        fun patch(args: Array<String>): Track {
-            ArgParser(args).parseInto(::TracksPatchConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TracksPatchMapper().map(this).let { manager.tracksPatch(it) }
-            }
-        }
+        class Update : BaseCommand(name = "update", actionDescription = "Updates the track configuration for the specified track type") {
+            private val track: String by option("--track", "-t").required()
+            val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose will be promoted to the track").int().required()
+            private val userFraction: Double by option("--user-fraction", "-f", help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\".").double().default(1.0)
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/edits/tracks/update">update</a>
-         */
-        fun update(args: Array<String>): Track {
-            ArgParser(args).parseInto(::TracksUpdateConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return TracksUpdateMapper().map(this).let { manager.tracksUpdate(it) }
-            }
+            override fun run(cli: PlayStoreCli) = cli.tracksUpdate(TracksUpdateModel(packageName, track, apkVersionCode, userFraction))
         }
     }
 
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts">Internalappsharingartifacts</a>
-     */
-    object Internalappsharingartifacts {
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts/uploadapk">uploadapk</a>
-         */
-        fun uploadApk(args: Array<String>): InternalAppSharingArtifact {
-            ArgParser(args).parseInto(::InternalappsharingartifactsUploadapkConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return InternalappsharingartifactsUploadapkMapper().map(this).let { manager.internalappsharingartifactsUploadapk(it) }
-            }
-        }
-
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/internalappsharingartifacts/uploadbundle">uploadbundle</a>
-         */
-        fun uploadBundle(args: Array<String>): InternalAppSharingArtifact {
-            ArgParser(args).parseInto(::InternalappsharingartifactsUploadbundleConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return InternalappsharingartifactsUploadbundleMapper().map(this).let { manager.internalappsharingartifactsUploadbundle(it) }
-            }
-        }
-    }
-
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/orders">Orders</a>
-     */
-    object Orders {
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/orders/refund">refund</a>
-         */
-        fun refund(args: Array<String>): Void {
-            ArgParser(args).parseInto(::OrdersRefundConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return OrderRefundMapper().map(this).let { manager.ordersRefund(it) }
-            }
-        }
-    }
-
-    /**
-     * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews">Reviews</a>
-     */
     object Reviews {
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/list">list</a>
-         */
-        fun list(args: Array<String>): ReviewsListResponse {
-            ArgParser(args).parseInto(::ReviewsListConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ReviewsListMapper().map(this).let { manager.reviewsList(it) }
-            }
+        class List : BaseCommand(name = "list", actionDescription = "Returns a list of reviews. Only reviews from last week will be returned") {
+            private val maxResults: Long by option("--max-results", "-m").long().default(100L)
+            private val startIndex: Long by option("--start-index", "-s").long().default(0L)
+            private val translationLanguage: String by option("--translation-language", "-l").default("")
+            private val token: String by option("--token", "-t").default("")
+
+            override fun run(cli: PlayStoreCli) = cli.reviewsList(ReviewsListModel(packageName, maxResults, startIndex, token, translationLanguage))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/get">get</a>
-         */
-        fun get(args: Array<String>): Review {
-            ArgParser(args).parseInto(::ReviewsGetConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ReviewsGetMapper().map(this).let { manager.reviewsGet(it) }
-            }
+        class Get : BaseCommand(name = "get", actionDescription = "Returns a single review") {
+            private val reviewId: String by option("--review-id", "-r").required()
+            private val translationLanguage: String by option("--translation-language", "-l").default("")
+
+            override fun run(cli: PlayStoreCli) = cli.reviewsGet(ReviewsGetModel(packageName, reviewId, translationLanguage))
         }
 
-        /**
-         * @see <a href="https://developers.google.com/android-publisher/api-ref/reviews/reply">reply</a>
-         */
-        fun reply(args: Array<String>): ReviewsReplyResponse {
-            ArgParser(args).parseInto(::ReviewsReplyConfiguration).run {
-                val manager = PlayStoreCli(serviceAccountJson, packageName)
-                return ReviewsReplyMapper().map(this).let { manager.reviewsReply(it) }
-            }
+        class Reply : BaseCommand(name = "reply", actionDescription = "Reply to a single review, or update an existing reply") {
+            private val reviewId: String by option("--review-id", "-r").required()
+            private val replyText: String by option("--reply-text", "-a").required()
+
+            override fun run(cli: PlayStoreCli) = cli.reviewsReply(ReviewsReplyModel(packageName, reviewId, replyText))
+        }
+    }
+
+    object Internalappsharingartifacts {
+        class UploadApk : BaseCommand(name = "upload-apk", actionDescription = "Uploads an APK to internal app sharing") {
+            private val apk: File by option("--apk", "-a", help = "Apk file path").file().required()
+
+            override fun run(cli: PlayStoreCli) = cli.internalappsharingartifactsUploadapk(InternalappsharingartifactsUploadapkModel(packageName, apk))
+        }
+
+        class UploadBundle : BaseCommand(name = "upload-bunble", actionDescription = "Uploads an app bundle to internal app sharing") {
+            private val bundle: File by option("--bundle", "-b", help = "Bundle file path").file().required()
+
+            override fun run(cli: PlayStoreCli) = cli.internalappsharingartifactsUploadbundle(InternalappsharingartifactsUploadbundleModel(packageName, bundle))
+        }
+    }
+
+    object Orders {
+        class Refund : BaseCommand(name = "refund", actionDescription = "Refund a user's subscription or in-app purchase order") {
+            private val orderId: String by option("--order-id", "-o", help = "The order ID provided to the user when the subscription or in-app order was purchased").required()
+            private val revoke: Boolean by option("--revoke", "-l", help = "Whether to revoke the purchased item. If set to true, access to the subscription or in-app item will be terminated immediately. If the item is a recurring subscription, all future payments will also be terminated. Consumed in-app items need to be handled by developer's app. (optional)").flag()
+
+            override fun run(cli: PlayStoreCli) = cli.ordersRefund(OrdersRefundModel(packageName, orderId, revoke))
         }
     }
 }

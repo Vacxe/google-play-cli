@@ -2,110 +2,72 @@
 
 package com.github.vacxe.googleplaycli
 
-import com.xenomachina.argparser.mainBody
-import java.util.*
+import com.github.vacxe.googleplaycli.actions.model.DefaultModel
+import com.github.vacxe.googleplaycli.dsl.addCmd
+import com.github.vacxe.googleplaycli.dsl.baseCmd
+import com.github.vacxe.googleplaycli.dsl.cmd
+import com.github.vacxe.googleplaycli.dsl.subcmd
 
-fun main(args: Array<String>): Unit = mainBody {
-    val command = ArrayDeque<String>().apply { addAll(args) }
-    val result = when (command.pollFirst()) {
-        "apks" -> {
-            when (command.pollFirst()) {
-                "list" -> Commands.Apks.list(command.toTypedArray())
-                "upload" -> Commands.Apks.upload(command.toTypedArray())
-                else -> "Command not found. Available: list, upload"
-            }
+fun main(args: Array<String>) {
+    cmd("google-play-cli") {
+        subcmd("apk") {
+            baseCmd("list", "Lists all current APKs for the specified package and edit") { it.apksList(DefaultModel(packageName)) }
+            addCmd { Commands.Apks.Upload() }
         }
-        "bundles" -> {
-            when (command.pollFirst()) {
-                "list" -> Commands.Bundles.list(command.toTypedArray())
-                "upload" -> Commands.Bundles.upload(command.toTypedArray())
-                else -> "Command not found. Available: list, upload"
-            }
+        subcmd("bundles") {
+            baseCmd("list") { it.bundlesList(DefaultModel(packageName)) }
+            addCmd { Commands.Bundles.Upload() }
         }
-        "deobfuscationfiles" -> {
-            when (command.pollFirst()) {
-                "upload" -> Commands.Deobfuscationfiles.upload(command.toTypedArray())
-                else -> "Command not found. Available: upload"
-            }
+        subcmd("deobfuscation-files") {
+            addCmd { Commands.Deobfuscationfiles.Upload() }
         }
-        "details" -> {
-            when (command.pollFirst()) {
-                "get" -> Commands.Details.get(command.toTypedArray())
-                "patch" -> Commands.Details.patch(command.toTypedArray())
-                "update" -> Commands.Details.update(command.toTypedArray())
-                else -> "Command not found. Available: get, patch, update"
-            }
+        subcmd("details") {
+            baseCmd("get", "Fetches app details for this edit. This includes the default language and developer support contact information") { it.detailsGet(DefaultModel(packageName)) }
+            addCmd { Commands.Details.Patch() }
+            addCmd { Commands.Details.Update() }
         }
-        "expansionfiles" -> {
-            when (command.pollFirst()) {
-                "get" -> Commands.ExpansionFiles.get(command.toTypedArray())
-                "patch" -> Commands.ExpansionFiles.patch(command.toTypedArray())
-                "update" -> Commands.ExpansionFiles.update(command.toTypedArray())
-                "upload" -> Commands.ExpansionFiles.upload(command.toTypedArray())
-                else -> "Command not found. Available: get, patch, update, upload"
-            }
+        subcmd("expansion-files") {
+            addCmd { Commands.ExpansionFiles.Get() }
+            addCmd { Commands.ExpansionFiles.Patch() }
+            addCmd { Commands.ExpansionFiles.Update() }
+            addCmd { Commands.ExpansionFiles.Upload() }
         }
-        "images" -> {
-            when (command.pollFirst()) {
-                "list" -> Commands.Images.list(command.toTypedArray())
-                "delete" -> Commands.Images.delete(command.toTypedArray())
-                "deleteall" -> Commands.Images.deleteAll(command.toTypedArray())
-                "upload" -> Commands.Images.upload(command.toTypedArray())
-                else -> "Command not found. Available: list, delete, deleteAll, upload"
-            }
+        subcmd("images") {
+            addCmd { Commands.Images.List() }
+            addCmd { Commands.Images.Delete() }
+            addCmd { Commands.Images.DeleteAll() }
+            addCmd { Commands.Images.Upload() }
         }
-        "listings" -> {
-            when (command.pollFirst()) {
-                "deleteall" -> Commands.Listings.deleteAll(command.toTypedArray())
-                "list" -> Commands.Listings.list(command.toTypedArray())
-                "get" -> Commands.Listings.get(command.toTypedArray())
-                "delete" -> Commands.Listings.delete(command.toTypedArray())
-                "update" -> Commands.Listings.update(command.toTypedArray())
-                "patch" -> Commands.Listings.patch(command.toTypedArray())
-                else -> "Command not found. Available: delete, deleteall, get, list, patch, update"
-            }
+        subcmd("listings") {
+            baseCmd("deleteAll", "Deletes all localized listings from an edit") { it.listingsDeleteAll(DefaultModel(packageName)) }
+            baseCmd("list", "Returns all of the localized store listings attached to this edit") { it.listingsList(DefaultModel(packageName)) }
+            addCmd { Commands.Listings.Get() }
+            addCmd { Commands.Listings.Delete() }
+            addCmd { Commands.Listings.Update() }
+            addCmd { Commands.Listings.Patch() }
         }
-        "testers" -> {
-            when (command.pollFirst()) {
-                "get" -> Commands.Testers.get(command.toTypedArray())
-                "patch" -> Commands.Testers.patch(command.toTypedArray())
-                "update" -> Commands.Testers.update(command.toTypedArray())
-                else -> "Command not found. Available: get, patch, update"
-            }
+        subcmd("testers") {
+            addCmd { Commands.Testers.Get() }
+            addCmd { Commands.Testers.Update() }
+            addCmd { Commands.Testers.Patch() }
         }
-        "tracks" -> {
-            when (command.pollFirst()) {
-                "get" -> Commands.Tracks.get(command.toTypedArray())
-                "list" -> Commands.Tracks.list(command.toTypedArray())
-                "patch" -> Commands.Tracks.patch(command.toTypedArray())
-                "update" -> Commands.Tracks.update(command.toTypedArray())
-                else -> "Command not found. Available: get, list, patch, update"
-            }
+        subcmd("tracks") {
+            addCmd { Commands.Tracks.Get() }
+            baseCmd("list", "Lists all the track configurations for this edit") { it.tracksList(DefaultModel(packageName)) }
+            addCmd { Commands.Tracks.Patch() }
+            addCmd { Commands.Tracks.Update() }
         }
-        "reviews" -> {
-            when (command.pollFirst()) {
-                "list" -> Commands.Reviews.list(command.toTypedArray())
-                "get" -> Commands.Reviews.get(command.toTypedArray())
-                "reply" -> Commands.Reviews.reply(command.toTypedArray())
-                else -> "Command not found. Available: get, list, reply"
-            }
-
+        subcmd("reviews") {
+            addCmd { Commands.Reviews.List() }
+            addCmd { Commands.Reviews.Get() }
+            addCmd { Commands.Reviews.Reply() }
         }
-        "internalappsharingartifacts" -> {
-            when (command.pollFirst()) {
-                "uploadapk" -> Commands.Internalappsharingartifacts.uploadApk(command.toTypedArray())
-                "uploadbundle" -> Commands.Internalappsharingartifacts.uploadBundle(command.toTypedArray())
-                else -> "Command not found. Available: uploadapk, uploadbundle"
-            }
+        subcmd("internal-app-sharing-artifacts") {
+            addCmd { Commands.Internalappsharingartifacts.UploadApk() }
+            addCmd { Commands.Internalappsharingartifacts.UploadBundle() }
         }
-        "orders" -> {
-            when (command.pollFirst()) {
-                "refund" -> Commands.Orders.refund(command.toTypedArray())
-                else -> "Command not found. Available: refund"
-            }
+        subcmd("orders") {
+            addCmd { Commands.Orders.Refund() }
         }
-        else -> "Command not found. Available: apks, bundles, deobfuscationfiles, details, expansionfiles, images, listings, testers, tracks, reviews, internalappsharingartifacts, orders"
-    }
-
-    println(result)
+    }.main(args)
 }
