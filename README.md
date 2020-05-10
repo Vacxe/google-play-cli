@@ -19,8 +19,8 @@ brew install vacxe/tap/googleplaycli
   Goto: Google Play Console -> Developer Account -> Api access -> Service Accounts -> CREATE SERVICE ACCOUNT
   Follow the instruction and grant the access for service accout
 * Try simplest command
-
-  `google-play-cli apk list --config service_account.json --package-name <your uploaded apk package name>`
+  * ```google-play-cli --help``` - list of all commands
+  * ```google-play-cli apk list --config service_account.json --package-name <your uploaded apk package name>```
   
 * Apk info extraction
   
