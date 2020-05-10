@@ -4,7 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
-import com.github.vacxe.googleplaycli.PlayStoreCli
+import com.github.vacxe.googleplaycli.PlayStoreApi
 import java.io.File
 
 abstract class BaseCommand(name: String, actionDescription: String = "") : CliktCommand(name = name, help = actionDescription) {
@@ -18,11 +18,11 @@ abstract class BaseCommand(name: String, actionDescription: String = "") : Clikt
             .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
 
     final override fun run() {
-        val manager = PlayStoreCli(File(serviceAccountJson), packageName)
+        val manager = PlayStoreApi(File(serviceAccountJson), packageName)
         run(manager)?.let {
             println(it)
         }
     }
 
-    abstract fun run(cli: PlayStoreCli): Any?
+    abstract fun run(api: PlayStoreApi): Any?
 }
