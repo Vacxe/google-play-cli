@@ -20,7 +20,7 @@ brew install vacxe/tap/googleplaycli
   Follow the instruction and grant the access for service accout
 * Try simplest command
 
-  `googleplaycli apks list --key service_account.json --packageName <your uploaded apk package name>`
+  `google-play-cli apk list --config service_account.json --package-name <your uploaded apk package name>`
   
 * Apk info extraction
   
