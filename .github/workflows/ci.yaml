@@ -10,7 +10,7 @@ jobs:
         with:
           java-version: 1.8
       - name: gradle check
-        run: ./gradlew check
+        run: ./gradlew check jacocoTestReport
       - name: Save test output
         uses: actions/upload-artifact@master
         if: failure()
