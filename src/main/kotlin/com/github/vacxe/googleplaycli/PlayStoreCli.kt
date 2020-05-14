@@ -1,5 +1,3 @@
-@file:Suppress("IMPLICIT_CAST_TO_ANY")
-
 package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.model.DefaultModel

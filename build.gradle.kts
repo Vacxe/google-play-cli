@@ -18,7 +18,6 @@ repositories {
 
 dependencies {
     implementation(Libraries.clikt)
-    implementation(Libraries.googleApiClient)
     implementation(Libraries.googleOAuth)
     implementation(Libraries.googleAppPublisher)
     implementation(kotlin("stdlib-jdk8"))
