@@ -4,6 +4,7 @@ plugins {
     application
     id("idea")
     id("org.jetbrains.kotlin.jvm")
+    id("jacoco")
 }
 
 application {
@@ -21,7 +22,10 @@ dependencies {
     implementation(Libraries.googleOAuth)
     implementation(Libraries.googleAppPublisher)
     implementation(kotlin("stdlib-jdk8"))
+
+    testImplementation(TestLibraries.junit)
 }
+
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "1.8"
@@ -29,4 +33,10 @@ compileKotlin.kotlinOptions {
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+    }
 }
