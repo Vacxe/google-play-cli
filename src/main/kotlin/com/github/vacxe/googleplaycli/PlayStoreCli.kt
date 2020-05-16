@@ -67,5 +67,13 @@ fun main(args: Array<String>) {
         subcmd("orders") {
             addCmd { Commands.Orders.Refund() }
         }
+        subcmd("inappproducts") {
+            addCmd { Commands.Inappproducts.Delete() }
+            addCmd { Commands.Inappproducts.Get() }
+            addCmd { Commands.Inappproducts.Insert() }
+            addCmd { Commands.Inappproducts.List() }
+            addCmd { Commands.Inappproducts.Patch() }
+            addCmd { Commands.Inappproducts.Update() }
+        }
     }.main(args)
 }

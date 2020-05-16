@@ -22,7 +22,8 @@ class PlayStoreApi :
         Tracks,
         Internalappsharingartifacts,
         Orders,
-        Reviews {
+        Reviews,
+        Inappproducts {
 
     override val androidPublisher: AndroidPublisher
 
