@@ -280,7 +280,7 @@ object Commands {
 
         class Insert : BaseCommand(name = "insert", actionDescription = "Creates a new in-app product for an app") {
             private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
-            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-c", help = """
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
                         If true the prices for all regions targeted by the parent app that don't have a price specified for 
                         this in-app product will be auto converted to the target currency based on the default price. 
                         Defaults to false. (optional)
@@ -297,7 +297,7 @@ object Commands {
         class Patch : BaseCommand(name = "patch", actionDescription = "Updates the details of an in-app product. This method supports patch semantics") {
             private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
             private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
-            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-c", help = """
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
                         If true the prices for all regions targeted by the parent app that don't have a price specified for 
                         this in-app product will be auto converted to the target currency based on the default price. 
                         Defaults to false. (optional)
@@ -310,7 +310,7 @@ object Commands {
         class Update : BaseCommand(name = "update", actionDescription = "Updates the details of an in-app product") {
             private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
             private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
-            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-c", help = """
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
                         If true the prices for all regions targeted by the parent app that don't have a price specified for 
                         this in-app product will be auto converted to the target currency based on the default price. 
                         Defaults to false. (optional)
