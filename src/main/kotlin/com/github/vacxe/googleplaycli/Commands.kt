@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.parameters.types.*
 import com.github.vacxe.googleplaycli.actions.model.*
 import com.github.vacxe.googleplaycli.core.BaseCommand
 import java.io.File
+import java.nio.file.Path
 
 object Commands {
     object Apks {
@@ -262,4 +263,62 @@ object Commands {
             override fun run(api: PlayStoreApi) = api.ordersRefund(OrdersRefundModel(packageName, orderId, revoke))
         }
     }
+
+    object Inappproducts {
+
+        class Delete : BaseCommand(name = "delete", actionDescription = "Delete an in-app product for an app") {
+            private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
+
+            override fun run(api: PlayStoreApi) = api.inappproductsDelete(InappproductsDeleteModel(packageName, sku))
+        }
+
+        class Get : BaseCommand(name = "get", actionDescription = "Returns information about the in-app product specified") {
+            private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
+
+            override fun run(api: PlayStoreApi) = api.inappproductsGet(InappproductsGetModel(packageName, sku))
+        }
+
+        class Insert : BaseCommand(name = "insert", actionDescription = "Creates a new in-app product for an app") {
+            private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
+                        If true the prices for all regions targeted by the parent app that don't have a price specified for 
+                        this in-app product will be auto converted to the target currency based on the default price. 
+                        Defaults to false. (optional)
+                        """.trimIndent()
+            ).flag()
+
+            override fun run(api: PlayStoreApi) = api.inappproductsInsert(InappproductsInsertModel(packageName, jsonPath, autoConvertMissingPrices))
+        }
+
+        class List : BaseCommand(name = "list", actionDescription = "List all the in-app products for an Android app, both subscriptions and managed in-app products") {
+            override fun run(api: PlayStoreApi) = api.inappproductsList(DefaultModel(packageName))
+        }
+
+        class Patch : BaseCommand(name = "patch", actionDescription = "Updates the details of an in-app product. This method supports patch semantics") {
+            private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
+            private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
+                        If true the prices for all regions targeted by the parent app that don't have a price specified for 
+                        this in-app product will be auto converted to the target currency based on the default price. 
+                        Defaults to false. (optional)
+                        """.trimIndent()
+            ).flag()
+
+            override fun run(api: PlayStoreApi) = api.inappproductsPatch(InappproductsPatchModel(packageName, sku, jsonPath, autoConvertMissingPrices))
+        }
+
+        class Update : BaseCommand(name = "update", actionDescription = "Updates the details of an in-app product") {
+            private val sku: String by option("--sku", "-s", help = "Unique identifier for the in-app product").required()
+            private val jsonPath: Path by option("--file", "-f", help = "Json file path").path(mustExist = true, canBeDir = false).required()
+            private val autoConvertMissingPrices: Boolean by option("--auto-convert-missing-prices", "-a", help = """
+                        If true the prices for all regions targeted by the parent app that don't have a price specified for 
+                        this in-app product will be auto converted to the target currency based on the default price. 
+                        Defaults to false. (optional)
+                        """.trimIndent()
+            ).flag()
+
+            override fun run(api: PlayStoreApi) = api.inappproductsUpdate(InappproductsUpdateModel(packageName, sku, jsonPath, autoConvertMissingPrices))
+        }
+    }
+
 }
