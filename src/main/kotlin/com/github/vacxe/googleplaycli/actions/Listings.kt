@@ -9,25 +9,25 @@ interface Listings : BaseAction {
     fun listingsList(model: DefaultModel): ListingsListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Listings().list(model.packageName, insert.id).execute()
+        return edits.listings().list(model.packageName, insert.id).execute()
     }
 
     fun listingsDeleteAll(model: DefaultModel): Void {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Listings().deleteall(model.packageName, insert.id).execute()
+        return edits.listings().deleteall(model.packageName, insert.id).execute()
     }
 
     fun listingsDelete(model: ListingsDeleteModel): Void {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Listings().delete(model.packageName, insert.id, model.language).execute()
+        return edits.listings().delete(model.packageName, insert.id, model.language).execute()
     }
 
     fun listingsGet(model: ListingsGetModel): Listing {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Listings().get(model.packageName, insert.id, model.language).execute()
+        return edits.listings().get(model.packageName, insert.id, model.language).execute()
     }
 
     fun listingsUpdate(model: ListingsUpdateModel): Listing {
@@ -39,7 +39,7 @@ interface Listings : BaseAction {
             title = model.title
             video = model.video
         }
-        return edits.Listings().update(model.packageName, insert.id, model.language, listing).execute()
+        return edits.listings().update(model.packageName, insert.id, model.language, listing).execute()
     }
 
     fun listingsPatch(model: ListingsPatchModel): Listing {
@@ -51,6 +51,6 @@ interface Listings : BaseAction {
             model.title?.let { title = it }
             model.video?.let { video = it }
         }
-        return edits.Listings().update(model.packageName, insert.id, model.language, listing).execute()
+        return edits.listings().update(model.packageName, insert.id, model.language, listing).execute()
     }
 }

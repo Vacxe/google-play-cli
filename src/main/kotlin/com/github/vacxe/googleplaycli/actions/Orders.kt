@@ -4,7 +4,7 @@ import com.github.vacxe.googleplaycli.actions.model.OrdersRefundModel
 
 interface Orders : BaseAction {
     fun ordersRefund(model: OrdersRefundModel): Void {
-        return androidPublisher.Orders()
+        return androidPublisher.orders()
                 .refund(model.packageName, model.orderId)
                 .apply {
                     revoke = model.revoke

@@ -10,7 +10,7 @@ import com.google.api.services.androidpublisher.model.ReviewsReplyResponse
 
 interface Reviews : BaseAction {
     fun reviewsList(model: ReviewsListModel): ReviewsListResponse {
-        return androidPublisher.Reviews()
+        return androidPublisher.reviews()
                 .list(model.packageName)
                 .apply {
                     maxResults = model.maxResults
@@ -22,7 +22,7 @@ interface Reviews : BaseAction {
     }
 
     fun reviewsGet(model: ReviewsGetModel): Review {
-        return androidPublisher.Reviews()
+        return androidPublisher.reviews()
                 .get(model.packageName, model.reviewId)
                 .apply {
                     translationLanguage = model.translationLanguage
@@ -32,7 +32,7 @@ interface Reviews : BaseAction {
 
     fun reviewsReply(model: ReviewsReplyModel): ReviewsReplyResponse {
         val reviewsReplyRequest = ReviewsReplyRequest().setReplyText(model.replyText)
-        return androidPublisher.Reviews()
+        return androidPublisher.reviews()
                 .reply(model.packageName, model.reviewId, reviewsReplyRequest)
                 .execute()
     }

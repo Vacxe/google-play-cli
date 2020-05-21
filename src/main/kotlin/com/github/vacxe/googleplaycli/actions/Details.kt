@@ -10,7 +10,7 @@ interface Details : BaseAction {
     fun detailsGet(model: DefaultModel): AppDetails {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Details().get(model.packageName, insert.id).execute()
+        return edits.details().get(model.packageName, insert.id).execute()
     }
 
     fun detailsPatch(model: DetailsPatchModel): AppDetails {
@@ -22,7 +22,7 @@ interface Details : BaseAction {
             model.contactWebsite?.let { contactWebsite = it }
             model.defaultLanguage?.let { defaultLanguage = it }
         }
-        return edits.Details().patch(model.packageName, insert.id, appDetails).execute()
+        return edits.details().patch(model.packageName, insert.id, appDetails).execute()
     }
 
     fun detailsUpdate(model: DetailsUpdateModel): AppDetails {
@@ -34,7 +34,7 @@ interface Details : BaseAction {
             model.contactWebsite?.let { contactWebsite = it }
             model.defaultLanguage?.let { defaultLanguage = it }
         }
-        return edits.Details().update(model.packageName, insert.id, appDetails).execute()
+        return edits.details().update(model.packageName, insert.id, appDetails).execute()
     }
 
 }

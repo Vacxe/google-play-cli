@@ -12,6 +12,6 @@ interface Deobfuscationfiles : BaseAction {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
         val deobfuscation: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.deobfuscation)
-        return edits.Deobfuscationfiles().upload(model.packageName, insert.id, model.apkVersionCode, model.deobfuscationFileType, deobfuscation).execute()
+        return edits.deobfuscationfiles().upload(model.packageName, insert.id, model.apkVersionCode, model.deobfuscationFileType, deobfuscation).execute()
     }
 }
