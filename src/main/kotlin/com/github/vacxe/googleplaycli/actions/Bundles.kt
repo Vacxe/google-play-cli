@@ -13,14 +13,14 @@ interface Bundles : BaseAction {
     fun bundlesList(model: DefaultModel): BundlesListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Bundles().list(model.packageName, insert.id).execute()
+        return edits.bundles().list(model.packageName, insert.id).execute()
     }
 
     fun bundlesUpload(model: BundlesUploadModel): Bundle {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
         val apkFile: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.bundle)
-        return edits.Bundles().upload(model.packageName, insert.id, apkFile)
+        return edits.bundles().upload(model.packageName, insert.id, apkFile)
                 .apply { ackBundleInstallationWarning = model.ackBundleInstallationWarning }
                 .execute()
     }

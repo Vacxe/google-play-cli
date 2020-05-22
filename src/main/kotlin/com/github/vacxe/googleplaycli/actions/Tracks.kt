@@ -13,13 +13,13 @@ interface Tracks : BaseAction {
     fun tracksList(model: DefaultModel): TracksListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Tracks().list(model.packageName, insert.id).execute()
+        return edits.tracks().list(model.packageName, insert.id).execute()
     }
 
     fun tracksGet(model: TracksGetModel): Track {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Tracks().get(model.packageName, insert.id, model.track).execute()
+        return edits.tracks().get(model.packageName, insert.id, model.track).execute()
     }
 
     fun tracksPatch(model: TracksPatchModel): Track {
@@ -32,7 +32,7 @@ interface Tracks : BaseAction {
                     userFraction = model.userFraction
                 })
         )
-        return edits.Tracks().patch(model.packageName, insert.id, model.track, track).execute()
+        return edits.tracks().patch(model.packageName, insert.id, model.track, track).execute()
     }
 
     fun tracksUpdate(model: TracksUpdateModel): Track {
@@ -44,6 +44,6 @@ interface Tracks : BaseAction {
                     versionCodes = mutableListOf(model.apkVersionCode.toLong())
                 })
         )
-        return edits.Tracks().update(model.packageName, insert.id, model.track, track).execute()
+        return edits.tracks().update(model.packageName, insert.id, model.track, track).execute()
     }
 }

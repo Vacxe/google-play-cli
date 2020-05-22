@@ -11,7 +11,7 @@ interface Testers : BaseAction {
     fun testersGet(model: TestersGetModel): Testers {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val insert = edits.insert(model.packageName, null).execute()
-        return edits.Testers().get(model.packageName, insert.id, model.track).execute()
+        return edits.testers().get(model.packageName, insert.id, model.track).execute()
     }
 
     fun testersUpdate(model: TestersUpdateModel): Testers {
@@ -21,7 +21,7 @@ interface Testers : BaseAction {
             googleGroups = model.googleGroups
             googlePlusCommunities = model.googlePlusCommunities
         }
-        return edits.Testers().update(model.packageName, insert.id, model.track, testers).execute()
+        return edits.testers().update(model.packageName, insert.id, model.track, testers).execute()
     }
 
     fun testersPatch(model: TestersPatchModel): Testers {
@@ -31,6 +31,6 @@ interface Testers : BaseAction {
             model.googleGroups?.let { googleGroups = it }
             model.googlePlusCommunities?.let { googlePlusCommunities = it }
         }
-        return edits.Testers().update(model.packageName, insert.id, model.track, testers).execute()
+        return edits.testers().update(model.packageName, insert.id, model.track, testers).execute()
     }
 }

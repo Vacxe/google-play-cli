@@ -10,7 +10,7 @@ import com.google.auth.oauth2.ServiceAccountCredentials
 import java.io.File
 import java.io.FileInputStream
 
-class PlayStoreApi :
+class PlayStoreApi(serviceAccountJson: File, appName: String) :
         Apks,
         Bundles,
         Deobfuscationfiles,
@@ -27,10 +27,7 @@ class PlayStoreApi :
 
     override val androidPublisher: AndroidPublisher
 
-    constructor(
-            serviceAccountJson: File,
-            appName: String
-    ) {
+    init {
         val accountCredentials = ServiceAccountCredentials
                 .fromStream(FileInputStream(serviceAccountJson))
                 .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
