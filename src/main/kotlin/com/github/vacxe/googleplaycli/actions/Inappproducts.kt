@@ -1,11 +1,6 @@
 package com.github.vacxe.googleplaycli.actions
 
-import com.github.vacxe.googleplaycli.actions.model.DefaultModel
-import com.github.vacxe.googleplaycli.actions.model.InappproductsDeleteModel
-import com.github.vacxe.googleplaycli.actions.model.InappproductsGetModel
-import com.github.vacxe.googleplaycli.actions.model.InappproductsInsertModel
-import com.github.vacxe.googleplaycli.actions.model.InappproductsPatchModel
-import com.github.vacxe.googleplaycli.actions.model.InappproductsUpdateModel
+import com.github.vacxe.googleplaycli.actions.model.*
 import com.google.api.services.androidpublisher.model.InAppProduct
 import com.google.api.services.androidpublisher.model.InappproductsListResponse
 import java.nio.file.Files

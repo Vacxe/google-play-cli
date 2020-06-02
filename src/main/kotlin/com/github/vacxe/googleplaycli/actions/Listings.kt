@@ -6,51 +6,51 @@ import com.google.api.services.androidpublisher.model.Listing
 import com.google.api.services.androidpublisher.model.ListingsListResponse
 
 interface Listings : BaseAction {
-    fun listingsList(model: DefaultModel): ListingsListResponse {
+    fun listingsList(model: EditModel): ListingsListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.listings().list(model.packageName, insert.id).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.listings().list(model.packageName, editId).execute()
     }
 
-    fun listingsDeleteAll(model: DefaultModel): Void {
+    fun listingsDeleteAll(model: EditModel): Void {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.listings().deleteall(model.packageName, insert.id).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.listings().deleteall(model.packageName, editId).execute()
     }
 
     fun listingsDelete(model: ListingsDeleteModel): Void {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.listings().delete(model.packageName, insert.id, model.language).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.listings().delete(model.packageName, editId, model.language).execute()
     }
 
     fun listingsGet(model: ListingsGetModel): Listing {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.listings().get(model.packageName, insert.id, model.language).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.listings().get(model.packageName, editId, model.language).execute()
     }
 
     fun listingsUpdate(model: ListingsUpdateModel): Listing {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val listing = Listing().apply {
             fullDescription = model.fullDescription
             shortDescription = model.shortDescription
             title = model.title
             video = model.video
         }
-        return edits.listings().update(model.packageName, insert.id, model.language, listing).execute()
+        return edits.listings().update(model.packageName, editId, model.language, listing).execute()
     }
 
     fun listingsPatch(model: ListingsPatchModel): Listing {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val listing = Listing().apply {
             model.fullDescription?.let { fullDescription = it }
             model.shortDescription?.let { shortDescription = it }
             model.title?.let { title = it }
             model.video?.let { video = it }
         }
-        return edits.listings().update(model.packageName, insert.id, model.language, listing).execute()
+        return edits.listings().update(model.packageName, editId, model.language, listing).execute()
     }
 }

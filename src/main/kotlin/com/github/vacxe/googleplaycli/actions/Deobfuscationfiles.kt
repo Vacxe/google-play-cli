@@ -10,8 +10,8 @@ import com.google.api.services.androidpublisher.model.DeobfuscationFilesUploadRe
 interface Deobfuscationfiles : BaseAction {
     fun deobfuscationFilesUpload(model: DeobfuscationfilesUploadModel): DeobfuscationFilesUploadResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val deobfuscation: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.deobfuscation)
-        return edits.deobfuscationfiles().upload(model.packageName, insert.id, model.apkVersionCode, model.deobfuscationFileType, deobfuscation).execute()
+        return edits.deobfuscationfiles().upload(model.packageName, editId, model.apkVersionCode, model.deobfuscationFileType, deobfuscation).execute()
     }
 }
