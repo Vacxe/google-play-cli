@@ -163,14 +163,10 @@ object Commands {
 
     object Listings {
         class DeleteAll : EditCommand(name = "deleteAll", actionDescription = "Deletes all localized listings from an edit") {
-            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".").required()
-
             override fun run(api: PlayStoreApi) = api.listingsDeleteAll(EditModel(packageName, editId))
         }
 
         class List : EditCommand(name = "list", actionDescription = "Returns all of the localized store listings attached to this edit") {
-            val language: String by option("--language", "-l", help = "The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Latin American Spanish, pass \"es-419\".").required()
-
             override fun run(api: PlayStoreApi) = api.listingsList(EditModel(packageName, editId))
         }
 
