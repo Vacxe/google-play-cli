@@ -37,6 +37,7 @@ interface Tracks : BaseAction {
 
     fun tracksUpdate(model: TracksUpdateModel): Track {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
 
         val release = TrackRelease()
                 .setVersionCodes(listOf(model.apkVersionCode.toLong()))
@@ -44,6 +45,6 @@ interface Tracks : BaseAction {
 
         val track = Track().setReleases(listOf(release))
 
-        return edits.tracks().update(model.packageName, model.editId, model.track, track).execute()
+        return edits.tracks().update(model.packageName, editId, model.track, track).execute()
     }
 }
