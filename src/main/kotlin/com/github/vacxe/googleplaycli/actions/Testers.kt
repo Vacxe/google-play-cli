@@ -10,27 +10,27 @@ interface Testers : BaseAction {
 
     fun testersGet(model: TestersGetModel): Testers {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.testers().get(model.packageName, insert.id, model.track).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.testers().get(model.packageName, editId, model.track).execute()
     }
 
     fun testersUpdate(model: TestersUpdateModel): Testers {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val testers = Testers().apply {
             googleGroups = model.googleGroups
             googlePlusCommunities = model.googlePlusCommunities
         }
-        return edits.testers().update(model.packageName, insert.id, model.track, testers).execute()
+        return edits.testers().update(model.packageName, editId, model.track, testers).execute()
     }
 
     fun testersPatch(model: TestersPatchModel): Testers {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val testers = Testers().apply {
             model.googleGroups?.let { googleGroups = it }
             model.googlePlusCommunities?.let { googlePlusCommunities = it }
         }
-        return edits.testers().update(model.packageName, insert.id, model.track, testers).execute()
+        return edits.testers().update(model.packageName, editId, model.track, testers).execute()
     }
 }

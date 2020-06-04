@@ -1,7 +1,7 @@
 package com.github.vacxe.googleplaycli.actions
 
 import com.github.vacxe.googleplaycli.actions.model.ApksUploadModel
-import com.github.vacxe.googleplaycli.actions.model.DefaultModel
+import com.github.vacxe.googleplaycli.actions.model.EditModel
 import com.github.vacxe.googleplaycli.core.constants.MediaType.MIME_TYPE_APK
 import com.google.api.client.http.AbstractInputStreamContent
 import com.google.api.client.http.FileContent
@@ -10,16 +10,16 @@ import com.google.api.services.androidpublisher.model.Apk
 import com.google.api.services.androidpublisher.model.ApksListResponse
 
 interface Apks : BaseAction {
-    fun apksList(model: DefaultModel): ApksListResponse {
+    fun apksList(model: EditModel): ApksListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.apks().list(model.packageName, insert.id).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.apks().list(model.packageName, editId).execute()
     }
 
     fun apksUpload(model: ApksUploadModel): Apk {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val apkFile: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.apk)
-        return edits.apks().upload(model.packageName, insert.id, apkFile).execute()
+        return edits.apks().upload(model.packageName, editId, apkFile).execute()
     }
 }

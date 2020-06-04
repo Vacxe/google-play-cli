@@ -11,6 +11,7 @@ import java.io.File
 import java.io.FileInputStream
 
 class PlayStoreApi(serviceAccountJson: File, appName: String) :
+        Edit,
         Apks,
         Bundles,
         Deobfuscationfiles,

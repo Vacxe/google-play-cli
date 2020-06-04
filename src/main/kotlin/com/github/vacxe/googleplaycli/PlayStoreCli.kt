@@ -1,28 +1,31 @@
 package com.github.vacxe.googleplaycli
 
-import com.github.vacxe.googleplaycli.actions.model.DefaultModel
 import com.github.vacxe.googleplaycli.dsl.addCmd
-import com.github.vacxe.googleplaycli.dsl.baseCmd
 import com.github.vacxe.googleplaycli.dsl.cmd
 import com.github.vacxe.googleplaycli.dsl.subcmd
 
 fun main(args: Array<String>) {
     cmd("google-play-cli") {
         subcmd("apk") {
-            baseCmd("list", "Lists all current APKs for the specified package and edit") { it.apksList(DefaultModel(packageName)) }
+            addCmd { Commands.Apks.List() }
             addCmd { Commands.Apks.Upload() }
         }
         subcmd("bundles") {
-            baseCmd("list") { it.bundlesList(DefaultModel(packageName)) }
+            addCmd { Commands.Bundles.List() }
             addCmd { Commands.Bundles.Upload() }
         }
         subcmd("deobfuscation-files") {
             addCmd { Commands.Deobfuscationfiles.Upload() }
         }
         subcmd("details") {
-            baseCmd("get", "Fetches app details for this edit. This includes the default language and developer support contact information") { it.detailsGet(DefaultModel(packageName)) }
+            addCmd { Commands.Details.Get() }
             addCmd { Commands.Details.Patch() }
             addCmd { Commands.Details.Update() }
+        }
+        subcmd("edit") {
+            addCmd { Commands.Edits.Create() }
+            addCmd { Commands.Edits.Validate() }
+            addCmd { Commands.Edits.Commit() }
         }
         subcmd("expansion-files") {
             addCmd { Commands.ExpansionFiles.Get() }
@@ -37,8 +40,8 @@ fun main(args: Array<String>) {
             addCmd { Commands.Images.Upload() }
         }
         subcmd("listings") {
-            baseCmd("deleteAll", "Deletes all localized listings from an edit") { it.listingsDeleteAll(DefaultModel(packageName)) }
-            baseCmd("list", "Returns all of the localized store listings attached to this edit") { it.listingsList(DefaultModel(packageName)) }
+            addCmd { Commands.Listings.DeleteAll() }
+            addCmd { Commands.Listings.List() }
             addCmd { Commands.Listings.Get() }
             addCmd { Commands.Listings.Delete() }
             addCmd { Commands.Listings.Update() }
@@ -51,7 +54,7 @@ fun main(args: Array<String>) {
         }
         subcmd("tracks") {
             addCmd { Commands.Tracks.Get() }
-            baseCmd("list", "Lists all the track configurations for this edit") { it.tracksList(DefaultModel(packageName)) }
+            addCmd { Commands.Tracks.List() }
             addCmd { Commands.Tracks.Patch() }
             addCmd { Commands.Tracks.Update() }
         }

@@ -14,13 +14,13 @@ import com.google.api.services.androidpublisher.model.ExpansionFilesUploadRespon
 interface ExpansionFiles : BaseAction {
     fun expansionFilesGet(model: ExpansionFilesGetModel): ExpansionFile {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
-        return edits.expansionfiles().get(model.packageName, insert.id, model.apkVersionCode, model.expansionFileType).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
+        return edits.expansionfiles().get(model.packageName, editId, model.apkVersionCode, model.expansionFileType).execute()
     }
 
     fun expansionFilesPatch(model: ExpansionFilesPatchModel): ExpansionFile {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val expansionFile = ExpansionFile().apply {
             model.fileSize?.let { fileSize = it }
             model.referencesVersion?.let { referencesVersion = it }
@@ -29,7 +29,7 @@ interface ExpansionFiles : BaseAction {
         return edits.expansionfiles()
                 .patch(
                         model.packageName,
-                        insert.id,
+                        editId,
                         model.apkVersionCode,
                         model.expansionFileType,
                         expansionFile)
@@ -38,7 +38,7 @@ interface ExpansionFiles : BaseAction {
 
     fun expansionFilesUpdate(model: ExpansionFilesUpdateModel): ExpansionFile {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val expansionFile = ExpansionFile().apply {
             fileSize = model.fileSize
             referencesVersion = model.referencesVersion
@@ -47,7 +47,7 @@ interface ExpansionFiles : BaseAction {
         return edits.expansionfiles()
                 .update(
                         model.packageName,
-                        insert.id,
+                        editId,
                         model.apkVersionCode,
                         model.expansionFileType,
                         expansionFile)
@@ -56,13 +56,13 @@ interface ExpansionFiles : BaseAction {
 
     fun expansionFilesUpload(model: ExpansionFilesUploadModel): ExpansionFilesUploadResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        val insert = edits.insert(model.packageName, null).execute()
+        val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val expansionFile: AbstractInputStreamContent = FileContent(MediaType.MIME_TYPE_APK, model.expansionFile)
 
         return edits.expansionfiles()
                 .upload(
                         model.packageName,
-                        insert.id,
+                        editId,
                         model.apkVersionCode,
                         model.expansionFileType,
                         expansionFile)
