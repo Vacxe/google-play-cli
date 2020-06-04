@@ -26,6 +26,29 @@ brew install vacxe/tap/googleplaycli
   
   Install [Apk info extractor](https://github.com/Vacxe/apk-info-extractor) and JQ `apkinfoextractor <pathtoApk> | jq '.package'`
   
+* How to upload apk
+Bash function can be copied to any .sh file and used as `uploadapk "path/to/my.apk" "path/to/service_account.json"`
+
+```
+function uploadapk(){
+  path_to_apk=$1
+  export PLAYSTORE_SERVICE_ACCOUNT_JSON=$2
+
+  apk_package=$(apkinfoextractor $path_to_apk | jq '.package')
+  export APP_PACKAGE_NAME=$apk_package
+
+  apk_version_code=$(apkinfoextractor $path_to_apk | jq '.versionCode')
+
+  edit_id=$(edit create)
+  apk upload --edit-id $edit_id --apk $path_to_apk
+  tracks update --edit-id $edit_id --track "internal" --apk-version-code $apk_version_code
+  edit validate --edit-id $edit_id
+  edit commit --edit-id $edit_id
+
+  unset APP_PACKAGE_NAME
+  unset PLAYSTORE_SERVICE_ACCOUNT_JSON
+}
+```  
 
 License
 -------
