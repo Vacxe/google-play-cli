@@ -39,11 +39,11 @@ function uploadapk(){
 
   apk_version_code=$(apkinfoextractor $path_to_apk | jq '.versionCode')
 
-  edit_id=$(edit create)
-  apk upload --edit-id $edit_id --apk $path_to_apk
-  tracks update --edit-id $edit_id --track "internal" --apk-version-code $apk_version_code
-  edit validate --edit-id $edit_id
-  edit commit --edit-id $edit_id
+  edit_id=$(google-play-cli edit create)
+  google-play-cli apk upload --edit-id $edit_id --apk $path_to_apk
+  google-play-cli tracks update --edit-id $edit_id --track "internal" --apk-version-code $apk_version_code
+  google-play-cli edit validate --edit-id $edit_id
+  google-play-cli edit commit --edit-id $edit_id
 
   unset APP_PACKAGE_NAME
   unset PLAYSTORE_SERVICE_ACCOUNT_JSON
