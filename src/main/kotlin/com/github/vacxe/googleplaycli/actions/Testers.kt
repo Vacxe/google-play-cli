@@ -19,7 +19,6 @@ interface Testers : BaseAction {
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val testers = Testers().apply {
             googleGroups = model.googleGroups
-            googlePlusCommunities = model.googlePlusCommunities
         }
         return edits.testers().update(model.packageName, editId, model.track, testers).execute()
     }
@@ -29,7 +28,6 @@ interface Testers : BaseAction {
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val testers = Testers().apply {
             model.googleGroups?.let { googleGroups = it }
-            model.googlePlusCommunities?.let { googlePlusCommunities = it }
         }
         return edits.testers().update(model.packageName, editId, model.track, testers).execute()
     }

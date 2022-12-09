@@ -213,9 +213,8 @@ object Commands {
         class Update : EditCommand(name = "update") {
             private val track: String by option("--track", "-t").required()
             private val googleGroups: List<String> by option("--google-group", "-g").multiple()
-            private val googlePlusCommunities: List<String> by option("--google-plus-communities").multiple()
 
-            override fun run(api: PlayStoreApi) = api.testersUpdate(TestersUpdateModel(packageName, editId, track, googleGroups, googlePlusCommunities))
+            override fun run(api: PlayStoreApi) = api.testersUpdate(TestersUpdateModel(packageName, editId, track, googleGroups))
         }
 
         class Patch : EditCommand(name = "patch") {
