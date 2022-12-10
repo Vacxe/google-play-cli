@@ -50,7 +50,7 @@ function uploadapk(){
 }
 ```  
 
-### DOCKER SUPPORT [DOCKER SUPPORT](https://hub.docker.com/repository/docker/vacxe/google-play-cli)
+### Run in [docker] (https://hub.docker.com/repository/docker/vacxe/google-play-cli)
 
 ```
 vacxe/google-play-cli
