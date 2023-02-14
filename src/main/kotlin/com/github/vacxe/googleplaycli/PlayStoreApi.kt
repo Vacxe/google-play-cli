@@ -7,10 +7,12 @@ import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.AndroidPublisherScopes
 import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.ServiceAccountCredentials
+import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileInputStream
+import java.io.InputStream
 
-class PlayStoreApi(serviceAccountJson: File, appName: String) :
+class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
         Edit,
         Apks,
         Bundles,
@@ -30,7 +32,7 @@ class PlayStoreApi(serviceAccountJson: File, appName: String) :
 
     init {
         val accountCredentials = ServiceAccountCredentials
-                .fromStream(FileInputStream(serviceAccountJson))
+                .fromStream(serviceAccountInputStream)
                 .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
         androidPublisher = AndroidPublisher.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),

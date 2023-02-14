@@ -20,7 +20,7 @@ brew install vacxe/tap/googleplaycli
   Follow the instruction and grant the access for service accout
 * Try simplest command
   * ```google-play-cli --help``` - list of all commands
-  * ```google-play-cli apk list --config service_account.json --package-name <your uploaded apk package name>```
+  * ```google-play-cli apk list --config-file service_account.json --package-name <your uploaded apk package name>```
   
 * Apk info extraction
   
@@ -32,7 +32,7 @@ Bash function can be copied to any .sh file and used as `uploadapk "path/to/my.a
 ```
 function uploadapk(){
   path_to_apk=$1
-  export PLAYSTORE_SERVICE_ACCOUNT_JSON=$2
+  export PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE=$2
 
   apk_package=$(apkinfoextractor $path_to_apk | jq '.package')
   export APP_PACKAGE_NAME=$apk_package
@@ -49,6 +49,14 @@ function uploadapk(){
   unset PLAYSTORE_SERVICE_ACCOUNT_JSON
 }
 ```  
+
+On CI you can add service account json file as a secret to environment variable
+
+``
+PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
+``
+
+
 
 ### Run in [docker](https://hub.docker.com/repository/docker/vacxe/google-play-cli)
 

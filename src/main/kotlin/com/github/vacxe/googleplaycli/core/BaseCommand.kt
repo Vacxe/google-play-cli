@@ -5,20 +5,50 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.vacxe.googleplaycli.PlayStoreApi
+import java.io.ByteArrayInputStream
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
+import java.security.InvalidParameterException
 
 abstract class BaseCommand(name: String, actionDescription: String = "") : CliktCommand(name = name, help = actionDescription) {
-    private val serviceAccountJson: String by option("--config", "-c", help = "service account json file path")
-            .default(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON")
+
+    private val serviceAccountJsonFile: String by option("--config-file", "-cf", help = "service account json file path")
+        .default(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE")
+            ?: "")
+
+    private val serviceAccountJsonContent: String by option("--config-content", "-cc", help = "service account json content")
+            .default(System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT")
                     ?: "")
-            .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
 
     val packageName: String by option("--package-name", "-p", help = "package name (example: com.my.app)")
             .default(System.getenv("APP_PACKAGE_NAME") ?: "")
             .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
 
+    private val serviceAccountInputStream: InputStream
+        get() {
+            if(serviceAccountJsonFile.isNotEmpty() && serviceAccountJsonContent.isNotEmpty()) {
+                throw InvalidParameterException("Service account file or content can't be specified together")
+            }
+
+            if(serviceAccountJsonFile.isEmpty() && serviceAccountJsonContent.isEmpty()) {
+                throw InvalidParameterException("Service account File or Content need to be specified")
+            }
+
+            return when {
+                serviceAccountJsonContent.isNotEmpty() -> ByteArrayInputStream(serviceAccountJsonContent.toByteArray())
+                serviceAccountJsonFile.isNotEmpty() -> {
+                    val serviceAccountFile = File(serviceAccountJsonFile)
+                    if(!serviceAccountFile.exists())
+                        throw InvalidParameterException("Service account file $serviceAccountJsonFile not exist")
+                    FileInputStream(serviceAccountFile)
+                }
+                else -> throw InvalidParameterException("Service account input stream can't be defined")
+            }
+        }
+
     final override fun run() {
-        val manager = PlayStoreApi(File(serviceAccountJson), packageName)
+        val manager = PlayStoreApi(serviceAccountInputStream, packageName)
         run(manager)?.let {
             println(it)
         }
