@@ -33,6 +33,9 @@ Bash function can be copied to any .sh file and used as `uploadapk "path/to/my.a
 function uploadapk(){
   path_to_apk=$1
   export PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE=$2
+  
+  #If proxy needed
+  #PLAY_STORE_PROXY=192.168.0.1:3128
 
   apk_package=$(apkinfoextractor $path_to_apk | jq '.package')
   export APP_PACKAGE_NAME=$apk_package
@@ -46,7 +49,7 @@ function uploadapk(){
   google-play-cli edit commit --edit-id $edit_id
 
   unset APP_PACKAGE_NAME
-  unset PLAYSTORE_SERVICE_ACCOUNT_JSON
+  unset PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE
 }
 ```  
 
