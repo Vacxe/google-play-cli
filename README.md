@@ -46,7 +46,7 @@ function uploadapk(){
   google-play-cli edit commit --edit-id $edit_id
 
   unset APP_PACKAGE_NAME
-  unset PLAYSTORE_SERVICE_ACCOUNT_JSON
+  unset PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE
 }
 ```  
 
