@@ -1,5 +1,6 @@
 package com.github.vacxe.googleplaycli
 
+import com.github.ajalt.clikt.core.CliktCommand
 import com.github.vacxe.googleplaycli.dsl.addCmd
 import com.github.vacxe.googleplaycli.dsl.cmd
 import com.github.vacxe.googleplaycli.dsl.subcmd
@@ -77,6 +78,13 @@ fun main(args: Array<String>) {
             addCmd { Commands.Inappproducts.List() }
             addCmd { Commands.Inappproducts.Patch() }
             addCmd { Commands.Inappproducts.Update() }
+        }
+        addCmd {
+            object : CliktCommand(name = "version", help = "Library version code") {
+                override fun run() {
+                    println("0.3.7")
+                }
+            }
         }
     }.main(args)
 }

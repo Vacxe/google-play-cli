@@ -35,7 +35,10 @@ function uploadapk(){
   export PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE=$2
   
   #If proxy needed
-  #PLAY_STORE_PROXY=192.168.0.1:3128
+  #PLAYSTORE_PROXY=192.168.0.1:3128
+  
+  #Increase connection timeout
+  #PLAYSTORE_CONNECTION_TIMEOUT=PT6M
 
   apk_package=$(apkinfoextractor $path_to_apk | jq '.package')
   export APP_PACKAGE_NAME=$apk_package
