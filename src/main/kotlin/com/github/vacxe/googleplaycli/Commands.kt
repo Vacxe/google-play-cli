@@ -43,8 +43,8 @@ object Commands {
             val apkVersionCode: Int by option("--apk-version-code", "-v", help = "The version code of the APK whose deobfuscation file is being uploaded.")
                     .int().required()
 
-            private val deobfuscationFileType: String by option("--deobfuscation-file-type", "-t", help = "Acceptable values are: proguard")
-                    .choice("proguard")
+            private val deobfuscationFileType: String by option("--deobfuscation-file-type", "-t", help = "Acceptable values are: proguard, nativeCode")
+                    .choice("proguard", "nativeCode")
                     .default("proguard")
 
             override fun run(api: PlayStoreApi) = api.deobfuscationFilesUpload(DeobfuscationfilesUploadModel(packageName, editId, apkVersionCode, deobfuscation, deobfuscationFileType))
