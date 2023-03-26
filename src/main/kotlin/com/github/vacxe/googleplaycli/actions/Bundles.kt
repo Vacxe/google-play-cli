@@ -19,7 +19,7 @@ interface Bundles : BaseAction {
     fun bundlesUpload(model: BundlesUploadModel): Bundle {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        val apkFile: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.bundle)
+        val apkFile: AbstractInputStreamContent = FileContent("application/octet-stream", model.bundle)
         return edits.bundles().upload(model.packageName, editId, apkFile)
                 .apply { ackBundleInstallationWarning = model.ackBundleInstallationWarning }
                 .execute()
