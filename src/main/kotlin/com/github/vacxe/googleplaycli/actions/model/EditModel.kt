@@ -1,3 +1,3 @@
 package com.github.vacxe.googleplaycli.actions.model
 
-class EditModel(val packageName: String, val editId: String?)
+class EditModel(val packageName: String, val editId: String?, val changesNotSentForReview: Boolean = true)

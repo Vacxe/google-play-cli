@@ -14,7 +14,7 @@ interface Edit: BaseAction {
 
     fun editCommit(model: EditModel): AppEdit {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
-        return edits.commit(model.packageName, model.editId).execute()
+        return edits.commit(model.packageName, model.editId).set("changesNotSentForReview", model.changesNotSentForReview).execute()
     }
 
     fun editValidate(model: EditModel): AppEdit {

@@ -81,7 +81,9 @@ object Commands {
         }
 
         class Commit : EditCommand(name = "commit", actionDescription = "") {
-            override fun run(api: PlayStoreApi) = api.editCommit(EditModel(packageName, editId))
+            private val changesNotSentForReview: Boolean by option("--changes-not-sent-for-review", "-r", help = "Indicates that the changes in this edit will not be reviewed until they are explicitly sent for review from the Google Play Console UI. These changes will be added to any other changes that are not yet sent for review. (optional)").flag()
+
+            override fun run(api: PlayStoreApi) = api.editCommit(EditModel(packageName, editId, changesNotSentForReview))
         }
 
         class Validate : EditCommand(name = "validate", actionDescription = "") {
