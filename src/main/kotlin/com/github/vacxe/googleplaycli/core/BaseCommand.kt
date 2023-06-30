@@ -11,6 +11,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.security.InvalidParameterException
+import kotlin.system.exitProcess
 
 abstract class BaseCommand(name: String, actionDescription: String = "") :
     CliktCommand(name = name, help = actionDescription) {
@@ -77,6 +78,7 @@ abstract class BaseCommand(name: String, actionDescription: String = "") :
             } else {
                 println(e.content)
             }
+            exitProcess(1)
         }
     }
 
