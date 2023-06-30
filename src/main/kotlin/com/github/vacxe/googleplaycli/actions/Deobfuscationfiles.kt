@@ -13,6 +13,12 @@ interface Deobfuscationfiles : BaseAction {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val deobfuscation: AbstractInputStreamContent = FileContent(MIME_TYPE_STREAM, model.deobfuscation)
-        return edits.deobfuscationfiles().upload(model.packageName, editId, model.apkVersionCode, model.deobfuscationFileType, deobfuscation).execute()
+        return edits
+            .deobfuscationfiles()
+            .upload(model.packageName, editId, model.apkVersionCode, model.deobfuscationFileType, deobfuscation)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 }

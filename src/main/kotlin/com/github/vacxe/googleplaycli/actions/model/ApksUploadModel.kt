@@ -2,4 +2,8 @@ package com.github.vacxe.googleplaycli.actions.model
 
 import java.io.File
 
-data class ApksUploadModel(val packageName: String, val editId: String?, val apk: File)
+class ApksUploadModel(val packageName: String,
+                           val editId: String?,
+                           val apk: File,
+                           parameters: String?
+): RequestModel(parameters)

@@ -4,4 +4,6 @@ class TestersPatchModel(val packageName: String,
                         val editId: String?,
                         val track: String,
                         val googleGroups: List<String>?,
-                        val googlePlusCommunities: List<String>?)
+                        val googlePlusCommunities: List<String>?,
+                        requestParameters: String?
+): RequestModel(requestParameters)

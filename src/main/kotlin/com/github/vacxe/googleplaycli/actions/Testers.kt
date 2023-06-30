@@ -11,7 +11,13 @@ interface Testers : BaseAction {
     fun testersGet(model: TestersGetModel): Testers {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.testers().get(model.packageName, editId, model.track).execute()
+        return edits
+            .testers()
+            .get(model.packageName, editId, model.track)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun testersUpdate(model: TestersUpdateModel): Testers {
@@ -20,7 +26,13 @@ interface Testers : BaseAction {
         val testers = Testers().apply {
             googleGroups = model.googleGroups
         }
-        return edits.testers().update(model.packageName, editId, model.track, testers).execute()
+        return edits
+            .testers()
+            .update(model.packageName, editId, model.track, testers)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun testersPatch(model: TestersPatchModel): Testers {
@@ -29,6 +41,12 @@ interface Testers : BaseAction {
         val testers = Testers().apply {
             model.googleGroups?.let { googleGroups = it }
         }
-        return edits.testers().update(model.packageName, editId, model.track, testers).execute()
+        return edits
+            .testers()
+            .update(model.packageName, editId, model.track, testers)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 }

@@ -1,6 +1,7 @@
 package com.github.vacxe.googleplaycli.core
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
@@ -24,6 +25,8 @@ abstract class BaseCommand(name: String, actionDescription: String = "") : Clikt
     val packageName: String by option("--package-name", "-p", help = "package name (example: com.my.app)")
             .default(System.getenv("APP_PACKAGE_NAME") ?: "")
             .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
+
+    val parameters: String? by option("--parameters", "-params", help = "array of additional parameters in JSON format ex. {\"key1\":\"value1\", \"key2\":\"value2\"}")
 
     private val serviceAccountInputStream: InputStream
         get() {

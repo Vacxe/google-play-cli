@@ -1,6 +1,8 @@
 package com.github.vacxe.googleplaycli.actions.model
 
-data class ImagesListModel(val packageName: String,
+class ImagesListModel(val packageName: String,
                            val editId: String?,
                            val imageType: String,
-                           val language: String)
+                           val language: String,
+                           requestParameters: String?
+): RequestModel(requestParameters)

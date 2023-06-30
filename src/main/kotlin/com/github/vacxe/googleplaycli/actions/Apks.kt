@@ -13,13 +13,25 @@ interface Apks : BaseAction {
     fun apksList(model: EditModel): ApksListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.apks().list(model.packageName, editId).execute()
+        return edits
+            .apks()
+            .list(model.packageName, editId)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun apksUpload(model: ApksUploadModel): Apk {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val apkFile: AbstractInputStreamContent = FileContent(MIME_TYPE_APK, model.apk)
-        return edits.apks().upload(model.packageName, editId, apkFile).execute()
+        return edits
+            .apks()
+            .upload(model.packageName, editId, apkFile)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 }

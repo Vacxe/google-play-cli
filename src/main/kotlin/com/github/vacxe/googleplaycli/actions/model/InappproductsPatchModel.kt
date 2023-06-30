@@ -6,5 +6,6 @@ class InappproductsPatchModel(
         val packageName: String,
         val sku: String,
         val jsonPath: Path,
-        val autoConvertMissingPrices: Boolean
-)
+        val autoConvertMissingPrices: Boolean,
+        requestParameters: String?
+): RequestModel(requestParameters)

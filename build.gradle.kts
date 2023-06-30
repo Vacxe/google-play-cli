@@ -5,6 +5,7 @@ plugins {
     id("idea")
     id("org.jetbrains.kotlin.jvm")
     id("jacoco")
+    kotlin("plugin.serialization") version "1.7.21"
 }
 
 application {
@@ -21,6 +22,7 @@ dependencies {
     implementation(Libraries.clikt)
     implementation(Libraries.googleOAuth)
     implementation(Libraries.googleAppPublisher)
+    implementation(Libraries.serializationJson)
 
     testImplementation(TestLibraries.junit)
 }

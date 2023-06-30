@@ -8,11 +8,23 @@ import java.nio.file.Files
 interface Inappproducts : BaseAction {
 
     fun inappproductsDelete(model: InappproductsDeleteModel): Void {
-        return androidPublisher.inappproducts().delete(model.packageName, model.sku).execute()
+        return androidPublisher
+            .inappproducts()
+            .delete(model.packageName, model.sku)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun inappproductsGet(model: InappproductsGetModel): InAppProduct {
-        return androidPublisher.inappproducts().get(model.packageName, model.sku).execute()
+        return androidPublisher
+            .inappproducts()
+            .get(model.packageName, model.sku)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun inappproductsInsert(model: InappproductsInsertModel): InAppProduct {
@@ -21,14 +33,22 @@ interface Inappproducts : BaseAction {
         }
 
         return androidPublisher
-                .inappproducts()
-                .insert(model.packageName, product)
-                .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
-                .execute()
+            .inappproducts()
+            .insert(model.packageName, product)
+            .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun inappproductsList(model: DefaultModel): InappproductsListResponse {
-        return androidPublisher.inappproducts().list(model.packageName).execute()
+        return androidPublisher.inappproducts()
+            .list(model.packageName)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun inappproductsPatch(model: InappproductsPatchModel): InAppProduct {
@@ -37,10 +57,13 @@ interface Inappproducts : BaseAction {
         }
 
         return androidPublisher
-                .inappproducts()
-                .patch(model.packageName, model.sku, product)
-                .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
-                .execute()
+            .inappproducts()
+            .patch(model.packageName, model.sku, product)
+            .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun inappproductsUpdate(model: InappproductsUpdateModel): InAppProduct {
@@ -49,10 +72,13 @@ interface Inappproducts : BaseAction {
         }
 
         return androidPublisher
-                .inappproducts()
-                .update(model.packageName, model.sku, product)
-                .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
-                .execute()
+            .inappproducts()
+            .update(model.packageName, model.sku, product)
+            .setAutoConvertMissingPrices(model.autoConvertMissingPrices)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
 }

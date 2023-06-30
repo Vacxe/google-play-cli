@@ -16,25 +16,49 @@ interface Images : BaseAction {
     fun imagesList(model: ImagesListModel): ImagesListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.images().list(model.packageName, editId, model.language, model.imageType).execute()
+        return edits
+            .images()
+            .list(model.packageName, editId, model.language, model.imageType)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun imagesDelete(model: ImagesDeleteModel): Void {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.images().delete(model.packageName, editId, model.language, model.imageType, model.imageId).execute()
+        return edits
+            .images()
+            .delete(model.packageName, editId, model.language, model.imageType, model.imageId)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun imagesDeleteAll(model: ImagesDeleteAllModel): ImagesDeleteAllResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.images().deleteall(model.packageName, editId, model.language, model.imageType).execute()
+        return edits
+            .images()
+            .deleteall(model.packageName, editId, model.language, model.imageType)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun imagesUploadAll(model: ImagesUploadModel): ImagesUploadResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val image: AbstractInputStreamContent = FileContent(MediaType.MIME_TYPE_PNG, model.image)
-        return edits.images().upload(model.packageName, editId, model.language, model.imageType, image).execute()
+        return edits
+            .images()
+            .upload(model.packageName, editId, model.language, model.imageType, image)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 }
