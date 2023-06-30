@@ -5,4 +5,6 @@ class DetailsUpdateModel(val packageName: String,
                          val contactEmail: String?,
                          val contactPhone: String?,
                          val contactWebsite: String?,
-                         val defaultLanguage: String?)
+                         val defaultLanguage: String?,
+                         requestParameters: String?
+): RequestModel(requestParameters)

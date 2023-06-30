@@ -13,7 +13,13 @@ interface Bundles : BaseAction {
     fun bundlesList(model: EditModel): BundlesListResponse {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.bundles().list(model.packageName, editId).execute()
+        return edits
+            .bundles()
+            .list(model.packageName, editId)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun bundlesUpload(model: BundlesUploadModel): Bundle {

@@ -6,4 +6,6 @@ class ListingsPatchModel(val packageName: String,
                          val fullDescription: String?,
                          val shortDescription: String?,
                          val title: String?,
-                         val video: String?)
+                         val video: String?,
+                         requestParameters: String?
+): RequestModel(requestParameters)

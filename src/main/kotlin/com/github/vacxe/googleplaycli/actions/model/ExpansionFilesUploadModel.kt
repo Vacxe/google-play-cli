@@ -6,4 +6,6 @@ class ExpansionFilesUploadModel(val packageName: String,
                                 val editId: String?,
                                 val apkVersionCode: Int,
                                 val expansionFileType: String,
-                                val expansionFile: File)
+                                val expansionFile: File,
+                                requestParameters: String?
+): RequestModel(requestParameters)

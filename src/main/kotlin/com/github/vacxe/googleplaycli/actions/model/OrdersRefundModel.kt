@@ -1,6 +1,8 @@
 package com.github.vacxe.googleplaycli.actions.model
 
-data class OrdersRefundModel(val packageName: String,
+class OrdersRefundModel(val packageName: String,
                              val editId: String?,
                              val orderId: String,
-                             val revoke: Boolean)
+                             val revoke: Boolean,
+                             requestParameters: String?
+): RequestModel(requestParameters)

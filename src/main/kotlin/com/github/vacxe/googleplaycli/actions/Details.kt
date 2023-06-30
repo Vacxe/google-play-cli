@@ -10,7 +10,12 @@ interface Details : BaseAction {
     fun detailsGet(model: EditModel): AppDetails {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
-        return edits.details().get(model.packageName, editId).execute()
+        return edits
+            .details()
+            .get(model.packageName, editId)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }.execute()
     }
 
     fun detailsPatch(model: DetailsPatchModel): AppDetails {
@@ -22,7 +27,13 @@ interface Details : BaseAction {
             model.contactWebsite?.let { contactWebsite = it }
             model.defaultLanguage?.let { defaultLanguage = it }
         }
-        return edits.details().patch(model.packageName, editId, appDetails).execute()
+        return edits
+            .details()
+            .patch(model.packageName, editId, appDetails)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun detailsUpdate(model: DetailsUpdateModel): AppDetails {
@@ -34,7 +45,13 @@ interface Details : BaseAction {
             model.contactWebsite?.let { contactWebsite = it }
             model.defaultLanguage?.let { defaultLanguage = it }
         }
-        return edits.details().update(model.packageName, editId, appDetails).execute()
+        return edits
+            .details()
+            .update(model.packageName, editId, appDetails)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
 }

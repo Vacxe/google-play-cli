@@ -5,5 +5,6 @@ import java.nio.file.Path
 class InappproductsInsertModel(
         val packageName: String,
         val jsonPath: Path,
-        val autoConvertMissingPrices: Boolean
-)
+        val autoConvertMissingPrices: Boolean,
+        requestParameters: String?
+): RequestModel(requestParameters)

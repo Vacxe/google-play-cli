@@ -2,7 +2,10 @@ package com.github.vacxe.googleplaycli.actions.model
 
 import java.io.File
 
-data class BundlesUploadModel(val packageName: String,
-                              val editId: String?,
-                              val bundle: File,
-                              val ackBundleInstallationWarning: Boolean)
+class BundlesUploadModel(
+    val packageName: String,
+    val editId: String?,
+    val bundle: File,
+    val ackBundleInstallationWarning: Boolean,
+    parameters: String?
+) : RequestModel(parameters)

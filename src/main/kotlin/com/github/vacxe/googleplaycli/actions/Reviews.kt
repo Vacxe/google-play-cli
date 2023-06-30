@@ -11,29 +11,38 @@ import com.google.api.services.androidpublisher.model.ReviewsReplyResponse
 interface Reviews : BaseAction {
     fun reviewsList(model: ReviewsListModel): ReviewsListResponse {
         return androidPublisher.reviews()
-                .list(model.packageName)
-                .apply {
-                    maxResults = model.maxResults
-                    startIndex = model.startIndex
-                    token = model.token
-                    translationLanguage = model.translationLanguage
-                }
-                .execute()
+            .list(model.packageName)
+            .apply {
+                maxResults = model.maxResults
+                startIndex = model.startIndex
+                token = model.token
+                translationLanguage = model.translationLanguage
+            }
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun reviewsGet(model: ReviewsGetModel): Review {
         return androidPublisher.reviews()
-                .get(model.packageName, model.reviewId)
-                .apply {
-                    translationLanguage = model.translationLanguage
-                }
-                .execute()
+            .get(model.packageName, model.reviewId)
+            .apply {
+                translationLanguage = model.translationLanguage
+            }
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 
     fun reviewsReply(model: ReviewsReplyModel): ReviewsReplyResponse {
         val reviewsReplyRequest = ReviewsReplyRequest().setReplyText(model.replyText)
         return androidPublisher.reviews()
-                .reply(model.packageName, model.reviewId, reviewsReplyRequest)
-                .execute()
+            .reply(model.packageName, model.reviewId, reviewsReplyRequest)
+            .apply {
+                model.parameters.forEach { (key, value) -> set(key, value) }
+            }
+            .execute()
     }
 }

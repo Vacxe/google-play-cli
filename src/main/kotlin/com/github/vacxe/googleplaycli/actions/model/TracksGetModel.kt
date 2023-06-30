@@ -1,5 +1,7 @@
 package com.github.vacxe.googleplaycli.actions.model
 
-data class TracksGetModel(val packageName: String,
+class TracksGetModel(val packageName: String,
                           val editId: String?,
-                          val track: String)
+                          val track: String,
+                          requestParameters: String?
+): RequestModel(requestParameters)
