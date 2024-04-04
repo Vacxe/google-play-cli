@@ -1,26 +1,65 @@
-name: deploy-sonatype-snapshot
+name: Deploy Release
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [ created ]
+
 jobs:
-  deploy:
+  release-tar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 12
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
         with:
-          java-version: 12
-      - name: assembleDist
-        run: ./gradlew distZip distTar
-      - name: google-play-cli.tar
-        uses: actions/upload-artifact@master
+          distribution: "temurin"
+          java-version: 11
+      - name: Build release tar
+        run: ./gradlew distTar
+      - name: Tar Checksum
+        run: shasum -a 256 build/distributions/google-play-cli.tar
+      - name: Get release information
+        id: get_release
+        uses: bruceadams/get-release@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload artifacts to release
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          name: google-play-cli.tar
-          path: build/distributions/google-play-cli.tar
-      - name: google-play-cli.zip
-        uses: actions/upload-artifact@master
-        with:
-          name: google-play-cli.zip
-          path: build/distributions/google-play-cli.zip
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./build/distributions/google-play-cli.tar
+          asset_name: google-play-cli.tar
+          asset_content_type: application/x-tar
+
+  docker-build-push:
+    name: Build and Push Docker image
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    needs: [ release-tar ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get release information
+        id: get_release
+        uses: bruceadams/get-release@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Docker Login
+        run: echo $PACKAGES_WRITE_TOKEN | docker login ghcr.io -u $USERNAME --password-stdin
+        env:
+          PACKAGES_WRITE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.actor }}
+
+      - name: Docker Build
+        run: docker build -t ghcr.io/vacxe/google-play-cli:$VERSION --build-arg="PLAY_CLI_VERSION=$VERSION" .
+        env:
+          VERSION: ${{ steps.get_release.outputs.tag_name }}
+
+      - name: Deploy
+        run: docker push ghcr.io/vacxe/google-play-cli:$VERSION
+        env:
+          VERSION: ${{ steps.get_release.outputs.tag_name }}

@@ -81,9 +81,19 @@ abstract class BaseCommand(name: String, actionDescription: String = "") :
             } else {
                 println(e.content)
             }
-            exitProcess(1)
+            exitProcess(ExitCode.PLAY_CONSOLE_ERROR)
+        } catch (e: Exception) {
+            println(e)
+            exitProcess(ExitCode.DEFAULT)
         }
     }
 
     abstract fun run(api: PlayStoreApi): Any?
+
+    private companion object {
+        object ExitCode {
+            const val DEFAULT = 1
+            const val PLAY_CONSOLE_ERROR = 2
+        }
+    }
 }
