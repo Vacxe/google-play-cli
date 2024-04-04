@@ -64,10 +64,10 @@ PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
 
 
 
-### Run in [docker](https://hub.docker.com/repository/docker/vacxe/google-play-cli)
+### Run in [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
 
 ```
-vacxe/google-play-cli
+ghcr.io/vacxe/google-play-cli:<VERSION>
 ```
 
 
