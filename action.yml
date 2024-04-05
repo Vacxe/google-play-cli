@@ -1,0 +1,34 @@
+name: 'google-play-console'
+description: 'Upload APK to Play Console'
+author: 'Konstantin Aksenov'
+branding:
+  icon: 'upload'
+  color: 'blue'
+inputs:
+  path-to-apk:
+    description: 'Path to apk'
+    required: true
+  version-code:
+    description: 'Version code'
+    required: true
+  path-to-mapping:
+    description: 'Path to deobfuscation mapping file'
+    required: false
+  track:
+    description: 'Target track'
+    required: false
+    default: 'internal'
+  changes-not-sent-for-review:
+    description: 'Do not send changes for review'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'docker'
+  image: 'github-action/Dockerfile'
+  args:
+    - ${{ inputs.path-to-apk }}
+    - ${{ inputs.version-code }}
+    - ${{ inputs.path-to-mapping }}
+    - ${{ inputs.track }}
+    - ${{ inputs.changes-not-sent-for-review }}
