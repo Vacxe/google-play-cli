@@ -5,19 +5,31 @@ branding:
   icon: 'upload'
   color: 'blue'
 inputs:
-  path-to-apk:
-    description: 'Path to apk'
+  action:
+    description: 'Action name, see documentation for available options'
     required: true
+  custom-script:
+    description: 'Custom script content'
+    required: false
+  package-name:
+    description: 'Package name'
+    required: false
   version-code:
     description: 'Version code'
-    required: true
-  path-to-mapping:
-    description: 'Path to deobfuscation mapping file'
     required: false
   track:
     description: 'Target track'
     required: false
     default: 'internal'
+  path-to-apk:
+    description: 'Path to apk'
+    required: false
+  path-to-bundle:
+    description: 'Path to bundle'
+    required: false
+  path-to-mapping:
+    description: 'Path to deobfuscation mapping file'
+    required: false
   changes-not-sent-for-review:
     description: 'Do not send changes for review'
     required: false
@@ -27,8 +39,12 @@ runs:
   using: 'docker'
   image: 'github-action/Dockerfile'
   args:
-    - ${{ inputs.path-to-apk }}
+    - ${{ inputs.action }}
+    - ${{ inputs.custom-script }}
+    - ${{ inputs.package-name }}
     - ${{ inputs.version-code }}
-    - ${{ inputs.path-to-mapping }}
     - ${{ inputs.track }}
+    - ${{ inputs.path-to-apk }}
+    - ${{ inputs.path-to-bundle }}
+    - ${{ inputs.path-to-mapping }}
     - ${{ inputs.changes-not-sent-for-review }}
