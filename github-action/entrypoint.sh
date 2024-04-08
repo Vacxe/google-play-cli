@@ -42,7 +42,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to apk" "$PATH_TO_APK"
 
-    sh templates/apk-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    sh /templates/apk-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   "bundles-upload")
@@ -50,7 +50,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to bundle" "$PATH_TO_BUNDLE"
 
-    sh templates/bundles-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    sh /templates/bundles-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   "deobfuscation-files-upload")
@@ -58,7 +58,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to mapping" "$PATH_TO_MAPPING"
 
-    sh templates/deobfuscation-files-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    sh /templates/deobfuscation-files-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   *)
