@@ -3,7 +3,8 @@ package com.github.vacxe.googleplaycli
 import com.github.vacxe.googleplaycli.actions.*
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpRequestInitializer
-import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.json.JsonFactory
+import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.AndroidPublisherScopes
 import com.google.auth.http.HttpCredentialsAdapter
@@ -45,7 +46,7 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
 
         androidPublisher = AndroidPublisher.Builder(
             GoogleNetHttpTransport.newTrustedTransport(),
-            JacksonFactory.getDefaultInstance(),
+            GsonFactory.getDefaultInstance(),
             setHttpTimeout(HttpCredentialsAdapter(accountCredentials), connectionTimeout)
         )
             .setApplicationName(appName)

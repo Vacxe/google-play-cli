@@ -82,7 +82,7 @@ fun main(args: Array<String>) {
         addCmd {
             object : CliktCommand(name = "version", help = "Library version code") {
                 override fun run() {
-                    println("0.3.9")
+                    println("0.4.0")
                 }
             }
         }

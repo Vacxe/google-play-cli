@@ -22,7 +22,7 @@ echo "---"
 
 EDIT_ID=$(google-play-cli edit create)
 echo "Edit id created: $EDIT_ID"
-echo "Upload APK..."
+echo "Upload Bundle..."
 google-play-cli bundles upload --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" --bundle "$PATH_TO_BUNDLE"
 echo "Update track..."
 google-play-cli tracks update --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" --track "$TRACK" --apk-version-code "$VERSION_CODE"
