@@ -9,9 +9,10 @@ then
   exit 1
 fi
 }
+
 SERVICE_ACCOUNT_JSON=${1}
 
-ACTION=${2}
+TEMPLATE=${2}
 
 CUSTOM_SCRIPT=${3}
 
@@ -28,9 +29,9 @@ FLAG_CHANGES_NOT_SENT_FOR_REVIEW=${10}
 echo "Play console version:"
 google-play-cli version
 
-echo "Action performed: $ACTION"
+echo "Template: $TEMPLATE"
 
-case $ACTION in
+case $TEMPLATE in
 
   "custom-script")
     checkParameter "Custom script" "$CUSTOM_SCRIPT"
@@ -62,7 +63,7 @@ case $ACTION in
     ;;
 
   *)
-    echo -n "$ACTION is unknown action, please check documentation for available actions"
+    echo -n "$TEMPLATE is unknown template, please check documentation for available templates"
     exit 1
     ;;
 
