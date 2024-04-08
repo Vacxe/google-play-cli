@@ -5,6 +5,9 @@ branding:
   icon: 'upload'
   color: 'blue'
 inputs:
+  serviceAccountJson:
+    description: 'Service account json as plain text'
+    required: true
   action:
     description: 'Action name, see documentation for available options'
     required: true
@@ -39,6 +42,7 @@ runs:
   using: 'docker'
   image: 'github-action/Dockerfile'
   args:
+    - ${{ inputs.serviceAccountJson }}
     - ${{ inputs.action }}
     - ${{ inputs.custom-script }}
     - ${{ inputs.package-name }}
