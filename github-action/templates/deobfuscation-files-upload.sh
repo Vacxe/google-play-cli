@@ -2,10 +2,11 @@
 
 set -e
 
-PACKAGE_NAME=$1
-PATH_TO_MAPPING=$2
-VERSION_CODE=$3
-FLAG_CHANGES_NOT_SENT_FOR_REVIEW=$4
+SERVICE_ACCOUNT_JSON="${1}"
+PACKAGE_NAME="${2}"
+PATH_TO_MAPPING="${3}"
+VERSION_CODE="${4}"
+FLAG_CHANGES_NOT_SENT_FOR_REVIEW="${5}"
 
 echo "---"
 echo "Package name: $PACKAGE_NAME"
@@ -13,6 +14,9 @@ echo "Path to mapping: $PATH_TO_MAPPING"
 echo "Version code: $VERSION_CODE"
 echo "Changes not sent for review: $FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
 echo "---"
+
+export PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT="$SERVICE_ACCOUNT_JSON"
+export APP_PACKAGE_NAME="$PACKAGE_NAME"
 
 EDIT_ID=$(google-play-cli edit create)
 echo "Edit id created: $EDIT_ID"

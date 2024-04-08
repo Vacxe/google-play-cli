@@ -9,20 +9,21 @@ then
   exit 1
 fi
 }
+SERVICE_ACCOUNT_JSON=${1}
 
-ACTION=$1
+ACTION=${2}
 
-CUSTOM_SCRIPT=$2
+CUSTOM_SCRIPT=${3}
 
-PACKAGE_NAME=$3
-VERSION_CODE=$4
-TRACK=$5
+PACKAGE_NAME=${4}
+VERSION_CODE=${5}
+TRACK=${6}
 
-PATH_TO_APK=$6
-PATH_TO_BUNDLE=$7
-PATH_TO_MAPPING=$8
+PATH_TO_APK=${7}
+PATH_TO_BUNDLE=${8}
+PATH_TO_MAPPING=${9}
 
-FLAG_CHANGES_NOT_SENT_FOR_REVIEW=$9
+FLAG_CHANGES_NOT_SENT_FOR_REVIEW=${10}
 
 echo "Play console version:"
 google-play-cli version
@@ -41,7 +42,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to apk" "$PATH_TO_APK"
 
-    .templates/apk-upload.sh "$PACKAGE_NAME" "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    .templates/apk-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   "bundles-upload")
@@ -49,7 +50,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to bundle" "$PATH_TO_BUNDLE"
 
-    .templates/bundles-upload.sh "$PACKAGE_NAME" "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    .templates/bundles-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   "deobfuscation-files-upload")
@@ -57,7 +58,7 @@ case $ACTION in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to mapping" "$PATH_TO_MAPPING"
 
-    .templates/deobfuscation-files-upload.sh "$PACKAGE_NAME" "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    .templates/deobfuscation-files-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   *)
