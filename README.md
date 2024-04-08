@@ -62,8 +62,6 @@ On CI you can add service account json file as a secret to environment variable
 PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
 ``
 
-
-
 ### Run in [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
 
 ```
