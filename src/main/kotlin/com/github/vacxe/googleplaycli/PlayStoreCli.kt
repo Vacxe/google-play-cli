@@ -23,6 +23,10 @@ fun main(args: Array<String>) {
             addCmd { Commands.Details.Patch() }
             addCmd { Commands.Details.Update() }
         }
+        subcmd("device-tier-configs") {
+            addCmd { Commands.DeviceTiersConfigs.Get() }
+            addCmd { Commands.DeviceTiersConfigs.List() }
+        }
         subcmd("edit") {
             addCmd { Commands.Edits.Create() }
             addCmd { Commands.Edits.Validate() }

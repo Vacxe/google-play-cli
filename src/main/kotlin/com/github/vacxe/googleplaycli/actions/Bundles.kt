@@ -27,7 +27,10 @@ interface Bundles : BaseAction {
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
         val bundleFile: AbstractInputStreamContent = FileContent(MIME_TYPE_STREAM, model.bundle)
         return edits.bundles().upload(model.packageName, editId, bundleFile)
-                .apply { ackBundleInstallationWarning = model.ackBundleInstallationWarning }
-                .execute()
+            .apply {
+                ackBundleInstallationWarning = model.ackBundleInstallationWarning
+                model.deviceTierConfigId?.let { deviceTierConfigId -> setDeviceTierConfigId(deviceTierConfigId) }
+            }
+            .execute()
     }
 }

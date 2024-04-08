@@ -13,20 +13,21 @@ import java.io.InputStream
 import java.time.Duration
 
 class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
-    Edit,
     Apks,
     Bundles,
     Deobfuscationfiles,
     Details,
+    DeviceTierConfigs,
+    Edit,
     ExpansionFiles,
     Images,
-    Listings,
-    Testers,
-    Tracks,
+    Inappproducts,
     Internalappsharingartifacts,
+    Listings,
     Orders,
     Reviews,
-    Inappproducts {
+    Testers,
+    Tracks {
 
     override val androidPublisher: AndroidPublisher
 

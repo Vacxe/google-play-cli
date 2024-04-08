@@ -1,5 +1,5 @@
 package com.github.vacxe.googleplaycli.actions.model
 
-class DeviceTierConfigsGetModel(val packageName: String,
-                                val deviceTierConfigId: String
-): RequestModel()
+class DeviceTierConfigsListModel(val packageName: String,
+                                 requestParameters: String?
+): RequestModel(requestParameters)

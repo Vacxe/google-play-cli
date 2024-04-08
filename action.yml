@@ -8,9 +8,10 @@ inputs:
   service-account-json:
     description: 'Service account json as plain text'
     required: true
-  action:
-    description: 'Action name, see documentation for available options'
-    required: true
+  template:
+    description: 'Template name, see documentation for available options'
+    default: "custom-script"
+    required: false
   custom-script:
     description: 'Custom script content'
     required: false
@@ -43,7 +44,7 @@ runs:
   image: 'github-action/Dockerfile'
   args:
     - ${{ inputs.service-account-json }}
-    - ${{ inputs.action }}
+    - ${{ inputs.template }}
     - ${{ inputs.custom-script }}
     - ${{ inputs.package-name }}
     - ${{ inputs.version-code }}

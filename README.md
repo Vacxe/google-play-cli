@@ -70,6 +70,32 @@ PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
 ghcr.io/vacxe/google-play-cli:<VERSION>
 ```
 
+### GitHub Action
+
+*Note: replace `@master` with latest version for stable behaviour or leave it for last updates*
+
+Bundle upload example
+```yaml
+      - uses: vacxe/google-play-cli-kt@master
+        with:
+          template: bundles-upload
+          service-account-json: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          version-code: ${{ github.run_number }} # You may need to know version code
+          changes-not-sent-for-review: true
+          package-name: <package name>
+          path-to-bundle: <path to bundle>
+          track: internal
+```
+
+Custom script example
+
+```yaml
+      - uses: vacxe/google-play-cli-kt@master
+        with:
+          custom-script: "Any direct calls for google-play-cli"
+```
+
+``````
 
 License
 -------
