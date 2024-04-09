@@ -38,6 +38,10 @@ inputs:
     description: 'Do not send changes for review'
     required: false
     default: 'false'
+  status:
+    description: 'The status of a release'
+    required: false
+    default: 'draft'
 
 runs:
   using: 'docker'
@@ -53,3 +57,4 @@ runs:
     - ${{ inputs.path-to-bundle }}
     - ${{ inputs.path-to-mapping }}
     - ${{ inputs.changes-not-sent-for-review }}
+    - ${{ inputs.status }}

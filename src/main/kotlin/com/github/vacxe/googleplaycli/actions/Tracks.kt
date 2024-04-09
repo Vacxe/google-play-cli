@@ -42,6 +42,7 @@ interface Tracks : BaseAction {
                 listOf(TrackRelease().apply {
                     versionCodes = mutableListOf(model.apkVersionCode.toLong())
                     userFraction = model.userFraction
+                    status = model.status
                 })
         )
         return edits
@@ -57,9 +58,11 @@ interface Tracks : BaseAction {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         val editId = model.editId ?: edits.insert(model.packageName, null).execute().id
 
-        val release = TrackRelease()
-                .setVersionCodes(listOf(model.apkVersionCode.toLong()))
-                .setStatus("completed")
+        val release = TrackRelease().apply {
+            versionCodes = mutableListOf(model.apkVersionCode.toLong())
+            userFraction = model.userFraction
+            status = model.status
+        }
 
         val track = Track().setReleases(listOf(release))
 

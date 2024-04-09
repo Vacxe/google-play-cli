@@ -6,5 +6,6 @@ class TracksUpdateModel(
     val track: String,
     val apkVersionCode: Int,
     val userFraction: Double,
+    val status: String,
     requestParameters: String?
 ) : RequestModel(requestParameters)

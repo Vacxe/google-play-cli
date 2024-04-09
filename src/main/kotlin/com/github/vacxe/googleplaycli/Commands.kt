@@ -615,8 +615,24 @@ object Commands {
                 help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\"."
             ).double().default(1.0)
 
+            private val status: String by option(
+                "--status",
+                "-s",
+                help = ""
+            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed").default("draft")
+
             override fun run(api: PlayStoreApi) =
-                api.tracksPatch(TracksPatchModel(packageName, editId, track, apkVersionCode, userFraction, parameters))
+                api.tracksPatch(
+                    TracksPatchModel(
+                        packageName,
+                        editId,
+                        track,
+                        apkVersionCode,
+                        userFraction,
+                        status,
+                        parameters
+                    )
+                )
         }
 
         class Update : EditCommand(
@@ -635,6 +651,12 @@ object Commands {
                 help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\"."
             ).double().default(1.0)
 
+            private val status: String by option(
+                "--status",
+                "-s",
+                help = ""
+            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed").default("draft")
+
             override fun run(api: PlayStoreApi) = api.tracksUpdate(
                 TracksUpdateModel(
                     packageName,
@@ -642,6 +664,7 @@ object Commands {
                     track,
                     apkVersionCode,
                     userFraction,
+                    status,
                     parameters
                 )
             )

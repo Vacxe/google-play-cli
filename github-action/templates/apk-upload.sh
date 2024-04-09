@@ -7,7 +7,8 @@ PACKAGE_NAME=$2
 PATH_TO_APK=$3
 VERSION_CODE=$4
 TRACK=$5
-FLAG_CHANGES_NOT_SENT_FOR_REVIEW=$5
+FLAG_CHANGES_NOT_SENT_FOR_REVIEW=$6
+STATUS="${7}"
 
 echo "---"
 echo "Package name: $PACKAGE_NAME"
@@ -25,7 +26,7 @@ echo "Edit id created: $EDIT_ID"
 echo "Upload APK..."
 google-play-cli apk upload --config-content "$SERVICE_ACCOUNT_JSON" --edit-id "$EDIT_ID" --apk "$PATH_TO_APK"
 echo "Update track..."
-google-play-cli tracks update --edit-id "$EDIT_ID" --track "$TRACK" --apk-version-code "$VERSION_CODE"
+google-play-cli tracks update --edit-id "$EDIT_ID" --track "$TRACK" --apk-version-code "$VERSION_CODE" --status "$STATUS"
 echo "Validate..."
 google-play-cli edit validate --edit-id "$EDIT_ID"
 echo "Commit..."
