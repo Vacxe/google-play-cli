@@ -1,5 +1,5 @@
 name: 'google-play-console'
-description: 'Transparent Play Console CLI wrapper for Action'
+description: 'Transparent Google Play Console CLI wrapper for Github Action'
 author: 'Konstantin Aksenov'
 branding:
   icon: 'upload'
