@@ -79,10 +79,19 @@ Bundle upload example
           template: bundles-upload
           service-account-json: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           version-code: ${{ github.run_number }} # You may need to know version code
-          changes-not-sent-for-review: true
           package-name: <package name>
           path-to-bundle: <path to bundle>
-          track: internal
+```
+
+APK upload example
+```yaml
+      - uses: vacxe/google-play-cli-kt@master
+        with:
+          template: apk-upload
+          service-account-json: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          version-code: ${{ github.run_number }} # You may need to know version code
+          package-name: <package name>
+          path-to-apk: <path to apk>
 ```
 
 Custom script example
