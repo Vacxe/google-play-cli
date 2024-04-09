@@ -5,6 +5,7 @@ on:
 
 jobs:
   release-tar:
+    name: Build release Tar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
