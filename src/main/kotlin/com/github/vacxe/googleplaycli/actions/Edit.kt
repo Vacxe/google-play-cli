@@ -1,6 +1,7 @@
 package com.github.vacxe.googleplaycli.actions
 
 import com.github.vacxe.googleplaycli.actions.model.DefaultModel
+import com.github.vacxe.googleplaycli.actions.model.EditCommitModel
 import com.github.vacxe.googleplaycli.actions.model.EditModel
 import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.model.AppEdit
@@ -17,11 +18,12 @@ interface Edit: BaseAction {
         return insert.id
     }
 
-    fun editCommit(model: EditModel): AppEdit {
+    fun editCommit(model: EditCommitModel): AppEdit {
         val edits: AndroidPublisher.Edits = androidPublisher.edits()
         return edits
             .commit(model.packageName, model.editId)
             .apply {
+                changesNotSentForReview = model.changesNotSentForReview
                 model.parameters.forEach { (key, value) -> set(key, value) }
             }
             .execute()

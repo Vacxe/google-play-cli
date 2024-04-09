@@ -204,7 +204,18 @@ object Commands {
         }
 
         class Commit : EditCommand(name = "commit", actionDescription = "") {
-            override fun run(api: PlayStoreApi) = api.editCommit(EditModel(packageName, editId, parameters))
+            private val changesNotSentForReview: String by option("--changes-not-sent-for-review", "-nr")
+                .choice("true", "false")
+                .default("false")
+
+            override fun run(api: PlayStoreApi) = api.editCommit(
+                EditCommitModel(
+                    packageName,
+                    editId,
+                    changesNotSentForReview.toBoolean(),
+                    parameters
+                )
+            )
         }
 
         class Validate : EditCommand(name = "validate", actionDescription = "") {

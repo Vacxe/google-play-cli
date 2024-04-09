@@ -29,4 +29,4 @@ google-play-cli tracks update --edit-id "$EDIT_ID" --track "$TRACK" --apk-versio
 echo "Validate..."
 google-play-cli edit validate --edit-id "$EDIT_ID"
 echo "Commit..."
-google-play-cli edit commit --edit-id "$EDIT_ID" --parameters "{\"changesNotSentForReview\": $FLAG_CHANGES_NOT_SENT_FOR_REVIEW}"
+google-play-cli edit commit --edit-id "$EDIT_ID" --changes-not-sent-for-review "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
