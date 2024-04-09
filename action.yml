@@ -1,5 +1,5 @@
 name: 'google-play-console'
-description: 'Upload APK to Play Console'
+description: 'Transparent Play Console CLI wrapper for Action'
 author: 'Konstantin Aksenov'
 branding:
   icon: 'upload'
