@@ -62,13 +62,13 @@ On CI you can add service account json file as a secret to environment variable
 PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
 ``
 
-### Run in [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
+## [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
 
 ```
 ghcr.io/vacxe/google-play-cli:<VERSION>
 ```
 
-### GitHub Action
+## [GitHub Action](https://github.com/marketplace/actions/google-play-console)
 
 *Note: replace `@master` with latest version for stable behaviour or leave it for last updates*
 
@@ -81,6 +81,8 @@ Bundle upload example
           version-code: ${{ github.run_number }} # You may need to know version code
           package-name: <package name>
           path-to-bundle: <path to bundle>
+          track: internal
+          status: draft
 ```
 
 APK upload example
@@ -92,6 +94,8 @@ APK upload example
           version-code: ${{ github.run_number }} # You may need to know version code
           package-name: <package name>
           path-to-apk: <path to apk>
+          track: internal
+          status: draft
 ```
 
 Custom script example
