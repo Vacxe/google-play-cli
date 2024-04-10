@@ -27,13 +27,14 @@ export APP_PACKAGE_NAME="$PACKAGE_NAME"
 EDIT_ID=$(google-play-cli edit create)
 echo "Edit id created: $EDIT_ID"
 echo "Upload APK..."
-google-play-cli apk upload --config-content "$SERVICE_ACCOUNT_JSON" --edit-id "$EDIT_ID" --apk "$PATH_TO_APK"
+google-play-cli apk upload --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" --apk "$PATH_TO_APK"
 echo "Update track..."
-google-play-cli tracks update --edit-id "$EDIT_ID" --track "$TRACK" --apk-version-code "$VERSION_CODE" --track "$TRACK" \
+google-play-cli tracks update --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" --apk-version-code "$VERSION_CODE" --track "$TRACK" \
   ${USER_FRACTION:+ --user-fraction "$USER_FRACTION"} \
   ${STATUS:+ --status "$STATUS"}
 echo "Validate..."
-google-play-cli edit validate --edit-id "$EDIT_ID"
+google-play-cli edit validate --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" \
+  ${FLAG_CHANGES_NOT_SENT_FOR_REVIEW:+ --parameters "{\"changesNotSentForReview\": $FLAG_CHANGES_NOT_SENT_FOR_REVIEW}"}
 echo "Commit..."
-google-play-cli edit commit --edit-id "$EDIT_ID" \
+google-play-cli edit commit --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" \
   ${FLAG_CHANGES_NOT_SENT_FOR_REVIEW:+ --changes-not-sent-for-review "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"}
