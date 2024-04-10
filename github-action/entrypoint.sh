@@ -31,6 +31,12 @@ USER_FRACTION=${12}
 echo "Play console version:"
 google-play-cli version
 
+checkParameter "Service Account JSON" "$SERVICE_ACCOUNT_JSON"
+export PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT="$SERVICE_ACCOUNT_JSON"
+
+echo "Package name: $PACKAGE_NAME"
+export APP_PACKAGE_NAME="$PACKAGE_NAME"
+
 echo "Template: $TEMPLATE"
 
 case $TEMPLATE in
@@ -45,7 +51,7 @@ case $TEMPLATE in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to apk" "$PATH_TO_APK"
 
-    sh /templates/apk-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW" "$STATUS" "$USER_FRACTION"
+    sh /templates/apk-upload.sh "$PATH_TO_APK" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW" "$STATUS" "$USER_FRACTION"
     ;;
 
   "bundles-upload")
@@ -53,7 +59,7 @@ case $TEMPLATE in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to bundle" "$PATH_TO_BUNDLE"
 
-    sh /templates/bundles-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW" "$STATUS" "$USER_FRACTION"
+    sh /templates/bundles-upload.sh "$PATH_TO_BUNDLE" "$VERSION_CODE" "$TRACK" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW" "$STATUS" "$USER_FRACTION"
     ;;
 
   "deobfuscation-files-upload")
@@ -61,7 +67,7 @@ case $TEMPLATE in
     checkParameter "Version code" "$VERSION_CODE"
     checkParameter "Path to mapping" "$PATH_TO_MAPPING"
 
-    sh /templates/deobfuscation-files-upload.sh "$SERVICE_ACCOUNT_JSON" "$PACKAGE_NAME" "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+    sh /templates/deobfuscation-files-upload.sh "$PATH_TO_MAPPING" "$VERSION_CODE" "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
     ;;
 
   *)
