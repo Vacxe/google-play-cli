@@ -37,7 +37,7 @@ case $TEMPLATE in
 
   "custom-script")
     checkParameter "Custom script" "$CUSTOM_SCRIPT"
-    $CUSTOM_SCRIPT
+    eval "$CUSTOM_SCRIPT"
     ;;
 
   "apk-upload")
