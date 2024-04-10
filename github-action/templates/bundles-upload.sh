@@ -33,8 +33,7 @@ google-play-cli tracks update --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME
   ${USER_FRACTION:+ --user-fraction "$USER_FRACTION"} \
   ${STATUS:+ --status "$STATUS"}
 echo "Validate..."
-google-play-cli edit validate --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" \
-  ${FLAG_CHANGES_NOT_SENT_FOR_REVIEW:+ --parameters "{\"changesNotSentForReview\": $FLAG_CHANGES_NOT_SENT_FOR_REVIEW}"}
+google-play-cli edit validate --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" || true # Ignore until changes-not-sent-for-review will be added as parameter
 echo "Commit..."
 google-play-cli edit commit --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" \
   ${FLAG_CHANGES_NOT_SENT_FOR_REVIEW:+ --changes-not-sent-for-review "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"}
