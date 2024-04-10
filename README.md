@@ -5,14 +5,6 @@ Actually this library is CLI wrapper for [Google Play Java library](https://deve
 
 List of all vailable commands in [wiki](https://github.com/Vacxe/google-play-cli/wiki/Google-Play-CLI) *WIP*
 
-### How to install
-#### Brew
-
-```
-brew tap vacxe/tap
-brew install vacxe/tap/googleplaycli
-```
-
 ### How to use
 * Before at all you should obtain a `serviceAccount.json`
 
@@ -61,6 +53,15 @@ On CI you can add service account json file as a secret to environment variable
 ``
 PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT
 ``
+
+# How to install
+
+## Homebrew
+
+```
+brew tap vacxe/tap
+brew install vacxe/tap/googleplaycli
+```
 
 ## [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
 
