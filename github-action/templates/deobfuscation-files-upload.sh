@@ -25,4 +25,5 @@ google-play-cli deobfuscation-files upload --edit-id "$EDIT_ID" --package-name "
 echo "Validate..."
 google-play-cli edit validate --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME"
 echo "Commit..."
-google-play-cli edit commit --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" --changes-not-sent-for-review "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"
+google-play-cli edit commit --edit-id "$EDIT_ID" --package-name "$PACKAGE_NAME" \
+  ${FLAG_CHANGES_NOT_SENT_FOR_REVIEW:+ --changes-not-sent-for-review "$FLAG_CHANGES_NOT_SENT_FOR_REVIEW"}

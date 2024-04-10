@@ -37,11 +37,12 @@ inputs:
   changes-not-sent-for-review:
     description: 'Do not send changes for review'
     required: false
-    default: 'false'
   status:
     description: 'The status of a release'
     required: false
-    default: 'draft'
+  user-fraction:
+    description: 'Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be "inProgress" or "halted".'
+    required: false
 
 runs:
   using: 'docker'
@@ -58,3 +59,4 @@ runs:
     - ${{ inputs.path-to-mapping }}
     - ${{ inputs.changes-not-sent-for-review }}
     - ${{ inputs.status }}
+    - ${{ inputs.user-fraction }}

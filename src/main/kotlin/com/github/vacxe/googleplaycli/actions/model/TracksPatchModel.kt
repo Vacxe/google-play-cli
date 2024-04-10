@@ -4,7 +4,7 @@ class TracksPatchModel(val packageName: String,
                             val editId: String?,
                             val track: String,
                             val apkVersionCode: Int,
-                            val userFraction: Double,
-                            val status: String,
+                            val userFraction: Double?,
+                            val status: String?,
                             requestParameters: String?
 ): RequestModel(requestParameters)

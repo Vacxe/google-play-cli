@@ -609,17 +609,17 @@ object Commands {
                 "-v",
                 help = "The version code of the APK whose will be promoted to the track"
             ).int().required()
-            private val userFraction: Double by option(
+            private val userFraction: Double? by option(
                 "--user-fraction",
                 "-f",
                 help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\"."
-            ).double().default(1.0)
+            ).double()
 
-            private val status: String by option(
+            private val status: String? by option(
                 "--status",
                 "-s",
-                help = ""
-            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed").default("draft")
+                help = "The status of a release"
+            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed")
 
             override fun run(api: PlayStoreApi) =
                 api.tracksPatch(
@@ -645,17 +645,17 @@ object Commands {
                 "-v",
                 help = "The version code of the APK whose will be promoted to the track"
             ).int().required()
-            private val userFraction: Double by option(
+            private val userFraction: Double? by option(
                 "--user-fraction",
                 "-f",
                 help = "Fraction of users who are eligible to receive the release. 0 < fraction < 1. To be set, release status must be \"inProgress\" or \"halted\"."
-            ).double().default(1.0)
+            ).double()
 
-            private val status: String by option(
+            private val status: String? by option(
                 "--status",
                 "-s",
-                help = ""
-            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed").default("draft")
+                help = "The status of a release"
+            ).choice("statusUnspecified", "draft", "inProgress", "halted", "completed")
 
             override fun run(api: PlayStoreApi) = api.tracksUpdate(
                 TracksUpdateModel(
