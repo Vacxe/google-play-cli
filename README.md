@@ -44,7 +44,7 @@ ghcr.io/vacxe/google-play-cli:<VERSION>
 
 ### [GitHub Action](https://github.com/marketplace/actions/google-play-console)
 
-[GitHub Action](https://github.com/marketplace/actions/google-play-console) `vacxe/google-play-cli-kt` is transparent wrapper over [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli) `google-play-cli-kt`, what contains transparent CLI warapper for [Google Play Java Library](https://developers.google.com/android-publisher/api-ref). It can provide for you possibility to write any custom scripts in depends on you needs or use one of **[Available templates](#github-action/README.md)**.
+[GitHub Action](https://github.com/marketplace/actions/google-play-console) `vacxe/google-play-cli-kt` is transparent wrapper over [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli) `google-play-cli-kt`, what contains transparent CLI warapper for [Google Play Java Library](https://developers.google.com/android-publisher/api-ref). It can provide for you possibility to write any custom scripts in depends on you needs or use one of **[Available templates](github-action/README.md)**.
 
 *Example of APK uploading template:*
 ```yaml
