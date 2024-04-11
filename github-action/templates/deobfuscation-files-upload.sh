@@ -15,7 +15,7 @@ echo "---"
 EDIT_ID=$(google-play-cli edit create)
 echo "Edit id created: $EDIT_ID"
 echo "Upload deobfuscation files..."
-google-play-cli deobfuscation-files upload --edit-id "$EDIT_ID" --deobfuscation "$PATH_TO_MAPPING" --apk-version-code "$VERSION_CODE"
+google-play-cli deobfuscation-files upload --edit-id "$EDIT_ID" --deobfuscation "$PATH_TO_MAPPING" --version-code "$VERSION_CODE"
 echo "Validate..."
 google-play-cli edit validate --edit-id "$EDIT_ID" || true # Ignore until changes-not-sent-for-review will be added as parameter
 echo "Commit..."

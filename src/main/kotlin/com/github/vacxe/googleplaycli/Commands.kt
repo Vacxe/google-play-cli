@@ -66,10 +66,10 @@ object Commands {
                 .file()
                 .required()
 
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose deobfuscation file is being uploaded."
+                help = "The version code Apk/Bundle whose deobfuscation file is being uploaded."
             )
                 .int().required()
 
@@ -85,7 +85,7 @@ object Commands {
                 DeobfuscationfilesUploadModel(
                     packageName,
                     editId,
-                    apkVersionCode,
+                    versionCode,
                     deobfuscation,
                     deobfuscationFileType,
                     parameters
@@ -228,10 +228,10 @@ object Commands {
             name = "get",
             actionDescription = "Fetches the Expansion File configuration for the APK specified"
         ) {
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose Expansion File configuration is being read or modified"
+                help = "The version code of the Apk/Bundle whose Expansion File configuration is being read or modified"
             ).int().required()
             private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch")
                 .default("main")
@@ -240,7 +240,7 @@ object Commands {
                 ExpansionFilesGetModel(
                     packageName,
                     editId,
-                    apkVersionCode,
+                    versionCode,
                     expansionFileType,
                     parameters
                 )
@@ -251,10 +251,10 @@ object Commands {
             name = "patch",
             actionDescription = "Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method"
         ) {
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose Expansion File configuration is being read or modified"
+                help = "The version code of the Apk/Bundle whose Expansion File configuration is being read or modified"
             ).int().required()
             private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch")
                 .default("main")
@@ -265,7 +265,7 @@ object Commands {
                 ExpansionFilesPatchModel(
                     packageName,
                     editId,
-                    apkVersionCode,
+                    versionCode,
                     expansionFileType,
                     referencesVersion,
                     fileSize,
@@ -278,10 +278,10 @@ object Commands {
             name = "update",
             actionDescription = "Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method"
         ) {
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose Expansion File configuration is being read or modified"
+                help = "The version code of the Apk/Bundle whose Expansion File configuration is being read or modified"
             ).int().required()
             private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch")
                 .default("main")
@@ -292,7 +292,7 @@ object Commands {
                 ExpansionFilesUpdateModel(
                     packageName,
                     editId,
-                    apkVersionCode,
+                    versionCode,
                     expansionFileType,
                     referencesVersion,
                     fileSize,
@@ -305,10 +305,10 @@ object Commands {
             name = "upload",
             actionDescription = "Uploads and attaches a new Expansion File to the APK specified"
         ) {
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose Expansion File configuration is being read or modified"
+                help = "The version code of the Apk/Bundle whose Expansion File configuration is being read or modified"
             ).int().required()
             private val expansionFileType: String by option("--expansion-file-type", "-t").choice("main", "patch")
                 .default("main")
@@ -319,7 +319,7 @@ object Commands {
                 ExpansionFilesUploadModel(
                     packageName,
                     editId,
-                    apkVersionCode,
+                    versionCode,
                     expansionFileType,
                     expansionFile,
                     parameters
@@ -604,10 +604,10 @@ object Commands {
             actionDescription = "Updates the track configuration for the specified track type"
         ) {
             private val track: String by option("--track", "-t").required()
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose will be promoted to the track"
+                help = "The version code of the Apk/Bundle whose will be promoted to the track"
             ).int().required()
             private val userFraction: Double? by option(
                 "--user-fraction",
@@ -627,7 +627,7 @@ object Commands {
                         packageName,
                         editId,
                         track,
-                        apkVersionCode,
+                        versionCode,
                         userFraction,
                         status,
                         parameters
@@ -640,10 +640,10 @@ object Commands {
             actionDescription = "Updates the track configuration for the specified track type"
         ) {
             private val track: String by option("--track", "-t").required()
-            val apkVersionCode: Int by option(
-                "--apk-version-code",
+            private val versionCode: Int by option(
+                "--version-code",
                 "-v",
-                help = "The version code of the APK whose will be promoted to the track"
+                help = "The version code of the Apk/Bundle whose will be promoted to the track"
             ).int().required()
             private val userFraction: Double? by option(
                 "--user-fraction",
@@ -662,7 +662,7 @@ object Commands {
                     packageName,
                     editId,
                     track,
-                    apkVersionCode,
+                    versionCode,
                     userFraction,
                     status,
                     parameters

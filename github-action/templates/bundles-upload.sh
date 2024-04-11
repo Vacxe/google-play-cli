@@ -23,7 +23,7 @@ echo "Edit id created: $EDIT_ID"
 echo "Upload Bundle..."
 google-play-cli bundles upload --edit-id "$EDIT_ID" --bundle "$PATH_TO_BUNDLE"
 echo "Update track..."
-google-play-cli tracks update --edit-id "$EDIT_ID" --apk-version-code "$VERSION_CODE" --track "$TRACK" \
+google-play-cli tracks update --edit-id "$EDIT_ID" --version-code "$VERSION_CODE" --track "$TRACK" \
   ${USER_FRACTION:+ --user-fraction "$USER_FRACTION"} \
   ${STATUS:+ --status "$STATUS"}
 echo "Validate..."
