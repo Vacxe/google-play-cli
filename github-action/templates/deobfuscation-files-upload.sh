@@ -2,9 +2,9 @@
 
 set -e
 
-PATH_TO_MAPPING="${3}"
-VERSION_CODE="${4}"
-FLAG_CHANGES_NOT_SENT_FOR_REVIEW="${5}"
+PATH_TO_MAPPING="${1}"
+VERSION_CODE="${2}"
+FLAG_CHANGES_NOT_SENT_FOR_REVIEW="${3}"
 
 echo "---"
 echo "Path to mapping: $PATH_TO_MAPPING"
