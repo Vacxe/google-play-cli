@@ -38,8 +38,12 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
 
         System.getenv("PLAYSTORE_PROXY")?.run {
             val proxyParameters = split(":")
-            System.setProperty("proxyHost", proxyParameters[0])
-            System.setProperty("proxyPort", proxyParameters[1])
+            val host = proxyParameters[0]
+            val port = proxyParameters[1]
+
+            System.setProperty("proxySet", "true");
+            System.setProperty("proxyHost", host)
+            System.setProperty("proxyPort", port)
         }
 
         val connectionTimeout = (System.getenv("PLAYSTORE_CONNECTION_TIMEOUT") ?: "PT2M")
