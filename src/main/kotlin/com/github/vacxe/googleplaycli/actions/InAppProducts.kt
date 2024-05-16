@@ -5,9 +5,9 @@ import com.google.api.services.androidpublisher.model.InAppProduct
 import com.google.api.services.androidpublisher.model.InappproductsListResponse
 import java.nio.file.Files
 
-interface Inappproducts : BaseAction {
+interface InAppProducts : BaseAction {
 
-    fun inappproductsDelete(model: InappproductsDeleteModel): Void {
+    fun inAppProductsDelete(model: InappproductsDeleteModel): Void {
         return androidPublisher
             .inappproducts()
             .delete(model.packageName, model.sku)
@@ -17,7 +17,7 @@ interface Inappproducts : BaseAction {
             .execute()
     }
 
-    fun inappproductsGet(model: InappproductsGetModel): InAppProduct {
+    fun inAppProductsGet(model: InappproductsGetModel): InAppProduct {
         return androidPublisher
             .inappproducts()
             .get(model.packageName, model.sku)
@@ -27,7 +27,7 @@ interface Inappproducts : BaseAction {
             .execute()
     }
 
-    fun inappproductsInsert(model: InappproductsInsertModel): InAppProduct {
+    fun inAppProductsInsert(model: InappproductsInsertModel): InAppProduct {
         val product = Files.newInputStream(model.jsonPath).use {
             androidPublisher.jsonFactory.fromInputStream(it, InAppProduct::class.java)
         }
@@ -42,7 +42,7 @@ interface Inappproducts : BaseAction {
             .execute()
     }
 
-    fun inappproductsList(model: DefaultModel): InappproductsListResponse {
+    fun inAppProductsList(model: DefaultModel): InappproductsListResponse {
         return androidPublisher.inappproducts()
             .list(model.packageName)
             .apply {
@@ -51,7 +51,7 @@ interface Inappproducts : BaseAction {
             .execute()
     }
 
-    fun inappproductsPatch(model: InappproductsPatchModel): InAppProduct {
+    fun inAppProductsPatch(model: InappproductsPatchModel): InAppProduct {
         val product = Files.newInputStream(model.jsonPath).use {
             androidPublisher.jsonFactory.fromInputStream(it, InAppProduct::class.java)
         }
@@ -66,7 +66,7 @@ interface Inappproducts : BaseAction {
             .execute()
     }
 
-    fun inappproductsUpdate(model: InappproductsUpdateModel): InAppProduct {
+    fun inAppProductsUpdate(model: InappproductsUpdateModel): InAppProduct {
         val product = Files.newInputStream(model.jsonPath).use {
             androidPublisher.jsonFactory.fromInputStream(it, InAppProduct::class.java)
         }
@@ -80,5 +80,4 @@ interface Inappproducts : BaseAction {
             }
             .execute()
     }
-
 }

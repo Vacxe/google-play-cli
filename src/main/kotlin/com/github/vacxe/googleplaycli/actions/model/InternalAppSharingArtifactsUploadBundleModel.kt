@@ -2,7 +2,7 @@ package com.github.vacxe.googleplaycli.actions.model
 
 import java.io.File
 
-class InternalappsharingartifactsUploadbundleModel(
+class InternalAppSharingArtifactsUploadBundleModel(
     val packageName: String,
     val bundle: File,
     requestParameters: String?

@@ -69,13 +69,13 @@ fun main(args: Array<String>) {
             addCmd { Commands.Reviews.Reply() }
         }
         subcmd("internal-app-sharing-artifacts") {
-            addCmd { Commands.Internalappsharingartifacts.UploadApk() }
-            addCmd { Commands.Internalappsharingartifacts.UploadBundle() }
+            addCmd { Commands.InternalAppSharingArtifacts.UploadApk() }
+            addCmd { Commands.InternalAppSharingArtifacts.UploadBundle() }
         }
         subcmd("orders") {
             addCmd { Commands.Orders.Refund() }
         }
-        subcmd("inappproducts") {
+        subcmd("in-app-products") {
             addCmd { Commands.Inappproducts.Delete() }
             addCmd { Commands.Inappproducts.Get() }
             addCmd { Commands.Inappproducts.Insert() }
@@ -86,7 +86,7 @@ fun main(args: Array<String>) {
         addCmd {
             object : CliktCommand(name = "version", help = "Library version code") {
                 override fun run() {
-                    println("0.4.4")
+                    println("0.4.5")
                 }
             }
         }
