@@ -712,13 +712,13 @@ object Commands {
         }
     }
 
-    object Internalappsharingartifacts {
+    object InternalAppSharingArtifacts {
         class UploadApk :
             BaseCommand(name = "upload-apk", actionDescription = "Uploads an APK to internal app sharing") {
             private val apk: File by option("--apk", "-a", help = "Apk file path").file().required()
 
-            override fun run(api: PlayStoreApi) = api.internalappsharingartifactsUploadapk(
-                InternalappsharingartifactsUploadapkModel(
+            override fun run(api: PlayStoreApi) = api.internalAppSharingArtifactsUploadApk(
+                InternalAppSharingArtifactsUploadApkModel(
                     packageName,
                     apk,
                     parameters
@@ -727,11 +727,11 @@ object Commands {
         }
 
         class UploadBundle :
-            BaseCommand(name = "upload-bunble", actionDescription = "Uploads an app bundle to internal app sharing") {
+            BaseCommand(name = "upload-bundle", actionDescription = "Uploads an app bundle to internal app sharing") {
             private val bundle: File by option("--bundle", "-b", help = "Bundle file path").file().required()
 
-            override fun run(api: PlayStoreApi) = api.internalappsharingartifactsUploadbundle(
-                InternalappsharingartifactsUploadbundleModel(
+            override fun run(api: PlayStoreApi) = api.internalAppSharingArtifactsUploadBundle(
+                InternalAppSharingArtifactsUploadBundleModel(
                     packageName,
                     bundle,
                     parameters
@@ -769,7 +769,7 @@ object Commands {
             ).required()
 
             override fun run(api: PlayStoreApi) =
-                api.inappproductsDelete(InappproductsDeleteModel(packageName, sku, parameters))
+                api.inAppProductsDelete(InappproductsDeleteModel(packageName, sku, parameters))
         }
 
         class Get :
@@ -781,7 +781,7 @@ object Commands {
             ).required()
 
             override fun run(api: PlayStoreApi) =
-                api.inappproductsGet(InappproductsGetModel(packageName, sku, parameters))
+                api.inAppProductsGet(InappproductsGetModel(packageName, sku, parameters))
         }
 
         class Insert : BaseCommand(name = "insert", actionDescription = "Creates a new in-app product for an app") {
@@ -797,7 +797,7 @@ object Commands {
                         """.trimIndent()
             ).flag()
 
-            override fun run(api: PlayStoreApi) = api.inappproductsInsert(
+            override fun run(api: PlayStoreApi) = api.inAppProductsInsert(
                 InappproductsInsertModel(
                     packageName,
                     jsonPath,
@@ -811,7 +811,7 @@ object Commands {
             name = "list",
             actionDescription = "List all the in-app products for an Android app, both subscriptions and managed in-app products"
         ) {
-            override fun run(api: PlayStoreApi) = api.inappproductsList(DefaultModel(packageName, parameters))
+            override fun run(api: PlayStoreApi) = api.inAppProductsList(DefaultModel(packageName, parameters))
         }
 
         class Patch : BaseCommand(
@@ -835,7 +835,7 @@ object Commands {
                         """.trimIndent()
             ).flag()
 
-            override fun run(api: PlayStoreApi) = api.inappproductsPatch(
+            override fun run(api: PlayStoreApi) = api.inAppProductsPatch(
                 InappproductsPatchModel(
                     packageName,
                     sku,
@@ -864,7 +864,7 @@ object Commands {
                         """.trimIndent()
             ).flag()
 
-            override fun run(api: PlayStoreApi) = api.inappproductsUpdate(
+            override fun run(api: PlayStoreApi) = api.inAppProductsUpdate(
                 InappproductsUpdateModel(
                     packageName,
                     sku,

@@ -3,7 +3,6 @@ package com.github.vacxe.googleplaycli
 import com.github.vacxe.googleplaycli.actions.*
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpRequestInitializer
-import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.androidpublisher.AndroidPublisher
 import com.google.api.services.androidpublisher.AndroidPublisherScopes
@@ -15,14 +14,14 @@ import java.time.Duration
 class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
     Apks,
     Bundles,
-    Deobfuscationfiles,
+    DeobfuscationFiles,
     Details,
     DeviceTierConfigs,
     Edit,
     ExpansionFiles,
     Images,
-    Inappproducts,
-    Internalappsharingartifacts,
+    InAppProducts,
+    InternalAppSharingArtifacts,
     Listings,
     Orders,
     Reviews,
