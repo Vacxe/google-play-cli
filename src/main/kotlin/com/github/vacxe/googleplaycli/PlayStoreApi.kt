@@ -1,6 +1,8 @@
 package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.*
+import com.github.vacxe.googleplaycli.environments.Env
+import com.github.vacxe.googleplaycli.environments.ProxyEnvironment
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpRequestInitializer
 import com.google.api.client.json.gson.GsonFactory
@@ -10,6 +12,7 @@ import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.ServiceAccountCredentials
 import java.io.InputStream
 import java.time.Duration
+
 
 class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
     Apks,
@@ -35,18 +38,8 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
             .fromStream(serviceAccountInputStream)
             .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
 
-        System.getenv("PLAYSTORE_PROXY")?.run {
-            val proxyParameters = split(":")
-            val host = proxyParameters[0]
-            val port = proxyParameters[1]
-
-            System.setProperty("proxySet", "true");
-            System.setProperty("proxyHost", host)
-            System.setProperty("proxyPort", port)
-        }
-
-        val connectionTimeout = (System.getenv("PLAYSTORE_CONNECTION_TIMEOUT") ?: "PT2M")
-            .let { Duration.parse(it) }
+        ProxyEnvironment.apply()
+        val connectionTimeout = Env.connectionTimeout
 
         androidPublisher = AndroidPublisher.Builder(
             GoogleNetHttpTransport.newTrustedTransport(),
