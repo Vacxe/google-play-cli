@@ -1,11 +1,11 @@
 package com.github.vacxe.googleplaycli.core
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.vacxe.googleplaycli.PlayStoreApi
+import com.github.vacxe.googleplaycli.environments.Env
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -22,23 +22,17 @@ abstract class BaseCommand(name: String, actionDescription: String = "") :
         "-cf",
         help = "service account json file path"
     )
-        .default(
-            System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON_FILE")
-                ?: ""
-        )
+        .default(Env.serviceAccoutJsonFile)
 
     private val serviceAccountJsonContent: String by option(
         "--config-content",
         "-cc",
         help = "service account json content"
     )
-        .default(
-            System.getenv("PLAYSTORE_SERVICE_ACCOUNT_JSON_CONTENT")
-                ?: ""
-        )
+        .default(Env.serviceAccoutJsonContent)
 
     val packageName: String by option("--package-name", "-p", help = "package name (example: com.my.app)")
-        .default(System.getenv("APP_PACKAGE_NAME") ?: "")
+        .default(Env.packageName)
         .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
 
     private val debug: String by option("--debug", help = "enable debug logs")
