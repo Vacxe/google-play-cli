@@ -1,4 +1,4 @@
-FROM ghcr.io/vacxe/google-play-cli:0.4.5
+FROM ghcr.io/vacxe/google-play-cli:0.4.6
 
 COPY entrypoint.sh /entrypoint.sh
 COPY templates /templates
