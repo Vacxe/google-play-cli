@@ -3,7 +3,6 @@ package com.github.vacxe.googleplaycli
 import com.github.vacxe.googleplaycli.actions.*
 import com.github.vacxe.googleplaycli.environments.Env
 import com.github.vacxe.googleplaycli.environments.Proxy
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpRequestInitializer
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.androidpublisher.AndroidPublisher
@@ -37,8 +36,6 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
         val accountCredentials = ServiceAccountCredentials
             .fromStream(serviceAccountInputStream)
             .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
-
-        Proxy.apply()
 
         androidPublisher = AndroidPublisher.Builder(
             TransportFactory.buildTransport(),

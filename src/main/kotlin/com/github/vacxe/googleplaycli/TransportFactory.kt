@@ -65,8 +65,7 @@ object TransportFactory {
                 }
             }
             .build()
-        val httpTransport: HttpTransport = ApacheHttpTransport(httpClient)
-        return HttpTransportFactory { httpTransport }.create()
+        return ApacheHttpTransport(httpClient)
     }
 
     private fun createHttpTransportTrustStore(
