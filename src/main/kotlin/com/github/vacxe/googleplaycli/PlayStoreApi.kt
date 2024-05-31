@@ -2,6 +2,7 @@ package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.*
 import com.github.vacxe.googleplaycli.environments.Env
+import com.github.vacxe.googleplaycli.environments.SystemProxy
 import com.google.api.client.http.HttpRequestInitializer
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.androidpublisher.AndroidPublisher
@@ -9,6 +10,8 @@ import com.google.api.services.androidpublisher.AndroidPublisherScopes
 import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.ServiceAccountCredentials
 import java.io.InputStream
+import java.net.Authenticator
+import java.net.PasswordAuthentication
 import java.time.Duration
 
 
@@ -32,6 +35,8 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
     override val androidPublisher: AndroidPublisher
 
     init {
+        SystemProxy.apply()
+
         val accountCredentials = ServiceAccountCredentials
             .fromStream(serviceAccountInputStream)
             .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))

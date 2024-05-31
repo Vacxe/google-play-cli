@@ -17,7 +17,6 @@ import org.apache.http.impl.conn.DefaultProxyRoutePlanner
 import java.io.FileInputStream
 import java.security.KeyStore
 
-
 object TransportFactory {
     private val host = Env.Proxy.host
     private val port = Env.Proxy.port
