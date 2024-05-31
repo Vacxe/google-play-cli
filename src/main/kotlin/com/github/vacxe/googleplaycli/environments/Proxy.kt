@@ -12,7 +12,7 @@ object Proxy {
             get() = System.getenv("PLAYSTORE_PROXY_USERNAME")
 
         val password: String?
-            get() = System.getenv("PLAYSTORE_PROXY_USERNAME")
+            get() = System.getenv("PLAYSTORE_PROXY_PASSWORD")
 
         val trustStore: String?
             get() = System.getenv("PLAYSTORE_PROXY_TRUST_STORE")
