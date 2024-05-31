@@ -1,16 +1,23 @@
 package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.environments.Proxy
+import com.google.api.client.auth.openidconnect.HttpTransportFactory
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpTransport
 import com.google.api.client.http.apache.v2.ApacheHttpTransport
 import com.google.api.client.http.javanet.NetHttpTransport
+import org.apache.http.HttpHost
 import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
+import org.apache.http.client.CredentialsProvider
+import org.apache.http.client.HttpClient
+import org.apache.http.conn.routing.HttpRoutePlanner
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.client.ProxyAuthenticationStrategy
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner
 import java.io.FileInputStream
 import java.security.KeyStore
+
 
 object TransportFactory {
     private val host = Proxy.Environment.host
@@ -23,7 +30,7 @@ object TransportFactory {
     fun buildTransport(): HttpTransport = when {
         host != null && port != null -> createHttpTransportProxy(
             host,
-            port,
+            port.toInt(),
             username,
             password
         )
@@ -37,26 +44,29 @@ object TransportFactory {
     }
 
     private fun createHttpTransportProxy(
-        host: String,
-        port: String,
-        username: String?,
-        password: String?
+        proxyHost: String,
+        proxyPort: Int,
+        proxyUsername: String?,
+        proxyPassword: String?
     ): HttpTransport {
-        val httpClient = ApacheHttpTransport.newDefaultHttpClientBuilder()
+        val proxyHostDetails = HttpHost(proxyHost, proxyPort)
+        val httpRoutePlanner: HttpRoutePlanner = DefaultProxyRoutePlanner(proxyHostDetails)
+        val httpClient: HttpClient = ApacheHttpTransport.newDefaultHttpClientBuilder()
+            .setRoutePlanner(httpRoutePlanner)
             .setProxyAuthenticationStrategy(ProxyAuthenticationStrategy.INSTANCE)
             .apply {
-                if (username != null && password != null) {
-                    val credentials = BasicCredentialsProvider().apply { }
-                    credentials.setCredentials(
-                        AuthScope(host, port.toInt()),
-                        UsernamePasswordCredentials(username, password)
+                if (proxyUsername != null && proxyPassword != null) {
+                    val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
+                    credentialsProvider.setCredentials(
+                        AuthScope(proxyHostDetails.hostName, proxyHostDetails.port),
+                        UsernamePasswordCredentials(proxyUsername, proxyPassword)
                     )
-                    setDefaultCredentialsProvider(credentials)
+                    setDefaultCredentialsProvider(credentialsProvider)
                 }
             }
             .build()
-        return ApacheHttpTransport(httpClient)
-
+        val httpTransport: HttpTransport = ApacheHttpTransport(httpClient)
+        return HttpTransportFactory { httpTransport }.create()
     }
 
     private fun createHttpTransportTrustStore(

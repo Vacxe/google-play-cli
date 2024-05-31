@@ -1,5 +1,8 @@
 package com.github.vacxe.googleplaycli.environments
 
+import java.net.Authenticator
+import java.net.PasswordAuthentication
+
 object Proxy {
     object Environment {
         val host: String?
@@ -30,17 +33,24 @@ object Proxy {
         val trustStorePassword = Proxy.Environment.trustStorePassword
 
         if (host != null && port != null) {
-            val protocols = arrayOf("http", "https")
-            protocols.forEach { protocol ->
+            arrayOf("http", "https").forEach { protocol ->
                 System.setProperty("$protocol.proxySet", "true");
                 System.setProperty("$protocol.proxyHost", host)
                 System.setProperty("$protocol.proxyPort", port)
-                username?.run { System.setProperty("$protocol.proxyUser", this) }
-                password?.run { System.setProperty("$protocol.proxyPassword", this) }
+            }
+
+            System.setProperty("jdk.http.auth.tunneling.disableSchemes", "")
+            if (username != null && password != null) {
+                Authenticator.setDefault(
+                    object : Authenticator() {
+                        override fun getPasswordAuthentication() =
+                            PasswordAuthentication(username, password.toCharArray())
+                    }
+                )
             }
         }
 
-        if(trustStore != null && trustStorePassword != null) {
+        if (trustStore != null && trustStorePassword != null) {
             System.setProperty("javax.net.ssl.trustStore", trustStore)
             System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword)
         }
