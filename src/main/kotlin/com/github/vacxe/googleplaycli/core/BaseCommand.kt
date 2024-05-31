@@ -22,17 +22,17 @@ abstract class BaseCommand(name: String, actionDescription: String = "") :
         "-cf",
         help = "service account json file path"
     )
-        .default(Env.serviceAccoutJsonFile)
+        .default(Env.PlayConsole.serviceAccoutJsonFile)
 
     private val serviceAccountJsonContent: String by option(
         "--config-content",
         "-cc",
         help = "service account json content"
     )
-        .default(Env.serviceAccoutJsonContent)
+        .default(Env.PlayConsole.serviceAccoutJsonContent)
 
     val packageName: String by option("--package-name", "-p", help = "package name (example: com.my.app)")
-        .default(Env.packageName)
+        .default(Env.PlayConsole.packageName)
         .validate { require(it.isNotEmpty()) { "Please provide a valid $help" } }
 
     private val debug: String by option("--debug", help = "enable debug logs")

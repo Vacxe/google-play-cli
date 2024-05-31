@@ -1,7 +1,6 @@
 package com.github.vacxe.googleplaycli
 
-import com.github.vacxe.googleplaycli.environments.Proxy
-import com.google.api.client.auth.openidconnect.HttpTransportFactory
+import com.github.vacxe.googleplaycli.environments.Env
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpTransport
 import com.google.api.client.http.apache.v2.ApacheHttpTransport
@@ -20,12 +19,12 @@ import java.security.KeyStore
 
 
 object TransportFactory {
-    private val host = Proxy.Environment.host
-    private val port = Proxy.Environment.port
-    private val username = Proxy.Environment.username
-    private val password = Proxy.Environment.password
-    private val trustStore = Proxy.Environment.trustStore
-    private val trustStorePassword = Proxy.Environment.trustStorePassword
+    private val host = Env.Proxy.host
+    private val port = Env.Proxy.port
+    private val username = Env.Proxy.username
+    private val password = Env.Proxy.password
+    private val trustStore = Env.TrustStore.trustStore
+    private val trustStorePassword = Env.TrustStore.trustStorePassword
 
     fun buildTransport(): HttpTransport = when {
         host != null && port != null -> createHttpTransportProxy(
@@ -43,7 +42,7 @@ object TransportFactory {
         else -> GoogleNetHttpTransport.newTrustedTransport()
     }
 
-    private fun createHttpTransportProxy(
+    fun createHttpTransportProxy(
         proxyHost: String,
         proxyPort: Int,
         proxyUsername: String?,
