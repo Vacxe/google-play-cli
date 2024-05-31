@@ -1,0 +1,28 @@
+name: Master Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-tar:
+    name: Build Tar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        name: Set up JDK 11
+        with:
+          distribution: "temurin"
+          java-version: 11
+          cache: gradle
+      - name: Build release tar
+        run: ./gradlew distTar
+      - name: Tar Checksum
+        run: shasum -a 256 build/distributions/google-play-cli.tar
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-play-cli
+          path: build/distributions/google-play-cli.tar

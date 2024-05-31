@@ -2,7 +2,7 @@ package com.github.vacxe.googleplaycli
 
 import com.github.vacxe.googleplaycli.actions.*
 import com.github.vacxe.googleplaycli.environments.Env
-import com.github.vacxe.googleplaycli.environments.ProxyEnvironment
+import com.github.vacxe.googleplaycli.environments.Proxy
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpRequestInitializer
 import com.google.api.client.json.gson.GsonFactory
@@ -38,13 +38,15 @@ class PlayStoreApi(serviceAccountInputStream: InputStream, appName: String) :
             .fromStream(serviceAccountInputStream)
             .createScoped(listOf(AndroidPublisherScopes.ANDROIDPUBLISHER))
 
-        ProxyEnvironment.apply()
-        val connectionTimeout = Env.connectionTimeout
+        Proxy.apply()
 
         androidPublisher = AndroidPublisher.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
+            TransportFactory.buildTransport(),
             GsonFactory.getDefaultInstance(),
-            setHttpTimeout(HttpCredentialsAdapter(accountCredentials), connectionTimeout)
+            setHttpTimeout(
+                HttpCredentialsAdapter(accountCredentials),
+                Env.connectionTimeout
+            )
         )
             .setApplicationName(appName)
             .build()
