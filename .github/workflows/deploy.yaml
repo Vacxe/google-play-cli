@@ -56,6 +56,16 @@ jobs:
           PACKAGES_WRITE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.actor }}
 
+      - name: Docker Build
+        run: docker build -t ghcr.io/vacxe/google-play-cli:$VERSION --build-arg="PLAY_CLI_VERSION=$VERSION" .
+        env:
+          VERSION: ${{ steps.get_release.outputs.tag_name }}
+
+      - name: Deploy
+        run: docker push ghcr.io/vacxe/google-play-cli:$VERSION
+        env:
+          VERSION: ${{ steps.get_release.outputs.tag_name }}
+
   docker-registry-build-push:
     name: Build and Push to Docker Registry
     runs-on: ubuntu-latest
