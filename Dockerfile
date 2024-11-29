@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine-slim
+FROM eclipse-temurin:23-jdk
 
 ARG PLAY_CLI_VERSION
 
