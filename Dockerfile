@@ -2,8 +2,8 @@ FROM eclipse-temurin:23-jdk
 
 ARG PLAY_CLI_VERSION
 
-RUN apk update && \
-    apk add --no-cache jq wget unzip
+RUN apt-get update
+RUN apt-get install -y wget unzip
 
 # Install released Version from artefacts
 RUN wget -q "https://github.com/Vacxe/google-play-cli-kt/releases/download/$PLAY_CLI_VERSION/google-play-cli.tar" && \
