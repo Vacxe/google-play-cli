@@ -38,6 +38,12 @@ brew install vacxe/tap/googleplaycli
 
 ### [Docker](https://github.com/Vacxe/google-play-cli-kt/pkgs/container/google-play-cli)
 
+* Docker Registry
+```
+vacxe/google-play-cli:<VERSION>
+```
+
+* GitHub Registry
 ```
 ghcr.io/vacxe/google-play-cli:<VERSION>
 ```
