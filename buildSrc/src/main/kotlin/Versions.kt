@@ -1,7 +1,7 @@
 object Versions {
     const val clikt = "2.6.0"
-    const val googleOAuth = "1.13.0"
-    const val googleAppPublisher = "v3-rev20240418-2.0.0"
+    const val googleOAuth = "1.32.1"
+    const val googleAppPublisher = "v3-rev20250102-2.0.0"
     const val junit = "4.13"
 }
 
